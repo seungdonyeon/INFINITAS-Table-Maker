@@ -2,7 +2,7 @@
 const createClient = window.supabase?.createClient;
 const SUPABASE_URL = 'https://abmnggpjcliherdzuyqw.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_x5O5BK3XcyJ2yuHt2WDQKQ_Y2GvhK82';
-const OAUTH_REDIRECT_URL = 'https://abmnggpjcliherdzuyqw.supabase.co/auth/v1/callback';
+const OAUTH_REDIRECT_URL = 'http://localhost:54321/auth/callback';
 
 const LAMP_ORDER = { NP: 0, F: 1, EASY: 2, NORMAL: 3, HC: 4, EX: 5, FC: 6 };
 const CLEAR_SORT_ORDER = { FC: 8, EXHARD: 7, HARD: 6, NORMAL: 5, EASY: 4, ASSIST: 3, FAILED: 2, NOPLAY: 1 };
@@ -2082,7 +2082,11 @@ async function linkGoogleAccount() {
   try {
     const { data, error } = await client.auth.signInWithOAuth({
       provider: 'google',
-      options: { skipBrowserRedirect: true, redirectTo }
+      options: {
+        skipBrowserRedirect: true,
+        redirectTo,
+        queryParams: { prompt: 'select_account' }
+      }
     });
     if (error) throw error;
     oauthData = data;
@@ -2110,23 +2114,48 @@ async function linkGoogleAccount() {
     toast('OAuth 콜백 URL 파싱에 실패했습니다.', 'error');
     return;
   }
-  const code = resultUrl.searchParams.get('code');
-  if (!code) {
-    toast('OAuth 인증 코드를 찾지 못했습니다.', 'error');
+
+  const hashParams = new URLSearchParams((resultUrl.hash || '').replace(/^#/, ''));
+  const errorCode = resultUrl.searchParams.get('error') || hashParams.get('error') || '';
+  const errorDesc = resultUrl.searchParams.get('error_description') || hashParams.get('error_description') || '';
+  if (errorCode) {
+    const msg = decodeURIComponent(errorDesc || errorCode).replace(/\+/g, ' ');
+    toast(`Google OAuth 실패: ${msg}`, 'error');
     return;
   }
+  const accessToken = hashParams.get('access_token');
+  const refreshToken = hashParams.get('refresh_token');
   let exchanged;
-  try {
-    exchanged = await client.auth.exchangeCodeForSession(code);
-  } catch (e) {
-    toast(`세션 교환 실패: ${e.message}`, 'error');
-    return;
+  if (accessToken && refreshToken) {
+    try {
+      exchanged = await client.auth.setSession({
+        access_token: accessToken,
+        refresh_token: refreshToken
+      });
+    } catch (e) {
+      toast(`세션 교환 실패: ${e.message}`, 'error');
+      return;
+    }
+  } else {
+    const code = resultUrl.searchParams.get('code');
+    if (!code) {
+      console.warn('[auth] OAuth callback without code/token:', popupResult.finalUrl);
+      toast('OAuth 인증 코드를 찾지 못했습니다.', 'error');
+      return;
+    }
+    try {
+      exchanged = await client.auth.exchangeCodeForSession(code);
+    } catch (e) {
+      toast(`세션 교환 실패: ${e.message}`, 'error');
+      return;
+    }
   }
   if (exchanged.error) {
     toast(`세션 교환 실패: ${exchanged.error.message}`, 'error');
     return;
   }
-  const user = exchanged.data?.user || (await client.auth.getUser()).data?.user;
+  const sessionFallback = (await client.auth.getSession()).data?.session || null;
+  const user = exchanged.data?.user || sessionFallback?.user || (await client.auth.getUser()).data?.user;
   if (!user) {
     toast('로그인 사용자 정보를 찾지 못했습니다.', 'error');
     return;
@@ -2147,16 +2176,20 @@ async function linkGoogleAccount() {
   acc.googleAuthUserId = user.id;
   acc.googleEmail = user.email || '';
   acc.googleLinkedAt = nowIso();
-  authContext.set({ status: 'signed_in', user, session: exchanged.data?.session || null, accountId: acc.id });
+  authContext.set({ status: 'signed_in', user, session: exchanged.data?.session || sessionFallback || null, accountId: acc.id });
   await saveState();
   try {
     await syncLinkedAccountToCloud('google-link');
   } catch (e) {
     toast(`Google 연동은 되었지만 클라우드 저장 실패: ${e.message}`, 'warning');
     renderAuthStatus();
+    renderSocialVisibility();
+    renderSettings();
     return;
   }
   renderAuthStatus();
+  renderSocialVisibility();
+  renderSettings();
   await refreshSocialOverview();
   toast('Google 연동 및 클라우드 저장이 완료되었습니다.', 'success');
 }

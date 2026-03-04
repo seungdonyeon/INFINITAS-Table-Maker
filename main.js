@@ -1031,9 +1031,12 @@ app.whenReady().then(() => {
 
     return new Promise((resolve) => {
       let resolved = false;
+      let timeoutId = null;
+      let lastSeenUrl = '';
       const done = (result) => {
         if (resolved) return;
         resolved = true;
+        if (timeoutId) clearTimeout(timeoutId);
         closeOauthPopupWindow();
         resolve(result);
       };
@@ -1061,6 +1064,7 @@ app.whenReady().then(() => {
       const tryHandleUrl = (targetUrl) => {
         const nextUrl = String(targetUrl || '');
         if (!nextUrl) return false;
+        lastSeenUrl = nextUrl;
         const matched =
           nextUrl === successPrefix ||
           nextUrl.startsWith(`${successPrefix}?`) ||
@@ -1069,6 +1073,25 @@ app.whenReady().then(() => {
           nextUrl.startsWith(`${normalizedSuccessPrefix}?`) ||
           nextUrl.startsWith(`${normalizedSuccessPrefix}#`);
         if (matched) {
+          let hasAuthPayload = false;
+          let isLocalCallback = false;
+          try {
+            const parsed = new URL(nextUrl);
+            const q = parsed.searchParams;
+            const h = new URLSearchParams((parsed.hash || '').replace(/^#/, ''));
+            isLocalCallback = parsed.origin === 'http://localhost:54321' && parsed.pathname.startsWith('/auth/callback');
+            hasAuthPayload =
+              q.has('code') ||
+              q.has('access_token') ||
+              q.has('error') ||
+              h.has('access_token') ||
+              h.has('refresh_token') ||
+              h.has('error');
+          } catch {
+            hasAuthPayload = false;
+          }
+          // Desktop callback can be a blank localhost page; close immediately once reached.
+          if (!isLocalCallback && !hasAuthPayload) return false;
           done({ ok: true, finalUrl: nextUrl });
           return true;
         }
@@ -1084,10 +1107,31 @@ app.whenReady().then(() => {
       oauthPopupWindow.webContents.on('did-navigate', (_event2, targetUrl) => {
         tryHandleUrl(targetUrl);
       });
+      oauthPopupWindow.webContents.on('did-fail-load', (_event2, errorCode, errorDescription, validatedURL, isMainFrame) => {
+        if (!isMainFrame) return;
+        const u = String(validatedURL || '').trim() || String(lastSeenUrl || '').trim();
+        if (tryHandleUrl(u)) return;
+        if (errorCode === -102 && /^http:\/\/localhost:54321(\/|$)/i.test(u)) {
+          // Desktop OAuth callback target is intentionally non-listening localhost.
+          done({ ok: true, finalUrl: u });
+          return;
+        }
+        if (errorCode === -102) {
+          // Some environments report chrome-error URL here even though redirect happened.
+          // Fallback to the last seen URL or success prefix so renderer can continue parsing.
+          done({ ok: true, finalUrl: u || successPrefix });
+          return;
+        }
+        if (errorCode === -3) return; // aborted by redirect
+        done({ ok: false, canceled: false, error: `페이지 로드 실패 (${errorCode}): ${errorDescription}` });
+      });
       oauthPopupWindow.on('closed', () => {
         oauthPopupWindow = null;
         done({ ok: false, canceled: true });
       });
+      timeoutId = setTimeout(() => {
+        done({ ok: false, canceled: false, error: 'OAuth 팝업 응답 시간 초과(120초)' });
+      }, 120000);
       oauthPopupWindow.loadURL(oauthUrl).catch((err) => {
         done({ ok: false, canceled: false, error: err.message });
       });
