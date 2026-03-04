@@ -1,0 +1,52 @@
+{
+  "name": "infinitas-rank-table-maker",
+  "version": "1.0.7",
+  "description": "Desktop app for IIDX INFINITAS rank table tracking",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build:portable": "electron-packager . \"INFINITAS Table Maker\" --platform=win32 --arch=x64 --out=dist-portable --overwrite --prune=true --ignore=\"^/dist$\" --ignore=\"^/dist-portable$\"",
+    "build:single-exe": "electron-builder --win portable"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.98.0",
+    "html2canvas": "^1.4.1"
+  },
+  "devDependencies": {
+    "electron": "^37.2.4",
+    "electron-builder": "^24.13.3",
+    "electron-packager": "^17.1.2",
+    "pdf-parse": "^2.4.5",
+    "png-to-ico": "^3.0.1"
+  },
+  "build": {
+    "appId": "com.infinitastablemaker.app",
+    "productName": "INFINITAS Table Maker",
+    "extraResources": [
+      {
+        "from": "Reflux.1.16.2",
+        "to": "Reflux",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "files": [
+      "main.js",
+      "preload.js",
+      "src/**/*",
+      "assets/**/*",
+      "package.json",
+      "node_modules/**/*"
+    ],
+    "win": {
+      "icon": "build/icon.ico",
+      "executableName": "INFINITAS Table Maker",
+      "requestedExecutionLevel": "requireAdministrator",
+      "signAndEditExecutable": false,
+      "target": [
+        "portable"
+      ]
+    }
+  }
+}

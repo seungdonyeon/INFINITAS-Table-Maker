@@ -1,0 +1,583 @@
+﻿<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>INFINITAS Table Maker</title>
+    <link rel="icon" href="../assets/icon/infinitas.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="top-header panel">
+        <div class="brand-wrap">
+          <h1><span class="brand-main">INFINITAS</span> <span class="brand-aurora">Table Maker</span></h1>
+          <p id="trackerPathLabel">데이터 미업로드</p>
+        </div>
+        <div class="header-actions">
+          <select id="accountSelect" aria-label="계정 선택"></select>
+          <button id="btnRefluxUpdate" class="success-btn">갱신</button>
+          <button id="btnExtractTsv">tsv 추출</button>
+          <button id="btnLoadTracker">데이터 불러오기(tsv)</button>
+          <button id="btnRefreshRank">서열표 새로고침</button>
+          <button id="btnHelp" class="primary-btn">도움말</button>
+          <button id="btnResetApp" class="danger">초기화</button>
+        </div>
+      </header>
+
+      <nav class="main-tabs panel legacy-tabs">
+        <button class="main-tab active" data-panel="rank">서열표</button>
+        <button class="main-tab" data-panel="history">히스토리</button>
+        <button class="main-tab" data-panel="goals">목표</button>
+        <button class="main-tab" data-panel="social">소셜</button>
+      </nav>
+
+      <section id="panel-rank" class="panel tab-panel active">
+        <div id="accountHero" class="account-hero">
+          <div class="account-hero-icon-wrap">
+            <img id="accountHeroIcon" class="account-hero-icon" src="../assets/icon/infinitas.png" alt="account icon" />
+          </div>
+          <div id="accountIconMenu" class="account-icon-menu hidden">
+            <button id="btnAccountRadarFromMenu" class="small-btn">레이더</button>
+            <button id="btnAccountEditFromMenu" class="small-btn">정보 변경</button>
+            <button id="btnAccountDelete" class="small-btn danger">계정 삭제</button>
+          </div>
+          <div class="account-hero-meta">
+            <div id="accountHeroName" class="account-hero-name">DJ NAME</div>
+            <div id="accountHeroId" class="account-hero-id">C-0000-0000-0000</div>
+          </div>
+          <div class="account-medals" id="accountMedals">
+            <div class="medal-slot">
+              <div class="medal-title">SP10</div>
+              <img id="medal10" class="medal-image hidden" alt="SP10 medal" />
+              <div id="medalProgress10" class="medal-progress">
+                <div id="medalProgressCount10" class="medal-progress-count">0/0</div>
+                <div id="medalProgressRing10" class="medal-progress-ring" style="--played:0%;--unplayed:100%;--locked:0%">
+                  <div id="medalProgressText10" class="medal-progress-text">0%</div>
+                </div>
+              </div>
+            </div>
+            <div class="medal-slot">
+              <div class="medal-title">SP11</div>
+              <img id="medal11" class="medal-image hidden" alt="SP11 medal" />
+              <div id="medalProgress11" class="medal-progress">
+                <div id="medalProgressCount11" class="medal-progress-count">0/0</div>
+                <div id="medalProgressRing11" class="medal-progress-ring" style="--played:0%;--unplayed:100%;--locked:0%">
+                  <div id="medalProgressText11" class="medal-progress-text">0%</div>
+                </div>
+              </div>
+            </div>
+            <div class="medal-slot">
+              <div class="medal-title">SP12</div>
+              <img id="medal12" class="medal-image hidden" alt="SP12 medal" />
+              <div id="medalProgress12" class="medal-progress">
+                <div id="medalProgressCount12" class="medal-progress-count">0/0</div>
+                <div id="medalProgressRing12" class="medal-progress-ring" style="--played:0%;--unplayed:100%;--locked:0%">
+                  <div id="medalProgressText12" class="medal-progress-text">0%</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="rank-controls-wrap">
+          <div id="rankControls" class="rank-controls">
+            <div class="tabs slide-tabs">
+              <button class="tab" data-table="SP10H">SP10 HARD</button>
+              <button class="tab active" data-table="SP11H">SP11 HARD</button>
+              <button class="tab" data-table="SP12H">SP12 HARD</button>
+            </div>
+            <div class="rank-toolbar-main">
+              <div class="view-toggle slide-tabs">
+                <button class="small-btn active" data-view="normal">일반</button>
+                <button class="small-btn" data-view="wide">WIDE</button>
+              </div>
+              <div class="sort-actions">
+                <div class="sort-toggle slide-tabs">
+                  <button class="small-btn" data-sort="clear">램프순 정렬</button>
+                  <button class="small-btn active" data-sort="name">이름순 정렬</button>
+                </div>
+                <button id="btnExportImage" class="small-btn">다운로드</button>
+              </div>
+            </div>
+          </div>
+          <div class="search-wrap">
+            <input id="songSearch" placeholder="곡 제목 검색" />
+          </div>
+        </div>
+
+        <div class="rank-summary">
+          <div class="footer-center">
+            <div class="graph-title">CLEAR</div>
+            <div id="clearGraph"></div>
+          </div>
+          <div class="footer-center">
+            <div class="graph-title">SCORE</div>
+            <div id="scoreGraph"></div>
+          </div>
+        </div>
+        <div id="exportArea">
+          <div class="rank-title-wrap">
+            <h2 id="tableTitle">IIDX INFINITAS SP ☆11 Hard Gauge Rank</h2>
+            <div class="title-watermark" id="tableMark">SP11H</div>
+          </div>
+
+          <div class="table-account-mini">
+            <img id="tableMiniIcon" class="table-mini-icon" src="../assets/icon/infinitas.png" alt="mini icon" />
+            <div class="table-mini-meta">
+              <div id="tableMiniName" class="table-mini-name">DJ NAME</div>
+              <div id="tableMiniId" class="table-mini-id">C-0000-0000-0000</div>
+            </div>
+          </div>
+
+          <div id="rankTableContainer" class="rank-table-container"></div>
+        </div>
+      </section>
+
+      <section id="panel-history" class="panel tab-panel">
+        <h3>갱신 히스토리</h3>
+        <div class="history-layout">
+          <div id="historyList" class="history-list history-list-left"></div>
+          <div id="historyDetail" class="history-detail"></div>
+        </div>
+      </section>
+
+      <section id="panel-goals" class="panel tab-panel">
+        <div class="goals-header">
+          <h3>목표 설정 / 달성</h3>
+          <div class="goals-actions">
+            <button id="btnExportGoals" class="small-btn">현재 목표 내보내기</button>
+            <button id="btnImportGoals" class="small-btn">목표 불러오기</button>
+            <button id="btnClearAchievedGoals" class="small-btn">달성 목표 전체 삭제</button>
+            <button id="btnClearGoals" class="small-btn danger">목표 전체 삭제</button>
+          </div>
+        </div>
+        <div class="goal-form">
+          <select id="goalKind">
+            <option value="CLEAR">CLEAR</option>
+            <option value="SCORE">SCORE</option>
+            <option value="RANK">RANK</option>
+          </select>
+          <select id="goalTable">
+            <option value="SP10H">SP10</option>
+            <option value="SP11H">SP11</option>
+            <option value="SP12H">SP12</option>
+          </select>
+          <div id="goalSongComboHost"></div>
+          <select id="goalSong"></select>
+          <select id="goalChartType">
+            <option value="H">H (SPH)</option>
+            <option value="A">A (SPA)</option>
+            <option value="L">L (SPL)</option>
+          </select>
+          <select id="goalLamp" class="goal-target-input">
+            <option value="EX">EX-HARD</option>
+            <option value="HC">HARD</option>
+            <option value="FC">FULL COMBO</option>
+          </select>
+          <input id="goalScore" class="goal-target-input hidden" type="number" min="0" step="1" placeholder="EX 점수 입력" />
+          <select id="goalRank" class="goal-target-input hidden">
+            <option value="A">A</option>
+            <option value="AA">AA</option>
+            <option value="AAA">AAA</option>
+            <option value="MAX-">MAX-</option>
+            <option value="MAX">MAX</option>
+          </select>
+          <button id="btnAddGoal">목표 추가/갱신</button>
+        </div>
+        <div id="goalList" class="goal-list"></div>
+      </section>
+
+      <section id="panel-social" class="panel tab-panel">
+        <div class="goals-header">
+          <h3>소셜</h3>
+        </div>
+        <div class="goal-form">
+          <input id="socialSearchInfinitasId" placeholder="C-XXXX-XXXX-XXXX로 검색" />
+          <button id="btnSocialSearchUser" type="button">검색</button>
+          <button id="btnSocialSendFollowRequest" type="button">팔로우 요청</button>
+          <button id="btnSocialAddRival" type="button">라이벌 등록</button>
+          <button id="btnSocialCompare" type="button">비교 보기</button>
+        </div>
+        <div id="socialSearchResult" class="help-body"></div>
+        <div class="history-layout">
+          <div id="socialFollowRequests" class="history-list history-list-left"></div>
+          <div id="socialSummary" class="history-detail"></div>
+        </div>
+      </section>
+
+    </div>
+
+    <div id="songPopup" class="song-popup hidden">
+      <div class="song-popup-title" id="popupTitle">-</div>
+      <div class="song-popup-meta" id="popupMeta"></div>
+    </div>
+    <div id="graphPopup" class="song-popup hidden">
+      <div class="song-popup-title" id="graphPopupTitle">요약</div>
+      <div class="song-popup-meta" id="graphPopupMeta"></div>
+    </div>
+    <dialog id="accountDialog" class="account-dialog">
+      <form method="dialog" id="accountForm">
+        <h3 id="accountDialogTitle">계정 생성</h3>
+        <label class="field-label" for="accountNameInput">DJ NAME</label>
+        <input id="accountNameInput" required maxlength="24" />
+        <label class="field-label" for="accountIdInput">INFINITAS ID (선택)</label>
+        <input id="accountIdInput" inputmode="numeric" placeholder="숫자 12자리 입력" />
+        <div id="accountIdPreview" class="id-preview">C-0000-0000-0000</div>
+        <label class="field-label" for="accountIconInput">아이콘 이미지 (선택)</label>
+        <input id="accountIconInput" type="file" accept="image/*" />
+        <div class="dialog-actions">
+          <button id="accountCancelBtn" type="button" value="cancel">취소</button>
+          <button id="accountSaveBtn" type="submit" value="save">저장</button>
+        </div>
+      </form>
+    </dialog>
+    <dialog id="goalExportDialog" class="account-dialog">
+      <form method="dialog" id="goalExportForm">
+        <h3>목표 내보내기</h3>
+        <label class="field-label" for="goalExportSourceInput">출처 (선택)</label>
+        <input id="goalExportSourceInput" maxlength="40" placeholder="빈칸이면 현재 계정 이름 사용" />
+        <div class="dialog-actions">
+          <button id="goalExportCancelBtn" type="button" value="cancel">취소</button>
+          <button id="goalExportSaveBtn" type="submit" value="save">내보내기</button>
+        </div>
+      </form>
+    </dialog>
+    <dialog id="uiConfirmDialog" class="account-dialog">
+      <form method="dialog" id="uiConfirmForm">
+        <h3 id="uiConfirmTitle">확인</h3>
+        <div id="uiConfirmMessage" class="confirm-message">-</div>
+        <div class="dialog-actions">
+          <button id="uiConfirmCancelBtn" type="button" value="cancel">취소</button>
+          <button id="uiConfirmOkBtn" type="submit" value="ok">확인</button>
+        </div>
+      </form>
+    </dialog>
+    <dialog id="challengeDialog" class="account-dialog">
+      <form method="dialog" id="challengeForm">
+        <h3>도전장 전송</h3>
+        <div id="challengeDialogMeta" class="confirm-message">-</div>
+        <label class="settings-item">
+          <span class="setting-check">
+            <input id="challengeLamp" type="checkbox" checked />
+            <span class="setting-check-ui"></span>
+          </span>
+          <span>램프 도전장</span>
+        </label>
+        <label class="settings-item">
+          <span class="setting-check">
+            <input id="challengeScore" type="checkbox" checked />
+            <span class="setting-check-ui"></span>
+          </span>
+          <span>스코어 도전장</span>
+        </label>
+        <div class="dialog-actions">
+          <button id="challengeCancelBtn" type="button" value="cancel">취소</button>
+          <button id="challengeSendBtn" type="submit" value="send">전송</button>
+        </div>
+      </form>
+    </dialog>
+    <dialog id="helpDialog" class="account-dialog help-dialog">
+      <form method="dialog" id="helpForm">
+        <h3>INFINITAS Table Maker 도움말</h3>
+        <div class="help-body">
+          <h4>1) 이 앱이 하는 일</h4>
+          <p>
+            INFINITAS 플레이 기록(<code>tracker.tsv</code>)을 기반으로 SP10/11/12 HARD 서열표를 개인화하고,
+            히스토리/목표 관리까지 한 번에 하는 데스크톱 도구입니다.
+          </p>
+
+          <h4>2) 최초 사용 순서</h4>
+          <ol>
+            <li>앱 실행 후 계정 생성: DJ NAME, INFINITAS ID, 아이콘을 등록합니다.</li>
+            <li><code>데이터 불러오기(tsv)</code> 또는 <code>갱신</code>으로 데이터를 가져옵니다.</li>
+            <li>서열표에서 현재 상태를 확인하고, 목표 탭에서 목표를 등록합니다.</li>
+          </ol>
+
+          <h4>3) 갱신(Reflux 연동) 사용법</h4>
+          <ol>
+            <li><code>갱신</code> 버튼을 누르면 Reflux 최신 버전 확인/갱신 후 콘솔이 실행됩니다.</li>
+            <li>이 상태로 INFINITAS를 플레이합니다.</li>
+            <li>게임 종료 후 tracker.tsv 반영이 확인되면 <code>갱신 완료</code> 버튼이 활성화됩니다.</li>
+            <li><code>갱신 완료</code>를 눌러 팝업을 닫으면 데이터/히스토리가 업데이트됩니다.</li>
+          </ol>
+          <ul>
+            <li><code>갱신 취소</code>를 누르면 Reflux 프로세스와 콘솔이 종료됩니다.</li>
+            <li>갱신 중 목표 카드(설정 ON 시)는 진행중 목표만 표시합니다.</li>
+            <li>플레이 중 달성된 목표 카드는 카드 색상이 달성 상태로 바뀝니다.</li>
+          </ul>
+
+          <h4>4) 서열표 페이지</h4>
+          <ul>
+            <li><code>SP10 HARD / SP11 HARD / SP12 HARD</code> 테이블 전환</li>
+            <li><code>일반 / WIDE</code> 보기 전환</li>
+            <li><code>램프순 정렬 / 이름순 정렬</code></li>
+            <li><code>다운로드</code>: 현재 테이블을 이미지로 저장</li>
+            <li>곡 클릭: 램프, 스코어, MISS, RATE 등 상세 팝업</li>
+            <li>미해금 곡은 어둡게 표시되며 정렬 시 후순위로 처리됩니다.</li>
+          </ul>
+
+          <h4>5) 히스토리 페이지</h4>
+          <ul>
+            <li>왼쪽: 업로드/갱신 시점 목록, 오른쪽: 해당 시점 상세</li>
+            <li>카테고리: 램프 갱신 / 스코어 갱신 / 목표 갱신</li>
+            <li>최초 기록은 <code>(최초)</code>, 최신 기록은 <code>(최신)</code>으로 표시</li>
+            <li>롤백: 선택 시점 이후 히스토리 삭제 + 해당 시점 상태로 복원</li>
+          </ul>
+
+          <h4>6) 목표 페이지</h4>
+          <ul>
+            <li>목표 종류: <code>CLEAR / SCORE / RANK</code></li>
+            <li>곡 검색/채보 선택 후 <code>목표 추가/갱신</code></li>
+            <li>달성/진행 상태가 자동 갱신되며 카드 배경색으로 구분됩니다.</li>
+            <li><code>현재 목표 내보내기</code>, <code>목표 불러오기</code>, <code>달성 목표 전체 삭제</code>, <code>목표 전체 삭제</code> 지원</li>
+          </ul>
+
+          <h4>7) 계정/데이터 저장 위치</h4>
+          <p>
+            계정/히스토리/목표 데이터는 Windows 사용자 프로필의 앱 데이터 경로에 저장됩니다.
+            (예: <code>%APPDATA%/infinitas-rank-table-maker</code>)
+          </p>
+
+          <h4>8) 권한 관련 안내</h4>
+          <ul>
+            <li>이 앱은 메모리 접근이 필요한 Reflux 연동을 위해 관리자 권한이 필요합니다.</li>
+            <li>앱 실행 시 자동으로 관리자 권한 재실행을 시도하며, 거부하면 실행을 종료합니다.</li>
+          </ul>
+
+          <h4>9) 문제 해결</h4>
+          <ul>
+            <li>갱신 완료가 안 뜰 때: 게임 플레이 후 게임 종료까지 진행했는지 확인</li>
+            <li>데이터가 이상할 때: 히스토리 롤백으로 이전 시점 복구 후 다시 갱신</li>
+            <li>표시가 어긋날 때: 앱 재실행 후 <code>서열표 새로고침</code> 실행</li>
+            <li>Google 연동 전: INFINITAS ID를 정확히 입력하세요. 오입력 시 다른 계정과 충돌해 연동이 거부될 수 있습니다.</li>
+          </ul>
+        </div>
+        <div class="dialog-actions">
+          <button id="helpCloseBtn" type="submit">닫기</button>
+        </div>
+      </form>
+    </dialog>
+    <dialog id="radarDialog" class="account-dialog help-dialog radar-dialog">
+      <form method="dialog">
+        <h3>SP NOTES RADAR</h3>
+        <div id="accountRadarDialogBody" class="help-body"></div>
+        <div id="radarAxisPopup" class="radar-axis-popup hidden"></div>
+        <div class="dialog-actions">
+          <button type="submit">닫기</button>
+        </div>
+      </form>
+    </dialog>
+    <dialog id="settingsDialog" class="account-dialog">
+      <form method="dialog" id="settingsForm">
+        <h3>설정</h3>
+        <div class="settings-list">
+          <div class="settings-divider"><span>-일반-</span></div>
+          <label class="settings-item">
+            <span class="setting-check">
+              <input id="settingShowUpdateGoalCards" type="checkbox" checked />
+              <span class="setting-check-ui"></span>
+            </span>
+            <span>갱신 시 목표 카드 리스트 표시</span>
+          </label>
+          <label class="settings-item">
+            <span class="setting-check">
+              <input id="settingEnableHistoryRollback" type="checkbox" checked />
+              <span class="setting-check-ui"></span>
+            </span>
+            <span>히스토리 롤백 기능 사용</span>
+          </label>
+
+          <div id="socialSettingsBlock">
+            <div class="settings-divider"><span>-소셜-</span></div>
+            <label class="settings-item">
+              <span class="setting-check">
+                <input id="settingDiscoverability" type="checkbox" checked />
+                <span class="setting-check-ui"></span>
+              </span>
+              <span>Infinitas ID로 검색 허용</span>
+            </label>
+            <div class="field-label">팔로우 가능 여부</div>
+            <label class="settings-item">
+              <span class="setting-check">
+                <input id="settingFollowPolicyManual" type="checkbox" checked />
+                <span class="setting-check-ui"></span>
+              </span>
+              <span>허가 필요</span>
+            </label>
+            <label class="settings-item">
+              <span class="setting-check">
+                <input id="settingFollowPolicyAuto" type="checkbox" />
+                <span class="setting-check-ui"></span>
+              </span>
+              <span>자동 허가</span>
+            </label>
+            <label class="settings-item">
+              <span class="setting-check">
+                <input id="settingFollowPolicyDisabled" type="checkbox" />
+                <span class="setting-check-ui"></span>
+              </span>
+              <span>불가</span>
+            </label>
+            <div class="field-label">팔로우 공유 데이터</div>
+            <label class="settings-item">
+              <span class="setting-check">
+                <input id="settingShareAllData" type="checkbox" />
+                <span class="setting-check-ui"></span>
+              </span>
+              <span>모든 데이터</span>
+            </label>
+            <label class="settings-item">
+              <span class="setting-check">
+                <input id="settingShareGraphs" type="checkbox" checked />
+                <span class="setting-check-ui"></span>
+              </span>
+              <span>그래프</span>
+            </label>
+            <label class="settings-item">
+              <span class="setting-check">
+                <input id="settingShareGoals" type="checkbox" checked />
+                <span class="setting-check-ui"></span>
+              </span>
+              <span>목표 리스트</span>
+            </label>
+            <label class="settings-item">
+              <span class="setting-check">
+                <input id="settingShareHistory" type="checkbox" checked />
+                <span class="setting-check-ui"></span>
+              </span>
+              <span>히스토리</span>
+            </label>
+            <label class="settings-item">
+              <span class="setting-check">
+                <input id="settingShareNone" type="checkbox" />
+                <span class="setting-check-ui"></span>
+              </span>
+              <span>불가</span>
+            </label>
+            <div class="field-label">라이벌 설정 가능 여부</div>
+            <label class="settings-item">
+              <span class="setting-check">
+                <input id="settingRivalPolicyFollowers" type="checkbox" checked />
+                <span class="setting-check-ui"></span>
+              </span>
+              <span>팔로우만</span>
+            </label>
+            <label class="settings-item">
+              <span class="setting-check">
+                <input id="settingRivalPolicyAll" type="checkbox" />
+                <span class="setting-check-ui"></span>
+              </span>
+              <span>모두</span>
+            </label>
+            <label class="settings-item">
+              <span class="setting-check">
+                <input id="settingRivalPolicyDisabled" type="checkbox" />
+                <span class="setting-check-ui"></span>
+              </span>
+              <span>불가</span>
+            </label>
+          </div>
+          <div class="auth-link-block">
+            <button id="btnGoogleLink" type="button" class="google-link-btn" title="Google 연동">
+              <img src="../assets/icon/google.png" alt="Google" />
+            </button>
+            <div id="googleAuthStatus" class="google-auth-status">Google 미연동</div>
+          </div>
+        </div>
+        <div class="dialog-actions">
+          <button id="settingsCloseBtn" type="submit">닫기</button>
+        </div>
+      </form>
+    </dialog>
+    <dialog id="refreshDialog" class="account-dialog refresh-dialog">
+      <form method="dialog" id="refreshForm">
+        <h3>서열표 데이터 갱신</h3>
+        <div class="refresh-subtitle">최신 기준표를 불러오는 중입니다. 잠시만 기다려주세요.</div>
+        <div class="refresh-card">
+          <div><strong>SP10</strong> : beatmania.app 기준</div>
+          <div><strong>SP11</strong> : atwiki(페이지 21) → 보완: beatmania.app / 나무위키</div>
+          <div><strong>SP12</strong> : atwiki(페이지 18) → 보완: beatmania.app / 나무위키</div>
+        </div>
+      </form>
+    </dialog>
+    <dialog id="missingMetaDialog" class="account-dialog help-dialog">
+      <form method="dialog">
+        <h3>정보가 부족한 곡</h3>
+        <div id="missingMetaBody" class="help-body"></div>
+        <div class="dialog-actions">
+          <button type="submit">닫기</button>
+        </div>
+      </form>
+    </dialog>
+    <dialog id="refluxDialog" class="account-dialog help-dialog">
+      <form method="dialog" id="refluxForm">
+        <h3>INFINITAS 갱신</h3>
+        <div id="refluxGoalCardsZone" class="reflux-goal-zone hidden">
+          <div id="refluxGoalCardsTrack"></div>
+          <div id="refluxGoalCardsFocus"></div>
+        </div>
+        <div id="refluxStatusArea" class="help-body">
+          <div>갱신을 시작합니다. 이 프로그램을 실행한 채로 IIDX INFINITAS를 플레이해주세요.</div>
+        </div>
+        <div class="dialog-actions">
+          <button id="refluxDoneBtn" type="button" class="primary-btn" disabled>갱신 완료</button>
+          <button id="refluxCancelBtn" type="button">갱신 취소</button>
+        </div>
+      </form>
+    </dialog>
+    <div id="toast" class="toast hidden"></div>
+
+    <div id="dockWidget" class="floating-widget dock-widget" style="left:24px;bottom:24px;">
+      <button class="widget-drag-handle" data-drag-target="dockWidget" aria-label="위치 변경">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 2l2.5 2.5H13v5h5V7.5L20.5 10 18 12.5v-2h-5v5h1.5L12 18l-2.5-2.5H11v-5H6v2L3.5 10 6 7.5v2h5v-5H9.5L12 2z" />
+        </svg>
+        <span class="dock-tip widget-handle-tip">위치 변경</span>
+      </button>
+      <div class="dock-shell">
+        <div class="dock-item">
+          <button class="dock-tab active" data-panel="rank" aria-label="서열표">
+            <svg viewBox="0 0 24 24" class="dock-icon" aria-hidden="true"><path d="M3 4h18v16H3zM3 9h18M8 4v16M14 4v16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+          </button>
+          <span class="dock-tip">서열표</span>
+        </div>
+        <div class="dock-item">
+          <button class="dock-tab" data-panel="history" aria-label="히스토리">
+            <svg viewBox="0 0 24 24" class="dock-icon" aria-hidden="true"><path d="M12 7v5l3 2M21 12a9 9 0 1 1-2.64-6.36M21 3v6h-6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <span class="dock-tip">히스토리</span>
+        </div>
+        <div class="dock-item">
+          <button class="dock-tab" data-panel="goals" aria-label="목표">
+            <svg viewBox="0 0 24 24" class="dock-icon" aria-hidden="true"><path d="M12 21s7-4.35 7-10V5l-7-2-7 2v6c0 5.65 7 10 7 10zM9.5 12.5l1.7 1.7 3.3-3.3" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <span class="dock-tip">목표</span>
+        </div>
+        <div class="dock-item">
+          <button class="dock-tab" data-panel="social" aria-label="소셜">
+            <svg viewBox="0 0 24 24" class="dock-icon" aria-hidden="true"><path d="M16 11a4 4 0 1 0-3.999-4A4 4 0 0 0 16 11zM8 12a3 3 0 1 0-3-3 3 3 0 0 0 3 3zm8 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4zM8 14c-.47 0-.97.03-1.5.08C4.57 14.3 1 15.27 1 17v2h5v-1c0-1.2.68-2.33 1.92-3.25A9.8 9.8 0 0 0 8 14z" fill="currentColor"/></svg>
+          </button>
+          <span class="dock-tip">소셜</span>
+        </div>
+        <div class="dock-item">
+          <button class="dock-tab" data-panel="settings" aria-label="설정">
+            <svg viewBox="0 0 24 24" class="dock-icon" aria-hidden="true">
+              <path d="M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <span class="dock-tip">설정</span>
+        </div>
+      </div>
+    </div>
+
+    <script src="../node_modules/html2canvas/dist/html2canvas.min.js"></script>
+    <script src="../node_modules/@supabase/supabase-js/dist/umd/supabase.js"></script>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
