@@ -2058,25 +2058,11 @@ function openRadarDialog() {
   if (!dialog.open) dialog.showModal();
 }
 
-async function linkGoogleAccount() {
-  const acc = activeAcc();
-  if (!acc) {
-    toast('먼저 계정을 선택하세요.', 'error');
-    return;
-  }
-  if (!isValidInfinitasId(acc.infinitasId)) {
-    toast('Google 연동은 정상 INFINITAS ID(C-XXXX-XXXX-XXXX) 계정에서만 가능합니다.', 'error');
-    return;
-  }
-  const client = getSupabaseClient();
-  if (!client) {
-    toast('Supabase 클라이언트를 초기화하지 못했습니다.', 'error');
-    return;
-  }
+async function signInWithGooglePopup(client, { actionLabel = 'Google 연동' } = {}) {
   const redirectTo = OAUTH_REDIRECT_URL;
   if (!redirectTo) {
     toast('OAuth Redirect URL 설정이 비어 있습니다.', 'error');
-    return;
+    return null;
   }
   let oauthData;
   try {
@@ -2092,27 +2078,28 @@ async function linkGoogleAccount() {
     oauthData = data;
   } catch (e) {
     toast(`Google OAuth URL 생성 실패: ${e.message}`, 'error');
-    return;
+    return null;
   }
   if (!oauthData?.url) {
     toast('Google 로그인 URL을 생성하지 못했습니다.', 'error');
-    return;
+    return null;
   }
   const popupResult = await window.electronAPI.openOauthPopup({
     url: oauthData.url,
     successPrefix: redirectTo
   });
   if (!popupResult?.ok || !popupResult?.finalUrl) {
-    if (popupResult?.canceled) toast('Google 연동을 취소했습니다.', 'info');
-    else toast(`Google 연동 실패: ${popupResult?.error || '알 수 없는 오류'}`, 'error');
-    return;
+    if (popupResult?.canceled) toast(`${actionLabel}을(를) 취소했습니다.`, 'info');
+    else toast(`${actionLabel} 실패: ${popupResult?.error || '알 수 없는 오류'}`, 'error');
+    return null;
   }
+
   let resultUrl;
   try {
     resultUrl = new URL(popupResult.finalUrl);
   } catch {
     toast('OAuth 콜백 URL 파싱에 실패했습니다.', 'error');
-    return;
+    return null;
   }
 
   const hashParams = new URLSearchParams((resultUrl.hash || '').replace(/^#/, ''));
@@ -2121,8 +2108,9 @@ async function linkGoogleAccount() {
   if (errorCode) {
     const msg = decodeURIComponent(errorDesc || errorCode).replace(/\+/g, ' ');
     toast(`Google OAuth 실패: ${msg}`, 'error');
-    return;
+    return null;
   }
+
   const accessToken = hashParams.get('access_token');
   const refreshToken = hashParams.get('refresh_token');
   let exchanged;
@@ -2134,28 +2122,116 @@ async function linkGoogleAccount() {
       });
     } catch (e) {
       toast(`세션 교환 실패: ${e.message}`, 'error');
-      return;
+      return null;
     }
   } else {
     const code = resultUrl.searchParams.get('code');
     if (!code) {
       console.warn('[auth] OAuth callback without code/token:', popupResult.finalUrl);
       toast('OAuth 인증 코드를 찾지 못했습니다.', 'error');
-      return;
+      return null;
     }
     try {
       exchanged = await client.auth.exchangeCodeForSession(code);
     } catch (e) {
       toast(`세션 교환 실패: ${e.message}`, 'error');
-      return;
+      return null;
     }
   }
   if (exchanged.error) {
     toast(`세션 교환 실패: ${exchanged.error.message}`, 'error');
+    return null;
+  }
+
+  const sessionFallback = (await client.auth.getSession()).data?.session || null;
+  const session = exchanged.data?.session || sessionFallback || null;
+  const user = exchanged.data?.user || session?.user || (await client.auth.getUser()).data?.user;
+  if (!user) {
+    toast('로그인 사용자 정보를 찾지 못했습니다.', 'error');
+    return null;
+  }
+  return { user, session };
+}
+
+async function restoreAccountFromCloudByGoogle() {
+  const client = getSupabaseClient();
+  if (!client) {
+    toast('Supabase 클라이언트를 초기화하지 못했습니다.', 'error');
+    return null;
+  }
+  const signed = await signInWithGooglePopup(client, { actionLabel: 'Google 계정 불러오기' });
+  if (!signed?.user?.id) return null;
+  const { user, session } = signed;
+
+  const profileRes = await client
+    .from('users')
+    .select('auth_user_id, infinitas_id, dj_name, google_email, icon_data_url, updated_at')
+    .eq('auth_user_id', user.id)
+    .maybeSingle();
+  if (profileRes.error) {
+    toast(`클라우드 프로필 조회 실패: ${profileRes.error.message}`, 'error');
+    return null;
+  }
+  if (!profileRes.data) {
+    toast('연동된 클라우드 계정 데이터가 없습니다. 먼저 기존 PC에서 연동/동기화를 완료하세요.', 'warning');
+    return null;
+  }
+
+  const stateRes = await client
+    .from('account_states')
+    .select('account_id, tracker_rows, goals, history, last_progress, social_settings')
+    .eq('auth_user_id', user.id)
+    .maybeSingle();
+  if (stateRes.error) {
+    toast(`클라우드 상태 조회 실패: ${stateRes.error.message}`, 'error');
+    return null;
+  }
+
+  const p = profileRes.data;
+  const s = stateRes.data || {};
+  const fallbackName = (user.email || 'DJ USER').split('@')[0] || 'DJ USER';
+  const imported = ensureAcc({
+    id: typeof s.account_id === 'string' && s.account_id ? s.account_id : crypto.randomUUID(),
+    djName: p.dj_name || fallbackName,
+    infinitasId: isValidInfinitasId(p.infinitas_id) ? p.infinitas_id : 'C-0000-0000-0000',
+    iconDataUrl: p.icon_data_url || '',
+    trackerRows: Array.isArray(s.tracker_rows) ? s.tracker_rows : [],
+    goals: Array.isArray(s.goals) ? s.goals : [],
+    history: Array.isArray(s.history) ? s.history : [],
+    lastProgress: s.last_progress && typeof s.last_progress === 'object' ? s.last_progress : {},
+    socialSettings: s.social_settings && typeof s.social_settings === 'object' ? s.social_settings : {},
+    googleAuthUserId: user.id,
+    googleEmail: p.google_email || user.email || '',
+    googleLinkedAt: nowIso(),
+    createdAt: nowIso()
+  });
+  authContext.set({
+    status: 'signed_in',
+    user,
+    session: session || null,
+    accountId: state.activeAccountId || null
+  });
+  return imported;
+}
+
+async function linkGoogleAccount() {
+  const acc = activeAcc();
+  if (!acc) {
+    toast('먼저 계정을 선택하세요.', 'error');
     return;
   }
-  const sessionFallback = (await client.auth.getSession()).data?.session || null;
-  const user = exchanged.data?.user || sessionFallback?.user || (await client.auth.getUser()).data?.user;
+  if (!isValidInfinitasId(acc.infinitasId)) {
+    toast('Google 연동은 정상 INFINITAS ID(C-XXXX-XXXX-XXXX) 계정에서만 가능합니다.', 'error');
+    return;
+  }
+  const client = getSupabaseClient();
+  if (!client) {
+    toast('Supabase 클라이언트를 초기화하지 못했습니다.', 'error');
+    return;
+  }
+  const signed = await signInWithGooglePopup(client, { actionLabel: 'Google 연동' });
+  if (!signed) return;
+  const user = signed.user;
   if (!user) {
     toast('로그인 사용자 정보를 찾지 못했습니다.', 'error');
     return;
@@ -2176,7 +2252,7 @@ async function linkGoogleAccount() {
   acc.googleAuthUserId = user.id;
   acc.googleEmail = user.email || '';
   acc.googleLinkedAt = nowIso();
-  authContext.set({ status: 'signed_in', user, session: exchanged.data?.session || sessionFallback || null, accountId: acc.id });
+  authContext.set({ status: 'signed_in', user, session: signed.session || null, accountId: acc.id });
   await saveState();
   try {
     await syncLinkedAccountToCloud('google-link');
@@ -2504,26 +2580,45 @@ function readFileAsDataUrl(file){ return new Promise((res,rej)=>{ const r=new Fi
 
 async function openAccountDialog({title,allowCancel,initial}){
   const dialog=$('accountDialog'); const form=$('accountForm'); const nameInput=$('accountNameInput'); const idInput=$('accountIdInput'); const idPreview=$('accountIdPreview'); const iconInput=$('accountIconInput'); const cancelBtn=$('accountCancelBtn');
+  const importBlock = $('accountImportBlock');
+  const importGoogleBtn = $('accountImportGoogleBtn');
   if (dialog.open) dialog.close('cancel');
   $('accountDialogTitle').textContent=title; $('accountCancelBtn').style.display=allowCancel?'inline-block':'none';
+  if (importBlock) importBlock.classList.toggle('hidden', !!initial);
   nameInput.value=initial?.djName || ''; idInput.value=initial?.infinitasId || ''; idPreview.textContent=fmtInfFixed(idInput.value); iconInput.value='';
   let iconDataUrl=initial?.iconDataUrl || '';
+  let importedAccount = null;
   const onId=()=>{ idInput.value=fmtInf(idInput.value); idPreview.textContent=fmtInfFixed(idInput.value); };
   const onIcon=async()=>{ const f=iconInput.files?.[0]; if(!f){iconDataUrl=''; return;} try{iconDataUrl=await readFileAsDataUrl(f);}catch{iconDataUrl=''; toast('아이콘 파일을 읽지 못했습니다.');} };
   const onCancel=()=>dialog.close('cancel');
   const onSubmit=(e)=>{ e.preventDefault(); dialog.close('save'); };
+  const onImportGoogle = async () => {
+    if (importGoogleBtn?.disabled) return;
+    if (importGoogleBtn) importGoogleBtn.disabled = true;
+    try {
+      const restored = await restoreAccountFromCloudByGoogle();
+      if (!restored) return;
+      importedAccount = restored;
+      dialog.close('import-google');
+    } finally {
+      if (importGoogleBtn) importGoogleBtn.disabled = false;
+    }
+  };
   const onDialogCancel=(e)=>{ if(!allowCancel){ e.preventDefault(); } };
   idInput.addEventListener('input',onId); iconInput.addEventListener('change',onIcon);
   cancelBtn.addEventListener('click', onCancel);
   form.addEventListener('submit', onSubmit);
+  importGoogleBtn?.addEventListener('click', onImportGoogle);
   dialog.addEventListener('cancel', onDialogCancel);
   dialog.showModal();
   requestAnimationFrame(() => nameInput.focus());
   const result = await new Promise((resolve)=>{
     const onClose=()=>{ dialog.removeEventListener('close',onClose); idInput.removeEventListener('input',onId); iconInput.removeEventListener('change',onIcon);
       cancelBtn.removeEventListener('click', onCancel); form.removeEventListener('submit', onSubmit);
+      importGoogleBtn?.removeEventListener('click', onImportGoogle);
       dialog.removeEventListener('cancel', onDialogCancel);
       if(dialog.returnValue==='cancel'){resolve(null); return;}
+      if(dialog.returnValue==='import-google'){ resolve({ importedAccount }); return; }
       const dj=nameInput.value.trim(); if(!dj){ toast('DJ NAME은 필수입니다.'); resolve('retry'); return; }
       resolve({djName:dj, infinitasId:fmtInfFixed(idInput.value), iconDataUrl});
     }; dialog.addEventListener('close',onClose);
@@ -2532,10 +2627,48 @@ async function openAccountDialog({title,allowCancel,initial}){
   return result;
 }
 
+function mergeImportedAccount(imported) {
+  const normalized = ensureAcc(imported || {});
+  const byGoogle = state.accounts.find((a) => a.googleAuthUserId && normalized.googleAuthUserId && a.googleAuthUserId === normalized.googleAuthUserId);
+  if (byGoogle) {
+    const keepId = byGoogle.id;
+    const keepCreatedAt = byGoogle.createdAt || nowIso();
+    Object.assign(byGoogle, normalized, { id: keepId, createdAt: keepCreatedAt });
+    state.activeAccountId = byGoogle.id;
+    state.selectedHistoryId = null;
+    return { mode: 'updated', account: byGoogle };
+  }
+  if (state.accounts.length >= MAX_ACCOUNTS) return { error: `계정은 최대 ${MAX_ACCOUNTS}개까지 생성할 수 있습니다.` };
+  if (state.accounts.some((a) => a.id === normalized.id)) normalized.id = crypto.randomUUID();
+  const existsName = (name) => state.accounts.some((a) => a.djName.toLowerCase() === String(name || '').toLowerCase());
+  if (existsName(normalized.djName)) {
+    const base = normalized.djName;
+    let idx = 2;
+    while (existsName(`${base} (${idx})`)) idx += 1;
+    normalized.djName = `${base} (${idx})`;
+    normalized.name = normalized.djName;
+  }
+  state.accounts.push(normalized);
+  state.activeAccountId = normalized.id;
+  state.selectedHistoryId = null;
+  return { mode: 'created', account: normalized };
+}
+
 async function createAccountFlow(allowCancel=true){
-  if(state.accounts.length>=MAX_ACCOUNTS){ toast(`계정은 최대 ${MAX_ACCOUNTS}개까지 생성할 수 있습니다.`); return false; }
   const r=await openAccountDialog({title:'계정 생성',allowCancel,initial:null});
   if(!r){ if(!allowCancel) toast('계정 생성이 필요합니다.'); return false; }
+  if (r.importedAccount) {
+    const merged = mergeImportedAccount(r.importedAccount);
+    if (merged?.error) {
+      toast(merged.error, 'error');
+      return false;
+    }
+    await saveState();
+    refreshAll();
+    toast(merged.mode === 'updated' ? `${merged.account.djName} 계정을 클라우드 데이터로 갱신했습니다.` : `${merged.account.djName} 계정을 클라우드에서 불러왔습니다.`, 'success');
+    return true;
+  }
+  if(state.accounts.length>=MAX_ACCOUNTS){ toast(`계정은 최대 ${MAX_ACCOUNTS}개까지 생성할 수 있습니다.`); return false; }
   if(state.accounts.some((a)=>a.djName.toLowerCase()===r.djName.toLowerCase())){ toast('같은 DJ NAME의 계정이 이미 있습니다.'); return false; }
   const a=ensureAcc({djName:r.djName, infinitasId:r.infinitasId, iconDataUrl:r.iconDataUrl});
   state.accounts.push(a); state.activeAccountId=a.id; state.selectedHistoryId=null; await saveState(); refreshAll(); toast(`${a.djName} 계정 생성 완료`); return true;

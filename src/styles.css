@@ -1742,6 +1742,11 @@ button.danger {
   gap: 10px;
 }
 
+.account-import-block {
+  margin-top: 10px;
+  margin-bottom: 2px;
+}
+
 .google-link-btn {
   width: 44px;
   height: 44px;
