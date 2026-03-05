@@ -2347,6 +2347,81 @@ function renderSocialPanel() {
   }
 }
 
+function formatInfinitasIdDisplay(inputRaw) {
+  const digits = String(inputRaw || '').replace(/\D/g, '').slice(0, 12);
+  if (!digits) return '';
+  if (digits.length <= 4) return `C-${digits}`;
+  if (digits.length <= 8) return `C-${digits.slice(0, 4)}-${digits.slice(4)}`;
+  return `C-${digits.slice(0, 4)}-${digits.slice(4, 8)}-${digits.slice(8, 12)}`;
+}
+
+function normalizeInfinitasIdForSearch(inputRaw) {
+  const digits = String(inputRaw || '').replace(/\D/g, '').slice(0, 12);
+  if (digits.length !== 12) return '';
+  return `C-${digits.slice(0, 4)}-${digits.slice(4, 8)}-${digits.slice(8, 12)}`;
+}
+
+function resetSocialSearchUi() {
+  const category = $('socialSearchCategory');
+  const keyword = $('socialSearchKeyword');
+  const result = $('socialSearchResult');
+  const loading = $('socialSearchLoading');
+  const pop = document.querySelector('#socialFollowAddForm .social-search-pop');
+  if (category) category.value = 'dj';
+  if (keyword) {
+    keyword.value = '';
+    keyword.placeholder = 'DJ NAME 입력...';
+  }
+  if (result) {
+    result.textContent = '';
+    result.classList.add('hidden');
+  }
+  if (loading) loading.classList.add('hidden');
+  if (pop) pop.classList.remove('is-busy', 'has-result');
+  socialSearchTarget = null;
+}
+
+function renderSocialSearchHit(row) {
+  const box = $('socialSearchResult');
+  const pop = document.querySelector('#socialFollowAddForm .social-search-pop');
+  if (!box) return;
+  if (!row?.auth_user_id) {
+    socialSearchTarget = null;
+    if (pop) pop.classList.remove('has-result');
+    box.classList.remove('hidden');
+    box.textContent = '검색 결과가 없습니다.';
+    return;
+  }
+  const acc = activeAcc();
+  const targetId = String(row.auth_user_id || '');
+  const alreadyFollowing = (socialOverviewRows || []).some((r) =>
+    r.relation_type === 'follow'
+    && (r.direction || 'following') === 'following'
+    && String(r.peer_user_id || '') === targetId
+  );
+  const isSelf = !!acc?.googleAuthUserId && String(acc.googleAuthUserId) === targetId;
+  socialSearchTarget = row;
+  const disabled = alreadyFollowing || isSelf;
+  const btnLabel = '+';
+  const hasIcon = !!String(row.icon_data_url || '').trim();
+  if (pop) pop.classList.add('has-result');
+  box.classList.remove('hidden');
+  box.innerHTML = `
+    <div class="social-search-hit">
+      <div class="social-follow-user">
+        <div class="social-avatar social-avatar-plain">
+          ${hasIcon ? `<img src="${esc(row.icon_data_url)}" alt="${esc(row.dj_name || 'user')}" />` : '<span class="social-avatar-person">👤</span>'}
+        </div>
+        <div>
+          <div class="social-follow-name">${esc(row.dj_name || 'UNKNOWN')}</div>
+          <div class="social-item-sub">${esc(row.infinitas_id || '')}</div>
+        </div>
+        <button type="button" class="social-search-add-btn ${disabled ? 'disabled' : ''}" ${disabled ? 'disabled' : ''} data-search-follow="${esc(targetId)}">${btnLabel}</button>
+      </div>
+    </div>
+  `;
+}
+
 function clearRefluxGoalCards() {
   state.refluxGoalCards = [];
   state.refluxFocusGoalId = null;
@@ -3944,83 +4019,145 @@ function setupEvents(){
   });
 
   $('btnSocialSearchUser')?.addEventListener('click', async () => {
-    const idInput = String($('socialSearchInfinitasId')?.value || '').trim();
-    const djInput = String($('socialSearchDjName')?.value || '').trim();
     const box = $('socialSearchResult');
-    if (!box) return;
-    if (!idInput && !djInput) {
-      box.textContent = 'DJ NAME 또는 INFINITAS ID를 입력하세요.';
+    const loading = $('socialSearchLoading');
+    const category = String($('socialSearchCategory')?.value || 'dj');
+    const keywordRaw = String($('socialSearchKeyword')?.value || '').trim();
+    const pop = document.querySelector('#socialFollowAddForm .social-search-pop');
+    if (!box || !loading) return;
+    if (!keywordRaw) {
+      if (pop) pop.classList.remove('has-result');
+      box.classList.remove('hidden');
+      box.textContent = category === 'id' ? 'INFINITAS ID를 입력하세요.' : 'DJ NAME을 입력하세요.';
       return;
     }
     const client = getSupabaseClient();
     if (!client) {
+      if (pop) pop.classList.remove('has-result');
+      box.classList.remove('hidden');
       box.textContent = 'Supabase 연결이 없습니다.';
       return;
     }
+    if (pop) {
+      pop.classList.add('is-busy');
+      pop.classList.remove('has-result');
+    }
+    box.textContent = '';
+    box.classList.add('hidden');
+    loading.classList.remove('hidden');
     let row = null;
-    if (idInput) {
-      if (!isValidInfinitasId(idInput)) {
-        box.textContent = '유효한 INFINITAS ID(C-XXXX-XXXX-XXXX)를 입력하세요.';
-        return;
-      }
-      const { data, error } = await client.rpc('get_public_profile_by_infinitas_id', { p_infinitas_id: idInput });
-      if (error) {
-        box.textContent = `검색 실패: ${error.message}`;
-        return;
-      }
-      row = Array.isArray(data) ? data[0] : null;
-    } else {
-      const { data, error } = await client.rpc('get_public_profile_by_dj_name', { p_dj_name: djInput });
-      if (!error) {
-        row = Array.isArray(data) ? data[0] : null;
-      } else {
-        const fallback = await client
-          .from('users')
-          .select('auth_user_id, infinitas_id, dj_name, google_email, icon_data_url')
-          .ilike('dj_name', djInput)
-          .limit(1);
-        if (fallback.error) {
+    try {
+      if (category === 'id') {
+        const normalized = normalizeInfinitasIdForSearch(keywordRaw);
+        if (!normalized) {
+          if (pop) pop.classList.remove('is-busy');
+          box.classList.remove('hidden');
+          box.textContent = 'INFINITAS ID 12자리를 입력하세요.';
+          return;
+        }
+        $('socialSearchKeyword').value = normalized;
+        const { data, error } = await client.rpc('get_public_profile_by_infinitas_id', { p_infinitas_id: normalized });
+        if (error) {
+          if (pop) pop.classList.remove('is-busy');
+          box.classList.remove('hidden');
           box.textContent = `검색 실패: ${error.message}`;
           return;
         }
-        row = Array.isArray(fallback.data) ? fallback.data[0] : null;
-        if (row) row.share_data_scope = ['all', 'graphs', 'goals'];
+        row = Array.isArray(data) ? data[0] : null;
+      } else {
+        const { data, error } = await client.rpc('get_public_profile_by_dj_name', { p_dj_name: keywordRaw });
+        if (!error) {
+          row = Array.isArray(data) ? data[0] : null;
+        } else {
+          const fallback = await client
+            .from('users')
+            .select('auth_user_id, infinitas_id, dj_name, google_email, icon_data_url')
+            .ilike('dj_name', keywordRaw)
+            .limit(1);
+          if (fallback.error) {
+            if (pop) pop.classList.remove('is-busy');
+            box.classList.remove('hidden');
+            box.textContent = `검색 실패: ${error.message}`;
+            return;
+          }
+          row = Array.isArray(fallback.data) ? fallback.data[0] : null;
+        }
       }
-    }
-    if (!row) {
-      socialSearchTarget = null;
-      box.textContent = '검색 결과가 없습니다.';
+      renderSocialSearchHit(row);
       renderSocialPanel();
-      return;
+    } finally {
+      if (pop) pop.classList.remove('is-busy');
+      loading.classList.add('hidden');
     }
-    socialSearchTarget = row;
-    let scopesInput = [];
-    if (Array.isArray(row.share_data_scope)) scopesInput = row.share_data_scope;
-    else if (typeof row.share_data_scope === 'string') {
-      try { scopesInput = JSON.parse(row.share_data_scope); } catch { scopesInput = []; }
-    }
-    const scopes = normalizeShareDataScope(scopesInput);
-    const goalsAllowed = scopes.includes('all') || scopes.includes('goals');
-    box.textContent = `${row.dj_name} (${row.infinitas_id}) 검색됨 / 목표 공유: ${goalsAllowed ? '허용' : '불가'}`;
-    renderSocialPanel();
   });
-  $('btnSocialOpenFollowAdd')?.addEventListener('click', () => {
-    $('socialSearchDjName').value = '';
-    $('socialSearchInfinitasId').value = '';
-    $('socialSearchResult').textContent = '검색 대기 중';
+  const openSocialSearchDialog = () => {
+    resetSocialSearchUi();
     $('socialFollowAddDialog')?.showModal();
-  });
+  };
+  $('btnSocialOpenFollowAdd')?.addEventListener('click', openSocialSearchDialog);
   $('socialMyCard')?.addEventListener('click', (e) => {
     if (e.target.closest('#btnSocialOpenFollowAdd')) {
-      $('socialSearchDjName').value = '';
-      $('socialSearchInfinitasId').value = '';
-      $('socialSearchResult').textContent = '검색 대기 중';
-      $('socialFollowAddDialog')?.showModal();
+      openSocialSearchDialog();
     }
     if (e.target.closest('#btnSocialBannerSetting')) {
       openBannerPickerWithGuide();
     }
   });
+  $('socialSearchCategory')?.addEventListener('change', () => {
+    const category = String($('socialSearchCategory')?.value || 'dj');
+    const input = $('socialSearchKeyword');
+    const box = $('socialSearchResult');
+    if (!input || !box) return;
+    input.value = '';
+    input.placeholder = category === 'id' ? 'C-XXXX-XXXX-XXXX 입력' : 'DJ NAME 입력...';
+    box.textContent = '';
+    box.classList.add('hidden');
+    socialSearchTarget = null;
+  });
+  $('socialSearchKeyword')?.addEventListener('input', (e) => {
+    const category = String($('socialSearchCategory')?.value || 'dj');
+    if (category !== 'id') return;
+    const el = e.target;
+    const formatted = formatInfinitasIdDisplay(el.value || '');
+    if (formatted !== el.value) el.value = formatted;
+  });
+  $('socialSearchKeyword')?.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter') return;
+    e.preventDefault();
+    $('btnSocialSearchUser')?.click();
+  });
+  $('socialSearchResult')?.addEventListener('click', async (e) => {
+    const btn = e.target.closest('[data-search-follow]');
+    if (!btn || btn.disabled) return;
+    const target = btn.getAttribute('data-search-follow') || '';
+    if (!target) return;
+    const client = getSupabaseClient();
+    if (!client) return;
+    btn.disabled = true;
+    try {
+      const { data, error } = await client.rpc('send_follow_request', { p_target_user_id: target });
+      if (error) throw error;
+      const result = String(data || '');
+      if (result === 'auto_accepted') toast('팔로우가 자동 허가되었습니다.', 'success');
+      else if (result === 'already_following') toast('이미 팔로우 중입니다.', 'info');
+      else toast('팔로우 요청을 전송했습니다.', 'success');
+      $('socialFollowAddDialog')?.close('done');
+      await refreshSocialOverview();
+    } catch (err) {
+      btn.disabled = false;
+      toast(`팔로우 요청 실패: ${err.message || err}`, 'error');
+    }
+  });
+  $('socialFollowAddDialog')?.addEventListener('click', (e) => {
+    const dialog = $('socialFollowAddDialog');
+    if (!dialog) return;
+    if (e.target === dialog) dialog.close('dismiss');
+  });
+  $('socialFollowAddForm')?.addEventListener('click', (e) => {
+    if (e.target !== e.currentTarget) return;
+    $('socialFollowAddDialog')?.close('dismiss');
+  });
+  $('socialFollowAddDialog')?.addEventListener('close', resetSocialSearchUi);
   $('btnSocialFeedClearAll')?.addEventListener('click', () => {
     dismissAllFeedItems();
   });
@@ -4075,32 +4212,6 @@ function setupEvents(){
       toast(`배경 이미지 적용 실패: ${err.message || err}`, 'error');
     } finally {
       e.target.value = '';
-    }
-  });
-  $('btnSocialSendFollowRequest')?.addEventListener('click', async () => {
-    if (!socialSearchTarget?.auth_user_id) {
-      toast('먼저 검색으로 대상을 선택하세요.', 'warning');
-      return;
-    }
-    const client = getSupabaseClient();
-    if (!client) return;
-    try {
-      const { data, error } = await client.rpc('send_follow_request', { p_target_user_id: socialSearchTarget.auth_user_id });
-      if (error) throw error;
-      const result = String(data || '');
-      if (result === 'auto_accepted') toast('팔로우가 자동 허가되었습니다.', 'success');
-      else if (result === 'already_following') toast('이미 팔로우 중입니다.', 'info');
-      else toast('팔로우 요청을 전송했습니다.', 'success');
-      await refreshSocialOverview();
-    } catch (e) {
-      toast(`팔로우 요청 실패: ${e.message || e}`, 'error');
-    }
-  });
-  $('btnSocialSendGoals')?.addEventListener('click', async () => {
-    try {
-      await sendGoalsToSelectedUser();
-    } catch (e) {
-      toast(`목표 전송 실패: ${e.message || e}`, 'error');
     }
   });
   $('socialFollowersPopup')?.addEventListener('click', async (e) => {

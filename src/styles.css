@@ -1956,7 +1956,7 @@ button.danger {
   display: grid;
   grid-template-columns: 280px minmax(0, 1fr) 280px;
   gap: 14px;
-  min-height: 480px;
+  min-height: 520px;
   background:
     radial-gradient(circle at 12% -20%, rgba(145, 186, 238, 0.35), transparent 42%),
     radial-gradient(circle at 95% 12%, rgba(178, 214, 255, 0.4), transparent 34%),
@@ -1978,6 +1978,11 @@ button.danger {
   background: linear-gradient(180deg, #ffffff 0%, #f9fbff 100%);
   padding: 12px;
   box-shadow: 0 8px 24px rgba(21, 38, 63, 0.08);
+}
+
+.social-col-center .social-card {
+  display: flex;
+  flex-direction: column;
 }
 
 .social-card-title {
@@ -2045,6 +2050,185 @@ button.danger {
   font-size: 12px;
 }
 
+#socialFollowAddDialog {
+  width: min(560px, 92vw);
+  border: 0;
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+  overflow: visible;
+}
+
+#socialFollowAddForm {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  overflow: visible;
+}
+
+.social-search-pop {
+  width: min(560px, 90vw);
+  position: relative;
+  min-height: 120px;
+}
+
+.social-search-bar {
+  display: grid;
+  grid-template-columns: 132px minmax(0, 1fr) 48px;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #afc0d7;
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(29, 37, 50, 0.28);
+  transition: box-shadow 180ms ease, transform 220ms ease;
+}
+
+.social-search-bar:focus-within {
+  box-shadow: 0 12px 34px rgba(29, 37, 50, 0.32);
+}
+
+.social-search-pop.has-result .social-search-bar,
+.social-search-pop.is-busy .social-search-bar {
+  transform: translateY(-4px);
+}
+
+.social-search-bar select,
+.social-search-bar input {
+  border: 0;
+  min-height: 42px;
+  font-size: 13px;
+  background: transparent;
+}
+
+.social-search-bar select {
+  padding: 0 10px;
+  border-right: 1px solid #d2dced;
+  font-weight: 700;
+  color: #2f4868;
+}
+
+.social-search-bar input {
+  padding: 0 12px;
+  color: #203552;
+}
+
+.social-search-btn {
+  border: 0;
+  border-left: 1px solid #d2dced;
+  border-radius: 0;
+  min-height: 42px;
+  background: linear-gradient(180deg, #eef5ff 0%, #e4eefc 100%);
+  color: #365a86;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.social-search-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.social-search-loading {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 56px;
+  height: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: #5f80a8;
+}
+
+.social-search-loading span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.5;
+  animation: socialSearchDot 1s ease-in-out infinite;
+}
+
+.social-search-loading span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.social-search-loading span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes socialSearchDot {
+  0%, 100% { transform: translateY(0); opacity: 0.45; }
+  50% { transform: translateY(-3px); opacity: 1; }
+}
+
+.social-search-hit {
+  width: min(360px, 86vw);
+  animation: socialSearchHitIn 240ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.social-search-hit .social-follow-user {
+  grid-template-columns: 36px minmax(0, 1fr) auto;
+  gap: 10px;
+}
+
+.social-search-add-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  border: 1px solid #1d1d1d;
+  background: linear-gradient(180deg, #2d2d2d 0%, #151515 100%);
+  color: #ffffff;
+  font-size: 20px;
+  line-height: 1;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 120ms ease, box-shadow 140ms ease;
+}
+
+.social-search-add-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 14px rgba(0, 0, 0, 0.36);
+}
+
+.social-search-add-btn.disabled,
+.social-search-add-btn:disabled {
+  border-color: #a9b2c0;
+  background: #d3d8e1;
+  color: #7f8896;
+  cursor: default;
+  box-shadow: none;
+}
+
+.social-search-result {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 54px;
+  display: grid;
+  justify-items: center;
+}
+
+.social-search-result.hidden {
+  display: none;
+}
+
+@keyframes socialSearchHitIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 .social-requests,
 .social-feed,
 .social-follow-list {
@@ -2056,6 +2240,9 @@ button.danger {
   position: relative;
   padding-left: 18px;
   gap: 10px;
+  max-height: min(58vh, 560px);
+  overflow: auto;
+  padding-right: 2px;
 }
 
 .social-feed::before {
