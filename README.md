@@ -1,6 +1,6 @@
 ﻿# INFINITAS Table Maker
 
-**Reflux**(https://github.com/olji/Reflux)를 통해 추출한 INFINITAS 플레이 데이터를 기반으로 SP10/11/12 HARD 서열표, 히스토리, 목표 기능들 수행하는 프로그램입니다.
+**Reflux**(https://github.com/olji/Reflux) 를 통해 추출한 INFINITAS 플레이 데이터를 기반으로 SP10/11/12 HARD 서열표, 히스토리, 목표 기능들 수행하는 프로그램입니다.
 
 ## 주요 기능
 - **서열표**: SP10/11/12 HARD Table, 일반/WIDE, 서열표 다운로드, 노트 레이더 정보 확인 등
