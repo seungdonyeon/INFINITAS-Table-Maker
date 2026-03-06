@@ -31,6 +31,8 @@ const ICON_MAX_HEIGHT = 512;
 const BANNER_MAX_BYTES = 4 * 1024 * 1024;
 const BANNER_MAX_WIDTH = 1920;
 const BANNER_MAX_HEIGHT = 1080;
+const APP_VERSION = '1.0.3';
+const APP_RELEASES_LATEST_API = 'https://api.github.com/repos/seungdonyeon/INFINITAS-Table-Maker/releases/latest';
 const DEFAULT_SOCIAL_SETTINGS = Object.freeze({
   discoverability: 'searchable',
   discoverByDjName: true,
@@ -99,6 +101,7 @@ let socialRenderCache = { my: '', feed: '', list: '', title: '' };
 let socialPeerMenuState = null;
 let goalSendContext = null;
 let songGoalChart = null;
+let appVersionCheckWarned = false;
 
 const $ = (id) => document.getElementById(id);
 const authContext = (() => {
@@ -921,6 +924,92 @@ function toast(msg, type = 'info') {
   el.classList.remove('hidden');
   if (toastTimer) clearTimeout(toastTimer);
   toastTimer = setTimeout(() => el.classList.add('hidden'), 3000);
+}
+
+function semverParts(version) {
+  const m = String(version || '').trim().replace(/^v/i, '').match(/^(\d+)\.(\d+)\.(\d+)/);
+  if (!m) return [0, 0, 0];
+  return [Number(m[1]) || 0, Number(m[2]) || 0, Number(m[3]) || 0];
+}
+
+function semverCompare(a, b) {
+  const av = semverParts(a);
+  const bv = semverParts(b);
+  for (let i = 0; i < 3; i += 1) {
+    if (av[i] > bv[i]) return 1;
+    if (av[i] < bv[i]) return -1;
+  }
+  return 0;
+}
+
+function setAppVersionBadge(status, { currentVersion = '', latestVersion = '', error = '' } = {}) {
+  const badge = $('appVersionBadge');
+  if (!badge) return;
+  badge.className = `app-version-badge ${status}`;
+  if (status === 'latest') {
+    badge.textContent = `v${currentVersion} 최신`;
+    badge.title = `현재 최신 버전입니다. (v${currentVersion})`;
+    return;
+  }
+  if (status === 'outdated') {
+    badge.textContent = `v${currentVersion} 업데이트 필요`;
+    badge.title = `최신 버전 v${latestVersion}이 있습니다.`;
+    return;
+  }
+  if (status === 'ahead') {
+    badge.textContent = `v${currentVersion} 개발 버전`;
+    badge.title = '릴리즈 최신 버전보다 높은 버전입니다.';
+    return;
+  }
+  badge.textContent = currentVersion ? `v${currentVersion} 확인 실패` : '버전 확인 실패';
+  badge.title = error || '네트워크 상태를 확인한 뒤 다시 시도하세요.';
+}
+
+async function initAppVersionStatus() {
+  const badge = $('appVersionBadge');
+  const makerVersionText = $('makerVersionText');
+  if (!badge || !makerVersionText) return;
+  const currentVersion = APP_VERSION;
+  makerVersionText.textContent = currentVersion;
+  setAppVersionBadge('checking', { currentVersion });
+
+  let latestInfo = null;
+  try {
+    const res = await fetch(APP_RELEASES_LATEST_API, {
+      headers: { Accept: 'application/vnd.github+json' },
+      cache: 'no-store'
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const json = await res.json();
+    latestInfo = {
+      ok: true,
+      currentVersion,
+      latestTag: String(json?.tag_name || ''),
+      latestVersion: String(json?.tag_name || '').replace(/^v/i, '')
+    };
+  } catch (e) {
+    latestInfo = { ok: false, error: e?.message || String(e || '버전 확인 실패'), currentVersion };
+  }
+  if (!latestInfo?.ok) {
+    setAppVersionBadge('unknown', {
+      currentVersion: latestInfo?.currentVersion || currentVersion,
+      error: latestInfo?.error || '버전 확인 실패'
+    });
+    return;
+  }
+
+  const latestVersion = latestInfo.latestVersion || String(latestInfo.latestTag || '').replace(/^v/i, '');
+  const current = latestInfo.currentVersion || currentVersion;
+  const status = latestInfo.status || (semverCompare(current, latestVersion) < 0 ? 'outdated' : 'latest');
+  setAppVersionBadge(status, { currentVersion: current, latestVersion });
+  if (status === 'outdated' && !appVersionCheckWarned) {
+    appVersionCheckWarned = true;
+    toast(`새 버전 v${latestVersion}이 있습니다. (현재 v${current})`, 'warning');
+    uiConfirm(
+      `새 버전 v${latestVersion}이 있습니다.\n현재 버전: v${current}`,
+      { title: '업데이트 알림', okText: '확인', showCancel: false }
+    );
+  }
 }
 
 async function uiConfirm(message, { title = '확인', okText = '확인', cancelText = '취소', showCancel = true } = {}) {
@@ -4601,6 +4690,7 @@ async function init(){
   setupEvents();
   initSlidingControls();
   authContext.subscribe(() => renderAuthStatus());
+  void initAppVersionStatus();
   updateRefluxDialogButtons();
   $('goalKind').dispatchEvent(new Event('change'));
   syncGoalTargetInputVisibility();

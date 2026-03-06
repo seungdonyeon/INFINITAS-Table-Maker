@@ -15,7 +15,10 @@
     <div class="app-shell">
       <header class="top-header panel">
         <div class="brand-wrap">
-          <h1><span class="brand-main">INFINITAS</span> <span class="brand-aurora">Table Maker</span></h1>
+          <div class="brand-title-row">
+            <h1><span class="brand-main">INFINITAS</span> <span class="brand-aurora">Table Maker</span></h1>
+            <span id="appVersionBadge" class="app-version-badge checking" title="Version checking">Version checking...</span>
+          </div>
           <p id="trackerPathLabel">데이터 미업로드</p>
         </div>
         <div class="header-actions">
@@ -488,7 +491,7 @@
             <div class="settings-panel-content" data-settings-panel="version">
               <div class="settings-version-card settings-version-card-maker">
                 <div><strong>INFINITAS Table Maker</strong></div>
-                <div>Version: 1.0.2</div>
+                <div>Version: <span id="makerVersionText">-</span></div>
               </div>
               <div class="settings-version-card settings-version-card-reflux">
                 <div><strong>Reflux</strong></div>

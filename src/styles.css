@@ -76,6 +76,54 @@ select {
   min-width: 0;
 }
 
+.brand-title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.app-version-badge {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  user-select: none;
+  transition: box-shadow 0.14s ease, background-color 0.14s ease;
+}
+
+.app-version-badge.checking,
+.app-version-badge.unknown {
+  background: #e4e9f1;
+  color: #435269;
+  border-color: #c1ccd9;
+}
+
+.app-version-badge.latest {
+  background: #d9f5df;
+  color: #1d6e34;
+  border-color: #8ed3a0;
+  box-shadow: 0 5px 14px rgba(39, 121, 63, 0.18);
+}
+
+.app-version-badge.outdated {
+  background: #fff4cc;
+  color: #7f5c00;
+  border-color: #e0bd4e;
+  box-shadow: 0 5px 14px rgba(156, 121, 23, 0.2);
+}
+
+.app-version-badge.ahead {
+  background: #dde9ff;
+  color: #2f5eaf;
+  border-color: #9fb7e6;
+}
+
+
 .brand-main {
   color: #111;
   font-weight: 800;
@@ -4211,3 +4259,29 @@ body.theme-dark .export-capture-wrap.theme-dark .export-graph-block {
   }
 }
 
+
+
+body.theme-dark .app-version-badge.checking,
+body.theme-dark .app-version-badge.unknown {
+  background: #1f2734;
+  color: #c3d3ec;
+  border-color: #3a4d67;
+}
+
+body.theme-dark .app-version-badge.latest {
+  background: #1f3a2a;
+  color: #89e9aa;
+  border-color: #2f7045;
+}
+
+body.theme-dark .app-version-badge.outdated {
+  background: #3f3520;
+  color: #ffd879;
+  border-color: #8e7330;
+}
+
+body.theme-dark .app-version-badge.ahead {
+  background: #1d2f4f;
+  color: #9bc3ff;
+  border-color: #3d5f93;
+}
