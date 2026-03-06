@@ -1,6 +1,6 @@
 {
   "name": "infinitas-rank-table-maker",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Desktop app for IIDX INFINITAS rank table tracking",
   "main": "main.js",
   "scripts": {

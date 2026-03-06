@@ -95,6 +95,7 @@ let socialOverviewRows = [];
 let socialProfileMap = new Map();
 let socialRelationStats = { following: 0, followers: 0 };
 let socialFollowersRows = [];
+let socialFollowersPopupAnchor = null;
 let socialFeedItems = [];
 let socialRenderCache = { my: '', feed: '', list: '', title: '' };
 let socialPeerMenuState = null;
@@ -856,6 +857,7 @@ function decorateButtons(root = document) {
       btn.classList.contains('it-search-toggle') ||
       btn.classList.contains('google-link-btn') ||
       btn.classList.contains('settings-nav-btn') ||
+      btn.classList.contains('social-feed-close') ||
       btn.classList.contains('history-item') ||
       btn.classList.contains('history-accordion-btn') ||
       btn.hasAttribute('data-table') ||
@@ -2033,6 +2035,7 @@ async function refreshSocialOverview() {
     await loadSocialFeedEvents(client);
   }
   renderSocialPanel();
+  syncFollowersPopupIfOpen();
 }
 
 function feedEventToItem(row) {
@@ -2140,10 +2143,31 @@ async function loadSocialFeedEvents(client) {
     socialFeedItems = [];
     return;
   }
+  const requestStatusById = new Map(
+    (socialOverviewRows || [])
+      .filter((r) => String(r?.relation_type || '').startsWith('request_') && r?.request_id)
+      .map((r) => [String(r.request_id), String(r.status || '').toLowerCase()])
+  );
+  const staleEventIds = [];
   socialFeedItems = (Array.isArray(data) ? data : [])
     .map(feedEventToItem)
     .filter(Boolean)
+    .filter((item) => {
+      if (item.type !== 'follow_request_received') return true;
+      const requestId = String(item?.payload?.request_id || '');
+      if (!requestId) return true;
+      const status = requestStatusById.get(requestId);
+      if (!status || status === 'pending') return true;
+      staleEventIds.push(String(item.id || ''));
+      return false;
+    })
     .sort((a, b) => Date.parse(b.created_at || 0) - Date.parse(a.created_at || 0));
+  if (staleEventIds.length) {
+    staleEventIds.forEach((id) => {
+      if (!id) return;
+      Promise.resolve(client.rpc('dismiss_feed_event', { p_event_id: id })).then(() => {}, () => {});
+    });
+  }
 }
 
 function feedTypeLabel(type) {
@@ -2173,28 +2197,49 @@ function dismissFeedItem(feedId) {
   if (!id) return;
   const client = getSupabaseClient();
   if (client) {
-    client.rpc('dismiss_feed_event', { p_event_id: id }).catch(() => {});
+    Promise.resolve(client.rpc('dismiss_feed_event', { p_event_id: id })).then(() => {}, () => {});
   }
   socialFeedItems = (socialFeedItems || []).filter((x) => x.id !== id);
   renderSocialPanel();
 }
 
-function dismissAllFeedItems() {
+async function dismissAllFeedItems({ autoRejectFollow = false } = {}) {
   const client = getSupabaseClient();
+  if (client && autoRejectFollow) {
+    const requestIds = [...new Set(
+      (socialFeedItems || [])
+        .filter((x) => x.type === 'follow_request_received')
+        .map((x) => String(x?.payload?.request_id || ''))
+        .filter(Boolean)
+    )];
+    for (const requestId of requestIds) {
+      try {
+        await client.rpc('respond_follow_request', { p_request_id: requestId, p_accept: false });
+      } catch {
+        // ignore not-found/already-processed requests
+      }
+    }
+  }
   if (client) {
-    client.rpc('dismiss_all_feed_events').catch(() => {});
+    try {
+      await client.rpc('dismiss_all_feed_events');
+    } catch {
+      // ignore
+    }
   }
   socialFeedItems = [];
   renderSocialPanel();
 }
 
 function closeFollowersPopup() {
+  socialFollowersPopupAnchor = null;
   $('socialFollowersPopup')?.classList.add('hidden');
 }
 
 function openFollowersPopupAt(clientX, clientY, followerRows) {
   const popup = $('socialFollowersPopup');
   if (!popup) return;
+  socialFollowersPopupAnchor = { x: Number(clientX) || 0, y: Number(clientY) || 0 };
   const list = Array.isArray(followerRows) ? followerRows : [];
   popup.innerHTML = list.length
     ? list.map((row) => {
@@ -2226,6 +2271,35 @@ function openFollowersPopupAt(clientX, clientY, followerRows) {
   const top = Math.min(Math.max(margin, clientY + 8), maxTop);
   popup.style.left = `${left}px`;
   popup.style.top = `${top}px`;
+}
+
+function syncFollowersPopupIfOpen() {
+  const popup = $('socialFollowersPopup');
+  if (!popup || popup.classList.contains('hidden') || !socialFollowersPopupAnchor) return;
+  openFollowersPopupAt(socialFollowersPopupAnchor.x, socialFollowersPopupAnchor.y, socialFollowersRows);
+}
+
+async function fetchLatestFollowerRows() {
+  const client = getSupabaseClient();
+  const uid = await getLinkedSessionUserId();
+  if (!client || !uid) return [];
+  const listRes = await client.rpc('get_follow_lists');
+  if (listRes.error || !Array.isArray(listRes.data)) return [];
+  const rows = listRes.data
+    .filter((r) => String(r.direction || '') === 'follower')
+    .map((r) => ({
+      relation_type: 'follow',
+      request_id: null,
+      peer_user_id: r.peer_user_id,
+      dj_name: r.dj_name,
+      infinitas_id: r.infinitas_id,
+      status: 'accepted',
+      created_at: r.created_at,
+      direction: r.direction,
+      icon_data_url: r.icon_data_url || ''
+    }));
+  socialFollowersRows = rows;
+  return rows;
 }
 
 function hideSocialPeerMenu() {
@@ -2362,6 +2436,7 @@ function renderSocialPanel() {
   const followsAll = rows.filter((r) => r.relation_type === 'follow');
   const followingRows = followsAll.filter((r) => (r.direction || 'following') === 'following');
   const followerRows = socialFollowersRows.length ? socialFollowersRows : followsAll.filter((r) => (r.direction || 'following') === 'follower');
+  const followerPeerSet = new Set(followerRows.map((r) => String(r.peer_user_id || '')));
   if (followListTitle && socialRenderCache.title !== '팔로우 목록') {
     followListTitle.textContent = '팔로우 목록';
     socialRenderCache.title = '팔로우 목록';
@@ -2401,23 +2476,34 @@ function renderSocialPanel() {
   const feedMarkup = socialFeedItems.length
     ? socialFeedItems.slice(0, 60).map((item, idx) => {
       const profile = socialProfileMap.get(String(item.peer_user_id || '')) || {};
-      const hasIcon = !!String(item.icon_data_url || profile.icon || '').trim();
       const icon = String(item.icon_data_url || profile.icon || '');
-      return `
-      <article class="social-feed-post ${feedTypeClass(item.type)}" style="--feed-order:${idx}" data-feed-id="${esc(item.id)}">
-        <button type="button" class="social-feed-close" data-feed-dismiss="${esc(item.id)}" title="삭제">×</button>
-        <div class="social-feed-dot"></div>
-        <div class="social-feed-avatar">${hasIcon ? `<img src="${esc(icon)}" alt="${esc(item.title)}" />` : '<span class="social-avatar-person">S</span>'}</div>
-        <div class="social-feed-head">${esc(item.title)}</div>
-        <div class="social-feed-meta">${esc(fmt(item.created_at || nowIso()))}</div>
-        <div class="social-feed-body">${esc(item.body)}</div>
-        ${item.type === 'goal_transfer_received' && item.payload?.transfer_id
-          ? `<div class="social-feed-actions">
+      const hasIcon = !!icon.trim();
+      const followRequestId = String(item.payload?.request_id || '');
+      const followPeerId = String(item.peer_user_id || '');
+      const followRequestActions = item.type === 'follow_request_received' && followRequestId
+        ? `<div class="social-feed-actions social-feed-actions-follow">
+              <button type="button" class="social-feed-action-btn accept" data-feed-action="follow-accept" data-request-id="${esc(followRequestId)}" data-peer-user-id="${esc(followPeerId)}">승인</button>
+              <button type="button" class="social-feed-action-btn reject" data-feed-action="follow-reject" data-request-id="${esc(followRequestId)}">거부</button>
+            </div>`
+        : '';
+      const goalTransferActions = item.type === 'goal_transfer_received' && item.payload?.transfer_id
+        ? `<div class="social-feed-actions">
               <button type="button" class="social-feed-action-btn accept" data-feed-action="goal-accept" data-transfer-id="${esc(item.payload.transfer_id)}">승인</button>
               <button type="button" class="social-feed-action-btn reject" data-feed-action="goal-reject" data-transfer-id="${esc(item.payload.transfer_id)}">거절</button>
             </div>`
-          : ''}
-        <div class="social-feed-tags"><span>${esc(feedTypeLabel(item.type))}</span></div>
+        : '';
+      return `
+      <article class="social-feed-post ${feedTypeClass(item.type)}" style="--feed-order:${idx}" data-feed-id="${esc(item.id)}">
+        ${item.type === 'follow_request_received' ? '' : `<button type="button" class="social-feed-close" data-feed-dismiss="${esc(item.id)}" title="삭제">×</button>`}
+        <div class="social-feed-dot"></div>
+        <div class="social-feed-avatar">
+          ${hasIcon ? `<img src="${esc(icon)}" alt="${esc(item.title)}" />` : '<span class="social-avatar-person">👤</span>'}
+        </div>
+        <div class="social-feed-head">${esc(item.title)}</div>
+        <div class="social-feed-meta">${esc(fmt(item.created_at || nowIso()))}</div>
+        <div class="social-feed-body">${esc(item.body)}</div>
+        ${followRequestActions}
+        ${goalTransferActions}
       </article>`;
     }).join('')
     : '<div class="history-empty">새 피드가 없습니다.</div>';
@@ -2432,8 +2518,10 @@ function renderSocialPanel() {
       const pid = String(row.peer_user_id || '');
       const profile = socialProfileMap.get(pid) || {};
       const hasIcon = !!String(profile.icon || '').trim();
+      const isMutual = followerPeerSet.has(pid);
       return `
-      <div class="social-follow-user">
+      <div class="social-follow-user social-follow-user-following${isMutual ? ' is-mutual' : ''}">
+        ${isMutual ? '<span class="social-mutual-badge">맞팔</span>' : ''}
         <button type="button" class="social-avatar social-avatar-plain" data-peer-avatar="${esc(pid)}" data-peer-dj-name="${esc(row.dj_name || 'UNKNOWN')}" data-peer-infinitas-id="${esc(row.infinitas_id || '')}">
           ${hasIcon
             ? `<img src="${esc(profile.icon)}" alt="${esc(row.dj_name || 'user')}" />`
@@ -2454,10 +2542,15 @@ function renderSocialPanel() {
 
   const followerBtn = myCard.querySelector('[data-open-followers]');
   if (followerBtn) {
-    followerBtn.onclick = (ev) => {
+    followerBtn.onclick = async (ev) => {
       ev.preventDefault();
       ev.stopPropagation();
-      openFollowersPopupAt(ev.clientX, ev.clientY, followerRows);
+      const latestRows = await fetchLatestFollowerRows();
+      if (Array.isArray(latestRows)) {
+        socialRelationStats.followers = latestRows.length;
+      }
+      renderSocialPanel();
+      openFollowersPopupAt(ev.clientX, ev.clientY, latestRows.length ? latestRows : followerRows);
     };
   }
 }
@@ -4483,13 +4576,75 @@ function setupEvents(){
   });
   $('socialFollowAddDialog')?.addEventListener('close', resetSocialSearchUi);
   $('btnSocialFeedClearAll')?.addEventListener('click', () => {
-    dismissAllFeedItems();
+    uiConfirm(
+      '피드를 전체 삭제하시겠습니까?\n팔로우 피드는 자동으로 거절됩니다.',
+      { title: '피드 전체 삭제', okText: '삭제', cancelText: '취소', showCancel: true }
+    ).then(async (ok) => {
+      if (!ok) return;
+      await dismissAllFeedItems({ autoRejectFollow: true });
+      toast('피드를 전체 삭제했습니다.', 'success');
+    });
   });
   $('socialFeed')?.addEventListener('click', (e) => {
     const actionBtn = e.target.closest('[data-feed-action]');
     if (actionBtn) {
-      const transferId = actionBtn.getAttribute('data-transfer-id') || '';
       const action = actionBtn.getAttribute('data-feed-action') || '';
+      if (action === 'follow-accept' || action === 'follow-reject') {
+        const requestId = actionBtn.getAttribute('data-request-id') || '';
+        const peerUserId = actionBtn.getAttribute('data-peer-user-id') || '';
+        const feedId = String(actionBtn.closest('.social-feed-post')?.getAttribute('data-feed-id') || '');
+        const client = getSupabaseClient();
+        if (!client || !requestId) return;
+        const accept = action === 'follow-accept';
+        client.rpc('respond_follow_request', { p_request_id: requestId, p_accept: accept })
+          .then(async ({ error }) => {
+            if (error) {
+              toast(`팔로우 요청 처리 실패: ${error.message || error}`, 'error');
+              return;
+            }
+            if (!accept) {
+              toast('팔로우 요청을 거부했습니다.', 'info');
+              if (feedId) dismissFeedItem(feedId);
+              await refreshSocialOverview();
+              return;
+            }
+            const alreadyFollowingBack = !!peerUserId && (socialOverviewRows || []).some((r) =>
+              r.relation_type === 'follow'
+              && (r.direction || 'following') === 'following'
+              && String(r.peer_user_id || '') === peerUserId
+            );
+            let doMatchBack = false;
+            if (alreadyFollowingBack) {
+              await uiConfirm(
+                '팔로우를 승인하였습니다!',
+                { title: '팔로우 승인', okText: '닫기', showCancel: false }
+              );
+            } else {
+              doMatchBack = await uiConfirm(
+                '팔로우를 승인하였습니다!',
+                { title: '팔로우 승인', okText: '나도 맞팔하기', cancelText: '닫기', showCancel: true }
+              );
+            }
+            if (doMatchBack && peerUserId) {
+              const sendRes = await client.rpc('send_follow_request', { p_target_user_id: peerUserId });
+              if (sendRes.error) {
+                toast(`맞팔 요청 실패: ${sendRes.error.message || sendRes.error}`, 'error');
+              } else {
+                const result = String(sendRes.data || '');
+                if (result === 'auto_accepted') toast('맞팔이 자동 허가되었습니다.', 'success');
+                else if (result === 'already_following') toast('이미 맞팔 상태입니다.', 'info');
+                else toast('맞팔 요청을 보냈습니다.', 'success');
+              }
+            }
+            if (feedId) dismissFeedItem(feedId);
+            await refreshSocialOverview();
+          })
+          .catch((err) => {
+            toast(`팔로우 요청 처리 실패: ${err.message || err}`, 'error');
+          });
+        return;
+      }
+      const transferId = actionBtn.getAttribute('data-transfer-id') || '';
       const client = getSupabaseClient();
       if (!client || !transferId) return;
       const accept = action === 'goal-accept';
@@ -4578,6 +4733,34 @@ function setupEvents(){
     hideSocialPeerMenu();
     if (!peer) return;
     openSocialCompareDialog(peer);
+  });
+  $('btnSocialPeerUnfollow')?.addEventListener('click', async () => {
+    const peer = socialPeerMenuState;
+    hideSocialPeerMenu();
+    if (!peer?.peer_user_id) return;
+    const ok = await uiConfirm(
+      '팔로우를 취소하시겠습니까?',
+      { title: '팔로우 취소', okText: '취소하기', cancelText: '닫기', showCancel: true }
+    );
+    if (!ok) return;
+    const client = getSupabaseClient();
+    if (!client) return;
+    const uid = String(authContext.get()?.user?.id || '');
+    if (!uid) {
+      toast('Google 로그인이 필요합니다.', 'warning');
+      return;
+    }
+    const { error } = await client
+      .from('follows')
+      .delete()
+      .eq('follower_user_id', uid)
+      .eq('following_user_id', String(peer.peer_user_id || ''));
+    if (error) {
+      toast(`팔로우 취소 실패: ${error.message || error}`, 'error');
+      return;
+    }
+    toast('팔로우를 취소했습니다.', 'success');
+    await refreshSocialOverview();
   });
   $('goalSendList')?.addEventListener('click', async (e) => {
     const btn = e.target.closest('[data-goal-send-peer]');
