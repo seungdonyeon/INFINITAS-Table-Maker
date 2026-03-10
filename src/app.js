@@ -4401,7 +4401,6 @@ function setupEvents(){
     hideGraphPopup();
     closeFollowersPopup();
     hideSocialPeerMenu();
-    closeSocialHistoryPopup();
   }, true);
 
   $('accountSelect').addEventListener('change', async (e) => {
