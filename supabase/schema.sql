@@ -499,6 +499,60 @@ $$;
 revoke all on function public.get_follow_tracker_rows(uuid) from public;
 grant execute on function public.get_follow_tracker_rows(uuid) to authenticated;
 
+create or replace function public.get_follow_history_detail(
+  p_peer_user_id uuid,
+  p_history_id text
+)
+returns table (
+  peer_user_id uuid,
+  dj_name text,
+  infinitas_id text,
+  history jsonb,
+  prev_history jsonb
+)
+language sql
+security definer
+set search_path = public
+as $$
+  with peer as (
+    select
+      u.auth_user_id as peer_user_id,
+      u.dj_name,
+      u.infinitas_id,
+      coalesce(a.history, '[]'::jsonb) as history_arr
+    from public.users u
+    left join public.account_states a on a.auth_user_id = u.auth_user_id
+    where u.auth_user_id = p_peer_user_id
+      and exists (
+        select 1
+        from public.follows f
+        where (f.follower_user_id = auth.uid() and f.following_user_id = p_peer_user_id)
+           or (f.following_user_id = auth.uid() and f.follower_user_id = p_peer_user_id)
+      )
+  ),
+  target as (
+    select
+      (h.ord - 1)::int as idx,
+      h.item as history
+    from peer p
+    cross join lateral jsonb_array_elements(p.history_arr) with ordinality as h(item, ord)
+    where coalesce(h.item->>'id', '') = coalesce(p_history_id, '')
+    order by h.ord desc
+    limit 1
+  )
+  select
+    p.peer_user_id,
+    p.dj_name,
+    p.infinitas_id,
+    t.history,
+    case when t.idx > 0 then p.history_arr -> (t.idx - 1) else null end as prev_history
+  from peer p
+  join target t on true;
+$$;
+
+revoke all on function public.get_follow_history_detail(uuid, text) from public;
+grant execute on function public.get_follow_history_detail(uuid, text) to authenticated;
+
 create or replace function public.purge_my_social_data()
 returns void
 language plpgsql

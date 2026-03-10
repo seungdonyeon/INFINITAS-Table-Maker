@@ -42,6 +42,10 @@ const DEFAULT_SOCIAL_SETTINGS = Object.freeze({
   rivalPolicy: 'followers'
 });
 
+function createHistorySectionState() {
+  return { clear: false, ramp: false, goal: false, radar: false };
+}
+
 const state = {
   activeTable: 'SP11H',
   rankTables: {},
@@ -54,7 +58,7 @@ const state = {
   activeAccountId: null,
   refluxExePath: '',
   selectedHistoryId: null,
-  historySectionOpen: { clear: false, ramp: false, goal: false, radar: false },
+  historySectionOpen: createHistorySectionState(),
   historySeenIds: new Set(),
   historyAnimateDetail: false,
   refluxRunning: false,
@@ -100,6 +104,7 @@ let socialFollowersPopupAnchor = null;
 let socialFeedItems = [];
 let socialRenderCache = { my: '', feed: '', list: '', title: '' };
 let socialPeerMenuState = null;
+let socialHistoryPopupState = null;
 let goalSendContext = null;
 let songGoalChart = null;
 let appVersionCheckWarned = false;
@@ -1633,6 +1638,157 @@ function renderRankTable(){
   renderGraphs();
 }
 
+function isInitialHistoryRecord(record) {
+  return record?.isInitial === true
+    || (Array.isArray(record?.updates) && record.updates.length === 1 && String(record.updates[0]).includes('최초'));
+}
+
+function normalizeHistoryUpdate(raw) {
+  if (typeof raw === 'object' && raw && raw.kind) return raw;
+  const text = String(raw || '');
+  const old = text.match(/^(.*?) \[(.)\] 램프 (.*?) -> (.*?) \| EX (\d+) -> (\d+) \(([+-]?\d+)\)$/);
+  if (old) {
+    return [
+      { kind: 'lamp', table: 'SP12H', title: old[1], type: old[2], from: old[3], to: old[4] },
+      { kind: 'score', table: 'SP12H', title: old[1], type: old[2], from: Number(old[5]), to: Number(old[6]), diff: Number(old[7]), rank: '-' }
+    ];
+  }
+  return [{ kind: 'text', table: 'SP12H', text }];
+}
+
+function parseHistoryRecord(value) {
+  if (!value) return null;
+  if (typeof value === 'string') {
+    try {
+      const parsed = JSON.parse(value);
+      return parsed && typeof parsed === 'object' ? parsed : null;
+    } catch {
+      return null;
+    }
+  }
+  if (typeof value === 'object') return value;
+  return null;
+}
+
+function buildHistoryDetailCardHtml(currentRecord, prevRecord, options = {}) {
+  const p = parseHistoryRecord(currentRecord);
+  const prev = parseHistoryRecord(prevRecord);
+  if (!p) return '<div class="history-empty">상세 데이터를 찾을 수 없습니다.</div>';
+  const sectionOpen = options.sectionOpen || createHistorySectionState();
+  const animate = !!options.animate;
+  const sectionAttr = String(options.sectionAttr || 'data-history-section').trim() || 'data-history-section';
+  if (isInitialHistoryRecord(p)) {
+    return `<div class="history-detail-card ${animate ? 'animate' : ''}">
+      <div><strong>${esc(fmt(p.timestamp))}</strong></div>
+      <div class="history-empty" style="margin-top:10px;">최초 업로드 데이터입니다.</div>
+    </div>`;
+  }
+
+  const updateEvents = Array.isArray(p.updates) ? p.updates : (Array.isArray(p.events) ? p.events : []);
+  const goalEvents = Array.isArray(p.goals) ? p.goals : [];
+  const radarEvents = buildRadarHistoryEvents(
+    prev?.snapshotRows || [],
+    p?.snapshotRows || [],
+    prev?.snapshotProgress || null,
+    p?.snapshotProgress || null
+  );
+
+  const lampStatusHtml = (s) => {
+    const map = {
+      NOPLAY: '#8a8a8a',
+      FAILED: '#8a8a8a',
+      ASSIST: '#c9b4c3',
+      EASY: '#79b654',
+      NORMAL: '#6f8fcb',
+      HARD: '#f28a2f',
+      EXHARD: '#e0b900',
+      FC: '#3fc6dc',
+      FULLCOMBO: '#3fc6dc'
+    };
+    return `<span style="font-weight:700;color:${map[s] || '#333'}">${esc(s)}</span>`;
+  };
+
+  const tableGroup = (items) => {
+    const groups = { SP10H: [], SP11H: [], SP12H: [] };
+    items.forEach((it) => {
+      const t = it.table || 'SP12H';
+      if (!groups[t]) groups[t] = [];
+      groups[t].push(it);
+    });
+    return ['SP10H', 'SP11H', 'SP12H'].map((table) => {
+      const label = table.replace('H', '');
+      const rows = groups[table] || [];
+      const body = rows.length
+        ? `<ul>${rows.map((it) => `<li>${it.html}</li>`).join('')}</ul>`
+        : '<div class="history-empty">없음</div>';
+      return `<div class="history-table-group"><div class="history-table-title">${label}</div>${body}</div>`;
+    }).join('');
+  };
+
+  const flatList = (items) => items.length
+    ? `<ul>${items.map((it) => `<li>${it.html}</li>`).join('')}</ul>`
+    : '<div class="history-empty">갱신된 항목이 없습니다.</div>';
+
+  const flatUpdates = [];
+  updateEvents.forEach((u) => {
+    const normalized = normalizeHistoryUpdate(u);
+    if (Array.isArray(normalized)) flatUpdates.push(...normalized);
+    else flatUpdates.push(normalized);
+  });
+
+  const lampEvents = flatUpdates.filter((e) => e.kind === 'lamp').map((e) => ({
+    table: e.table,
+    html: `${esc(e.title)} [${esc(e.type)}] ${lampStatusHtml(e.from)} -> ${lampStatusHtml(e.to)}`
+  }));
+  const scoreEvents = flatUpdates.filter((e) => e.kind === 'score').map((e) => ({
+    table: e.table,
+    html: `${esc(e.title)} [${esc(e.type)}] ${esc(e.from)} -> ${esc(e.to)} <strong>(${(e.diff >= 0 ? '+' : '') + e.diff})</strong>`
+  }));
+  const miscEvents = flatUpdates.filter((e) => e.kind === 'text').map((e) => ({
+    table: e.table || 'SP12H',
+    html: esc(e.text || '')
+  }));
+  scoreEvents.push(...miscEvents);
+
+  const goalItems = goalEvents.map((g) => {
+    if (typeof g === 'object' && g?.kind === 'goal') {
+      return { table: g.table || 'SP12H', html: esc(g.text || '') };
+    }
+    return { table: 'SP12H', html: esc(String(g || '')) };
+  });
+
+  const radarItems = radarEvents.map((r) => ({
+    table: 'SP12H',
+    html: esc(r.text || '')
+  }));
+
+  const panel = (key, title, items, simple = false) => {
+    const countLabel = items.length ? `${items.length}` : '없음';
+    const disabled = items.length === 0;
+    const open = !!sectionOpen[key] && !disabled;
+    const body = disabled
+      ? '<div class="history-empty">갱신된 항목이 없습니다.</div>'
+      : (simple ? flatList(items) : tableGroup(items));
+    return `<div class="history-section">
+      <button class="history-accordion-btn ${disabled ? 'disabled' : ''} ${open ? 'open' : ''}" ${sectionAttr}="${esc(key)}" ${disabled ? 'disabled' : ''}>
+        <span>${esc(title)} (${countLabel})</span>
+        <span class="history-chevron">▼</span>
+      </button>
+      <div class="history-accordion-panel ${open ? 'open' : ''}">${body}</div>
+    </div>`;
+  };
+
+  return `<div class="history-detail-card ${animate ? 'animate' : ''}">
+    <div><strong>${esc(fmt(p.timestamp))}</strong></div>
+    <div class="history-sections">
+      ${panel('clear', '램프 갱신', lampEvents)}
+      ${panel('ramp', '스코어 갱신', scoreEvents)}
+      ${panel('goal', '목표 갱신', goalItems)}
+      ${panel('radar', '노트 레이더 갱신', radarItems, true)}
+    </div>
+  </div>`;
+}
+
 function renderHistory(){
   const acc = activeAcc();
   const list = $('historyList');
@@ -1684,135 +1840,13 @@ function renderHistory(){
     return;
   }
 
-  const isInitialRecord = p.isInitial === true || (Array.isArray(p.updates) && p.updates.length === 1 && String(p.updates[0]).includes('최초'));
-  if (isInitialRecord) {
-    detail.innerHTML = `<div id="historyDetailCard" class="history-detail-card ${state.historyAnimateDetail ? 'animate' : ''}">
-      <div><strong>${esc(fmt(p.timestamp))}</strong></div>
-      <div class="history-empty" style="margin-top:10px;">최초 업로드 데이터입니다.</div>
-    </div>`;
-    state.historyAnimateDetail = false;
-    return;
-  }
-
-  const updateEvents = Array.isArray(p.updates) ? p.updates : (Array.isArray(p.events) ? p.events : []);
-  const goalEvents = Array.isArray(p.goals) ? p.goals : [];
   const selectedIdx = arr.findIndex((h) => h.id === p.id);
   const prev = selectedIdx >= 0 ? arr[selectedIdx + 1] : null;
-  const radarEvents = buildRadarHistoryEvents(
-    prev?.snapshotRows || [],
-    p?.snapshotRows || [],
-    prev?.snapshotProgress || null,
-    p?.snapshotProgress || null
-  );
-
-  const lampStatusHtml = (s) => {
-    const map = {
-      NOPLAY: '#8a8a8a',
-      FAILED: '#8a8a8a',
-      ASSIST: '#c9b4c3',
-      EASY: '#79b654',
-      NORMAL: '#6f8fcb',
-      HARD: '#f28a2f',
-      EXHARD: '#e0b900',
-      FC: '#3fc6dc',
-      FULLCOMBO: '#3fc6dc'
-    };
-    return `<span style="font-weight:700;color:${map[s] || '#333'}">${esc(s)}</span>`;
-  };
-
-  const tableGroup = (items) => {
-    const groups = { SP10H: [], SP11H: [], SP12H: [] };
-    items.forEach((it) => {
-      const t = it.table || 'SP12H';
-      if (!groups[t]) groups[t] = [];
-      groups[t].push(it);
-    });
-    return ['SP10H', 'SP11H', 'SP12H'].map((table) => {
-      const label = table.replace('H', '');
-      const rows = groups[table] || [];
-      const body = rows.length
-        ? `<ul>${rows.map((it) => `<li>${it.html}</li>`).join('')}</ul>`
-        : '<div class="history-empty">없음</div>';
-      return `<div class="history-table-group"><div class="history-table-title">${label}</div>${body}</div>`;
-    }).join('');
-  };
-
-  const flatList = (items) => items.length
-    ? `<ul>${items.map((it) => `<li>${it.html}</li>`).join('')}</ul>`
-    : '<div class="history-empty">갱신된 항목이 없습니다.</div>';
-
-  const normalizeUpdate = (raw) => {
-    if (typeof raw === 'object' && raw && raw.kind) return raw;
-    const text = String(raw || '');
-    const old = text.match(/^(.*?) \[(.)\] 램프 (.*?) -> (.*?) \| EX (\d+) -> (\d+) \(([+-]?\d+)\)$/);
-    if (old) {
-      return [
-        { kind: 'lamp', table: 'SP12H', title: old[1], type: old[2], from: old[3], to: old[4] },
-        { kind: 'score', table: 'SP12H', title: old[1], type: old[2], from: Number(old[5]), to: Number(old[6]), diff: Number(old[7]), rank: '-' }
-      ];
-    }
-    return [{ kind: 'text', table: 'SP12H', text }];
-  };
-
-  const flatUpdates = [];
-  updateEvents.forEach((u) => {
-    const normalized = normalizeUpdate(u);
-    if (Array.isArray(normalized)) flatUpdates.push(...normalized);
-    else flatUpdates.push(normalized);
+  detail.innerHTML = buildHistoryDetailCardHtml(p, prev, {
+    sectionOpen: state.historySectionOpen,
+    animate: state.historyAnimateDetail,
+    sectionAttr: 'data-history-section'
   });
-
-  const lampEvents = flatUpdates.filter((e) => e.kind === 'lamp').map((e) => ({
-    table: e.table,
-    html: `${esc(e.title)} [${esc(e.type)}] ${lampStatusHtml(e.from)} -> ${lampStatusHtml(e.to)}`
-  }));
-  const scoreEvents = flatUpdates.filter((e) => e.kind === 'score').map((e) => ({
-    table: e.table,
-    html: `${esc(e.title)} [${esc(e.type)}] ${esc(e.from)} -> ${esc(e.to)} <strong>(${(e.diff >= 0 ? '+' : '') + e.diff})</strong>`
-  }));
-  const miscEvents = flatUpdates.filter((e) => e.kind === 'text').map((e) => ({
-    table: e.table || 'SP12H',
-    html: esc(e.text || '')
-  }));
-  scoreEvents.push(...miscEvents);
-
-  const goalItems = goalEvents.map((g) => {
-    if (typeof g === 'object' && g?.kind === 'goal') {
-      return { table: g.table || 'SP12H', html: esc(g.text || '') };
-    }
-    return { table: 'SP12H', html: esc(String(g || '')) };
-  });
-
-  const radarItems = radarEvents.map((r) => ({
-    table: 'SP12H',
-    html: esc(r.text || '')
-  }));
-
-  const sec = state.historySectionOpen;
-  const panel = (key, title, items, simple = false) => {
-    const countLabel = items.length ? `${items.length}` : '없음';
-    const disabled = items.length === 0;
-    const open = !!sec[key] && !disabled;
-    const body = disabled
-      ? '<div class="history-empty">갱신된 항목이 없습니다.</div>'
-      : (simple ? flatList(items) : tableGroup(items));
-    return `<div class="history-section">
-      <button class="history-accordion-btn ${disabled ? 'disabled' : ''} ${open ? 'open' : ''}" data-history-section="${esc(key)}" ${disabled ? 'disabled' : ''}>
-        <span>${esc(title)} (${countLabel})</span>
-        <span class="history-chevron">▼</span>
-      </button>
-      <div class="history-accordion-panel ${open ? 'open' : ''}">${body}</div>
-    </div>`;
-  };
-
-  detail.innerHTML = `<div id="historyDetailCard" class="history-detail-card ${state.historyAnimateDetail ? 'animate' : ''}">
-    <div><strong>${esc(fmt(p.timestamp))}</strong></div>
-    <div class="history-sections">
-      ${panel('clear', '램프 갱신', lampEvents)}
-      ${panel('ramp', '스코어 갱신', scoreEvents)}
-      ${panel('goal', '목표 갱신', goalItems)}
-      ${panel('radar', '노트 레이더 갱신', radarItems, true)}
-    </div>
-  </div>`;
 
   state.historyAnimateDetail = false;
 }
@@ -2204,6 +2238,9 @@ function dismissFeedItem(feedId) {
     Promise.resolve(client.rpc('dismiss_feed_event', { p_event_id: id })).then(() => {}, () => {});
   }
   socialFeedItems = (socialFeedItems || []).filter((x) => x.id !== id);
+  if (socialHistoryPopupState?.open && String(socialHistoryPopupState.feedId || '') === id) {
+    closeSocialHistoryPopup();
+  }
   renderSocialPanel();
 }
 
@@ -2232,7 +2269,135 @@ async function dismissAllFeedItems({ autoRejectFollow = false } = {}) {
     }
   }
   socialFeedItems = [];
+  closeSocialHistoryPopup();
   renderSocialPanel();
+}
+
+function closeSocialHistoryPopup() {
+  socialHistoryPopupState = null;
+  const popup = $('socialHistoryPopup');
+  if (!popup) return;
+  popup.classList.add('hidden');
+  popup.innerHTML = '';
+}
+
+function positionSocialHistoryPopup() {
+  const popup = $('socialHistoryPopup');
+  const anchorRect = socialHistoryPopupState?.anchorRect;
+  if (!popup || popup.classList.contains('hidden') || !anchorRect) return;
+  const margin = 10;
+  const rect = popup.getBoundingClientRect();
+  const viewportW = window.innerWidth;
+  const viewportH = window.innerHeight;
+
+  let left = Number(anchorRect.right || 0) + 10;
+  if (left + rect.width > viewportW - margin) {
+    left = Math.max(margin, Number(anchorRect.left || 0) - rect.width - 10);
+  }
+  let top = Number(anchorRect.top || 0) - 8;
+  if (top + rect.height > viewportH - margin) {
+    top = Math.max(margin, viewportH - rect.height - margin);
+  }
+  top = Math.max(margin, top);
+
+  popup.style.left = `${Math.round(left)}px`;
+  popup.style.top = `${Math.round(top)}px`;
+}
+
+function renderSocialHistoryPopup() {
+  const popup = $('socialHistoryPopup');
+  const s = socialHistoryPopupState;
+  if (!popup) return;
+  if (!s?.open) {
+    popup.classList.add('hidden');
+    popup.innerHTML = '';
+    return;
+  }
+
+  const body = s.loading
+    ? '<div class="history-empty">상세 정보를 불러오는 중입니다...</div>'
+    : (s.error
+      ? `<div class="history-empty">${esc(s.error)}</div>`
+      : buildHistoryDetailCardHtml(s.history, s.prevHistory, {
+        sectionOpen: s.sectionOpen,
+        animate: false,
+        sectionAttr: 'data-social-history-section'
+      }));
+  popup.innerHTML = `
+    <div class="social-history-popup-card">
+      <div class="social-history-popup-head">
+        <div class="social-history-popup-title">팔로우 히스토리 상세</div>
+        <button type="button" class="social-history-popup-close" data-social-history-close="1" aria-label="닫기">×</button>
+      </div>
+      <div class="social-item-sub social-history-popup-sub">${esc(s.peerLabel || '')}</div>
+      <div class="social-history-popup-body">${body}</div>
+    </div>`;
+  popup.classList.remove('hidden');
+  positionSocialHistoryPopup();
+}
+
+async function openSocialHistoryPopupFromFeed(feedId, peerUserId, historyId, anchorEl) {
+  const client = getSupabaseClient();
+  if (!client || !peerUserId || !historyId) return;
+  if (socialHistoryPopupState?.open && socialHistoryPopupState.feedId === feedId) {
+    closeSocialHistoryPopup();
+    return;
+  }
+  const feedItem = (socialFeedItems || []).find((it) => String(it.id || '') === String(feedId || ''));
+  const peerLabel = feedItem?.body?.split('·')?.[0]?.trim()
+    || (feedItem?.payload?.actor_label ? String(feedItem.payload.actor_label) : '팔로우');
+  const anchorRect = anchorEl?.getBoundingClientRect?.();
+
+  socialHistoryPopupState = {
+    open: true,
+    feedId: String(feedId || ''),
+    peerUserId: String(peerUserId || ''),
+    historyId: String(historyId || ''),
+    peerLabel,
+    anchorRect: anchorRect
+      ? {
+        left: anchorRect.left,
+        right: anchorRect.right,
+        top: anchorRect.top,
+        bottom: anchorRect.bottom,
+        width: anchorRect.width,
+        height: anchorRect.height
+      }
+      : null,
+    sectionOpen: createHistorySectionState(),
+    history: null,
+    prevHistory: null,
+    loading: true,
+    error: ''
+  };
+  renderSocialHistoryPopup();
+
+  const { data, error } = await client.rpc('get_follow_history_detail', {
+    p_peer_user_id: peerUserId,
+    p_history_id: historyId
+  });
+  if (!socialHistoryPopupState?.open || socialHistoryPopupState.feedId !== String(feedId || '')) return;
+  if (error) {
+    const msg = String(error.message || error || '');
+    socialHistoryPopupState.loading = false;
+    socialHistoryPopupState.error = msg.includes('get_follow_history_detail')
+      ? 'DB에 get_follow_history_detail RPC가 없습니다. schema.sql 반영이 필요합니다.'
+      : `상세 조회 실패: ${msg}`;
+    renderSocialHistoryPopup();
+    return;
+  }
+
+  const row = Array.isArray(data) ? data[0] : data;
+  const history = parseHistoryRecord(row?.history);
+  const prevHistory = parseHistoryRecord(row?.prev_history);
+  socialHistoryPopupState.loading = false;
+  socialHistoryPopupState.history = history;
+  socialHistoryPopupState.prevHistory = prevHistory;
+  socialHistoryPopupState.error = history ? '' : '히스토리 상세 데이터를 찾을 수 없습니다.';
+  const dj = String(row?.dj_name || '').trim();
+  const iid = String(row?.infinitas_id || '').trim();
+  if (dj) socialHistoryPopupState.peerLabel = iid ? `${dj} (${iid})` : dj;
+  renderSocialHistoryPopup();
 }
 
 function closeFollowersPopup() {
@@ -2245,11 +2410,18 @@ function openFollowersPopupAt(clientX, clientY, followerRows) {
   if (!popup) return;
   socialFollowersPopupAnchor = { x: Number(clientX) || 0, y: Number(clientY) || 0 };
   const list = Array.isArray(followerRows) ? followerRows : [];
+  const followingPeerSet = new Set(
+    (socialOverviewRows || [])
+      .filter((r) => r?.relation_type === 'follow' && (r?.direction || 'following') === 'following')
+      .map((r) => String(r?.peer_user_id || ''))
+      .filter(Boolean)
+  );
   popup.innerHTML = list.length
     ? list.map((row) => {
       const pid = String(row.peer_user_id || '');
       const profile = socialProfileMap.get(pid) || {};
       const hasIcon = !!String(profile.icon || '').trim();
+      const alreadyFollowing = followingPeerSet.has(pid);
       return `
         <div class="social-follow-user">
           <div class="social-avatar social-avatar-plain">
@@ -2261,7 +2433,7 @@ function openFollowersPopupAt(clientX, clientY, followerRows) {
             <div class="social-follow-name">${esc(row.dj_name || 'UNKNOWN')}</div>
             <div class="social-item-sub">${esc(row.infinitas_id || '')}</div>
           </div>
-          <button type="button" class="social-follow-back" data-follow-back="${esc(pid)}">+</button>
+          ${alreadyFollowing ? '' : `<button type="button" class="social-follow-back" data-follow-back="${esc(pid)}">+</button>`}
         </div>
       `;
     }).join('')
@@ -2496,6 +2668,20 @@ function renderSocialPanel() {
               <button type="button" class="social-feed-action-btn reject" data-feed-action="goal-reject" data-transfer-id="${esc(item.payload.transfer_id)}">거절</button>
             </div>`
         : '';
+      const historyDetailId = String(item.payload?.history_id || '').trim();
+      const historyDetailButton = item.type === 'follow_history_updated' && historyDetailId
+        ? `<button
+              type="button"
+              class="social-feed-action-btn social-feed-detail-btn"
+              data-feed-history-detail="1"
+              data-feed-id="${esc(item.id)}"
+              data-peer-user-id="${esc(item.peer_user_id || '')}"
+              data-history-id="${esc(historyDetailId)}"
+            >상세보기</button>`
+        : '';
+      const bodyMarkup = historyDetailButton
+        ? `<div class="social-feed-body-row"><div class="social-feed-body">${esc(item.body)}</div><div class="social-feed-actions social-feed-actions-history">${historyDetailButton}</div></div>`
+        : `<div class="social-feed-body">${esc(item.body)}</div>`;
       return `
       <article class="social-feed-post ${feedTypeClass(item.type)}" style="--feed-order:${idx}" data-feed-id="${esc(item.id)}">
         ${item.type === 'follow_request_received' ? '' : `<button type="button" class="social-feed-close" data-feed-dismiss="${esc(item.id)}" title="삭제">×</button>`}
@@ -2505,16 +2691,21 @@ function renderSocialPanel() {
         </div>
         <div class="social-feed-head">${esc(item.title)}</div>
         <div class="social-feed-meta">${esc(fmt(item.created_at || nowIso()))}</div>
-        <div class="social-feed-body">${esc(item.body)}</div>
+        ${bodyMarkup}
         ${followRequestActions}
         ${goalTransferActions}
       </article>`;
     }).join('')
     : '<div class="history-empty">새 피드가 없습니다.</div>';
+  if (socialHistoryPopupState?.open) {
+    const visible = (socialFeedItems || []).some((x) => String(x.id || '') === String(socialHistoryPopupState.feedId || ''));
+    if (!visible) closeSocialHistoryPopup();
+  }
   if (socialRenderCache.feed !== feedMarkup) {
     feed.innerHTML = feedMarkup;
     socialRenderCache.feed = feedMarkup;
   }
+  if (socialHistoryPopupState?.open) positionSocialHistoryPopup();
   if (clearAllBtn) clearAllBtn.disabled = !socialFeedItems.length;
 
   const listMarkup = followingRows.length
@@ -3465,6 +3656,7 @@ function setActivePanel(nextPanel) {
   } else {
     closeFollowersPopup();
     hideSocialPeerMenu();
+    closeSocialHistoryPopup();
   }
 }
 
@@ -4209,6 +4401,7 @@ function setupEvents(){
     hideGraphPopup();
     closeFollowersPopup();
     hideSocialPeerMenu();
+    closeSocialHistoryPopup();
   }, true);
 
   $('accountSelect').addEventListener('change', async (e) => {
@@ -4280,6 +4473,12 @@ function setupEvents(){
       const opener = !!e.target.closest('[data-peer-avatar]');
       if (!inMenu && !opener) hideSocialPeerMenu();
     }
+    const socialHistoryPopup = $('socialHistoryPopup');
+    if (socialHistoryPopup && !socialHistoryPopup.classList.contains('hidden')) {
+      const inPopup = socialHistoryPopup.contains(e.target);
+      const opener = !!e.target.closest('[data-feed-history-detail]');
+      if (!inPopup && !opener) closeSocialHistoryPopup();
+    }
     if (!$('accountIconMenu').contains(e.target)) { $('accountIconMenu').classList.add('hidden'); }
     if (!e.target.closest('.it-select') && !e.target.closest('.it-search')) closeAllEnhancedSelect();
   });
@@ -4291,7 +4490,7 @@ function setupEvents(){
     const applySelection = () => {
       state.historyAnimateDetail = true;
       state.selectedHistoryId = id;
-      state.historySectionOpen = { clear: false, ramp: false, goal: false, radar: false };
+      state.historySectionOpen = createHistorySectionState();
       renderHistory();
     };
     if (state.selectedHistoryId === id) {
@@ -4340,6 +4539,21 @@ function setupEvents(){
     state.historySectionOpen[key] = !curr;
     state.historyAnimateDetail = false;
     renderHistory();
+  });
+  $('socialHistoryPopup')?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const closeBtn = e.target.closest('[data-social-history-close]');
+    if (closeBtn) {
+      closeSocialHistoryPopup();
+      return;
+    }
+    const btn = e.target.closest('[data-social-history-section]');
+    if (!btn || btn.disabled || !socialHistoryPopupState?.open) return;
+    const key = btn.getAttribute('data-social-history-section');
+    if (!key) return;
+    const curr = !!socialHistoryPopupState.sectionOpen[key];
+    socialHistoryPopupState.sectionOpen[key] = !curr;
+    renderSocialHistoryPopup();
   });
 
   $('goalTable').addEventListener('change',()=>{
@@ -4623,6 +4837,18 @@ function setupEvents(){
   });
   $('socialFeed')?.addEventListener('click', (e) => {
     const actionBtn = e.target.closest('[data-feed-action]');
+    const detailBtn = e.target.closest('[data-feed-history-detail]');
+    if (detailBtn) {
+      const feedId = String(detailBtn.getAttribute('data-feed-id') || detailBtn.closest('.social-feed-post')?.getAttribute('data-feed-id') || '');
+      const peerUserId = String(detailBtn.getAttribute('data-peer-user-id') || '');
+      const historyId = String(detailBtn.getAttribute('data-history-id') || '');
+      openSocialHistoryPopupFromFeed(feedId, peerUserId, historyId, detailBtn)
+        .catch((err) => {
+          toast(`상세 조회 실패: ${err.message || err}`, 'error');
+          closeSocialHistoryPopup();
+        });
+      return;
+    }
     if (actionBtn) {
       const action = actionBtn.getAttribute('data-feed-action') || '';
       if (action === 'follow-accept' || action === 'follow-reject') {

@@ -2496,6 +2496,18 @@ button.danger {
   line-height: 1.45;
 }
 
+.social-feed-body-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.social-feed-body-row .social-feed-body {
+  margin: 0;
+  flex: 1 1 auto;
+}
+
 .social-feed-tags {
   margin-top: 8px;
   display: flex;
@@ -2523,6 +2535,12 @@ button.danger {
   margin-top: 10px;
 }
 
+.social-feed-actions-history {
+  justify-content: flex-start;
+  margin-top: 0;
+  flex: 0 0 auto;
+}
+
 .social-feed-action-btn {
   border: 1px solid #b8cbe6;
   border-radius: 999px;
@@ -2532,6 +2550,16 @@ button.danger {
   font-weight: 700;
   min-height: 0;
   padding: 4px 10px;
+}
+
+.social-feed-detail-btn {
+  border-color: #9eb0e6;
+  background: #eef2ff;
+  color: #3f5398;
+}
+
+.social-feed-detail-btn:hover {
+  background: #e0e8ff;
 }
 
 .social-feed-action-btn.accept {
@@ -2586,8 +2614,8 @@ button.danger {
 }
 
 .social-feed-post.feed-request-in {
-  background: #f4f9ff;
-  border-color: #cfdef2;
+  background: #eef6ff;
+  border-color: #c4d7f4;
 }
 
 .social-feed-post.feed-request-in .social-feed-dot {
@@ -2595,8 +2623,8 @@ button.danger {
 }
 
 .social-feed-post.feed-request-ok {
-  background: #f3fbf6;
-  border-color: #cae8d3;
+  background: #edf9f1;
+  border-color: #c6e6d2;
 }
 
 .social-feed-post.feed-request-ok .social-feed-dot {
@@ -2604,8 +2632,8 @@ button.danger {
 }
 
 .social-feed-post.feed-unfollow {
-  background: #fff6f4;
-  border-color: #efd3cc;
+  background: #fff1ef;
+  border-color: #efc5be;
 }
 
 .social-feed-post.feed-unfollow .social-feed-dot {
@@ -2613,8 +2641,8 @@ button.danger {
 }
 
 .social-feed-post.feed-history {
-  background: #f6f7ff;
-  border-color: #d9def7;
+  background: #f2efff;
+  border-color: #d0c8f2;
 }
 
 .social-feed-post.feed-history .social-feed-dot {
@@ -2930,6 +2958,63 @@ button.danger {
   box-shadow: 0 18px 40px rgba(26, 44, 69, 0.24);
   display: grid;
   gap: 6px;
+}
+
+.social-history-popup {
+  position: fixed;
+  z-index: 1720;
+  width: min(760px, calc(100vw - 28px));
+  max-height: min(72vh, 660px);
+  overflow: auto;
+}
+
+.social-history-popup-card {
+  border: 1px solid #cbd7e8;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #fbfdff 0%, #f1f6fd 100%);
+  box-shadow: 0 18px 42px rgba(20, 38, 61, 0.28);
+  padding: 10px;
+}
+
+.social-history-popup-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+
+.social-history-popup-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: #2f4667;
+}
+
+.social-history-popup-close {
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  min-height: 24px;
+  border-radius: 50%;
+  border: 1px solid #c66f6f;
+  background: #e25757;
+  color: #fff;
+  font-size: 14px;
+  line-height: 1;
+  padding: 0;
+  display: inline-grid;
+  place-items: center;
+}
+
+.social-history-popup-sub {
+  margin-bottom: 8px;
+}
+
+.social-history-popup-body .history-detail-card {
+  margin-top: 0;
+  border-radius: 10px;
+  border: 1px solid #c5d3e8;
+  background: rgba(255, 255, 255, 0.9);
 }
 
 .social-peer-menu {
@@ -4118,6 +4203,26 @@ body.theme-dark .social-feed-post {
   border-color: #3a4f6b;
 }
 
+body.theme-dark .social-feed-post.feed-request-in {
+  background: #17293f;
+  border-color: #3d5f8a;
+}
+
+body.theme-dark .social-feed-post.feed-request-ok {
+  background: #1b2f28;
+  border-color: #3f6d58;
+}
+
+body.theme-dark .social-feed-post.feed-unfollow {
+  background: #2d2324;
+  border-color: #6a4d52;
+}
+
+body.theme-dark .social-feed-post.feed-history {
+  background: #221f36;
+  border-color: #5a5484;
+}
+
 body.theme-dark .social-item-sub,
 body.theme-dark .social-feed-body,
 body.theme-dark .social-feed-meta {
@@ -4176,6 +4281,32 @@ body.theme-dark .social-feed-action-btn {
   background: #26354a;
   border-color: #4f6788;
   color: #d4e4f8;
+}
+
+body.theme-dark .social-feed-detail-btn {
+  background: #2c3459;
+  border-color: #5f6ea8;
+  color: #dbe4ff;
+}
+
+body.theme-dark .social-history-popup-card {
+  background: linear-gradient(180deg, #1b2533 0%, #17202c 100%);
+  border-color: #3f5675;
+}
+
+body.theme-dark .social-history-popup-title {
+  color: #d9e7fb;
+}
+
+body.theme-dark .social-history-popup-close {
+  background: #cf5151;
+  border-color: #d97a7a;
+  color: #fff;
+}
+
+body.theme-dark .social-history-popup-body .history-detail-card {
+  background: rgba(24, 34, 49, 0.92);
+  border-color: #415c80;
 }
 
 body.theme-dark .dialog-close-fab {
