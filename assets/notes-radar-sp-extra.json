@@ -1,0 +1,5341 @@
+{
+  "generatedAt": "2026-03-10T15:02:32.244Z",
+  "source": "shared-investigated-merge",
+  "count": 381,
+  "charts": [
+    {
+      "title": "-65 degrees Celsius",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 152.86,
+        "PEAK": 158.93,
+        "SCRATCH": 39.98,
+        "SOFLAN": 0,
+        "CHARGE": 120.02,
+        "CHORD": 140.35
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "27th style",
+      "type": "L",
+      "notes": 0,
+      "radar": {
+        "NOTES": 140.45,
+        "PEAK": 122.37,
+        "SCRATCH": 200,
+        "SOFLAN": 0,
+        "CHARGE": 0.47,
+        "CHORD": 133.02
+      },
+      "radarTop": "SCRATCH"
+    },
+    {
+      "title": "3+3",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 123.5,
+        "PEAK": 110.52,
+        "SCRATCH": 33.74,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 127.64
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "3y3s(Long ver.)",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 131.5,
+        "PEAK": 198.21,
+        "SCRATCH": 106.12,
+        "SOFLAN": 0,
+        "CHARGE": 188.82,
+        "CHORD": 200
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "405nm (Ryu* mix)",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 116.13,
+        "PEAK": 113.15,
+        "SCRATCH": 28.61,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 92.79
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "A MINSTREL - ver. short-scape -",
+      "type": "L",
+      "notes": 0,
+      "radar": {
+        "NOTES": 155.44,
+        "PEAK": 140.78,
+        "SCRATCH": 22.61,
+        "SOFLAN": 0,
+        "CHARGE": 48.39,
+        "CHORD": 200
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "A Revenant Ball For Two In An Abandoned Castle",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 153.16,
+        "PEAK": 131.57,
+        "SCRATCH": 51.56,
+        "SOFLAN": 151.41,
+        "CHARGE": 0,
+        "CHORD": 126.82
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "A Tale Hidden In The Abyss",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 107.97,
+        "PEAK": 91.43,
+        "SCRATCH": 41.29,
+        "SOFLAN": 0,
+        "CHARGE": 78.64,
+        "CHORD": 86.4
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Abraxas",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 98.98,
+        "PEAK": 101.31,
+        "SCRATCH": 97.63,
+        "SOFLAN": 0,
+        "CHARGE": 36.62,
+        "CHORD": 65.44
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "Abyss -The Heavens Remix-",
+      "type": "B",
+      "notes": 288,
+      "radar": {
+        "NOTES": 24.53,
+        "PEAK": 21.42,
+        "SCRATCH": 21.72,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 0.4
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Abyss -The Heavens Remix-",
+      "type": "L",
+      "notes": 1637,
+      "radar": {
+        "NOTES": 0,
+        "PEAK": 0,
+        "SCRATCH": 0,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 0
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Abyss -The Heavens Remix-",
+      "type": "N",
+      "notes": 766,
+      "radar": {
+        "NOTES": 65.25,
+        "PEAK": 57.14,
+        "SCRATCH": 39.1,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 24.81
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "actzero",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 122.02,
+        "PEAK": 115.78,
+        "SCRATCH": 58.53,
+        "SOFLAN": 0,
+        "CHARGE": 3.12,
+        "CHORD": 118.8
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "AETHER",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 117.64,
+        "PEAK": 95.71,
+        "SCRATCH": 88.69,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 106.02
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "AIGIPAN",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 85.29,
+        "PEAK": 101.31,
+        "SCRATCH": 25.59,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 72
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "ALBA -REIMEI-",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 128.95,
+        "PEAK": 117.1,
+        "SCRATCH": 51.26,
+        "SOFLAN": 0,
+        "CHARGE": 106.56,
+        "CHORD": 132.24
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "All is Wrecked",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 116.25,
+        "PEAK": 100,
+        "SCRATCH": 30.88,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 103.39
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "ALL MY TURN",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 106.1,
+        "PEAK": 119.74,
+        "SCRATCH": 39.41,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 92.71
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "ALL OK!!",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 127.78,
+        "PEAK": 117.11,
+        "SCRATCH": 36.76,
+        "SOFLAN": 0,
+        "CHARGE": 62.02,
+        "CHORD": 124.37
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "AMANOJAKU",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 139.21,
+        "PEAK": 128.94,
+        "SCRATCH": 56.91,
+        "SOFLAN": 0,
+        "CHARGE": 7.65,
+        "CHORD": 131.79
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Amnolys",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 108.94,
+        "PEAK": 105.26,
+        "SCRATCH": 32.7,
+        "SOFLAN": 32.8,
+        "CHARGE": 0,
+        "CHORD": 114.97
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "Amor De Verao",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 98.17,
+        "PEAK": 94.28,
+        "SCRATCH": 58.15,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 92.81
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "AMRITA -Fumetsu no Hana-",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 111.28,
+        "PEAK": 95.71,
+        "SCRATCH": 53.35,
+        "SOFLAN": 0,
+        "CHARGE": 15.15,
+        "CHORD": 102.43
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "An Uncompleted Steam Locomotive Girl",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 130.35,
+        "PEAK": 123.68,
+        "SCRATCH": 19.75,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 93.19
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Aru B! feat.PochiKorone",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 106.54,
+        "PEAK": 97.14,
+        "SCRATCH": 83.4,
+        "SOFLAN": 0,
+        "CHARGE": 2.5,
+        "CHORD": 44.61
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "asayakekarahajimaru bokuranotiisanatabi",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 107.93,
+        "PEAK": 140.78,
+        "SCRATCH": 37.56,
+        "SOFLAN": 69.07,
+        "CHARGE": 1.4,
+        "CHORD": 103.98
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "ASIAN VIRTUAL REALITIES (MELTING TOGETHER IN DAZZLING DARKNESS)",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 147.05,
+        "PEAK": 114.47,
+        "SCRATCH": 106.23,
+        "SOFLAN": 0,
+        "CHARGE": 103.07,
+        "CHORD": 119.2
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Astrogazer",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 116.56,
+        "PEAK": 113.16,
+        "SCRATCH": 27.51,
+        "SOFLAN": 0,
+        "CHARGE": 48.23,
+        "CHORD": 87.49
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "AZISAI",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 114.35,
+        "PEAK": 115.78,
+        "SCRATCH": 70.45,
+        "SOFLAN": 0,
+        "CHARGE": 47.65,
+        "CHORD": 109.48
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "Ba-Bi-Bu-Bomb!",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 106.32,
+        "PEAK": 105.26,
+        "SCRATCH": 76.62,
+        "SOFLAN": 0,
+        "CHARGE": 44.37,
+        "CHORD": 96.41
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "BABYLONIA",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 72.81,
+        "PEAK": 71.43,
+        "SCRATCH": 36.12,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 86.54
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "Bad sweets, bad dreams",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 145.8,
+        "PEAK": 126.31,
+        "SCRATCH": 153.14,
+        "SOFLAN": 0,
+        "CHARGE": 124.5,
+        "CHORD": 151.27
+      },
+      "radarTop": "SCRATCH"
+    },
+    {
+      "title": "BADEND SYNDROME",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 113.31,
+        "PEAK": 113.15,
+        "SCRATCH": 16.54,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 126.9
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "BAHRAM ATTACK",
+      "type": "L",
+      "notes": 0,
+      "radar": {
+        "NOTES": 119.35,
+        "PEAK": 126.31,
+        "SCRATCH": 51.96,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 136.94
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "Baku Zeni Gatten Worker",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 110.8,
+        "PEAK": 105.26,
+        "SCRATCH": 34.82,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 109.64
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "BALANCE OF ASTRAIA",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 128.32,
+        "PEAK": 121.05,
+        "SCRATCH": 35.51,
+        "SOFLAN": 0,
+        "CHARGE": 119.77,
+        "CHORD": 110.05
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "BASSDROP-FREAKS",
+      "type": "L",
+      "notes": 0,
+      "radar": {
+        "NOTES": 108.4,
+        "PEAK": 101.31,
+        "SCRATCH": 164.54,
+        "SOFLAN": 0,
+        "CHARGE": 40.78,
+        "CHORD": 103.36
+      },
+      "radarTop": "SCRATCH"
+    },
+    {
+      "title": "Beat Juggling Mix",
+      "type": "L",
+      "notes": 0,
+      "radar": {
+        "NOTES": 112.01,
+        "PEAK": 147.37,
+        "SCRATCH": 153.27,
+        "SOFLAN": 127.21,
+        "CHARGE": 0,
+        "CHORD": 111.09
+      },
+      "radarTop": "SCRATCH"
+    },
+    {
+      "title": "BENIBOTAN",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 133.55,
+        "PEAK": 123.68,
+        "SCRATCH": 92.25,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 126.33
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "BIG SOM TUM",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 135.73,
+        "PEAK": 123.68,
+        "SCRATCH": 85.53,
+        "SOFLAN": 0,
+        "CHARGE": 151.81,
+        "CHORD": 143.49
+      },
+      "radarTop": "CHARGE"
+    },
+    {
+      "title": "Black Apple",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 116.04,
+        "PEAK": 102.63,
+        "SCRATCH": 29.63,
+        "SOFLAN": 0,
+        "CHARGE": 132.69,
+        "CHORD": 95.26
+      },
+      "radarTop": "CHARGE"
+    },
+    {
+      "title": "Blind Justice",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 92.87,
+        "PEAK": 100,
+        "SCRATCH": 16.3,
+        "SOFLAN": 26.31,
+        "CHARGE": 0,
+        "CHORD": 99.98
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "Blue Grotto",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 119.14,
+        "PEAK": 134.21,
+        "SCRATCH": 28.75,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 97.58
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "Breaking Dawn feat. NO+CHIN, AYANO",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 116.73,
+        "PEAK": 106.58,
+        "SCRATCH": 44.81,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 100.93
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "BUZRA",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 130.75,
+        "PEAK": 126.31,
+        "SCRATCH": 43.65,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 126.21
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "CALDERA",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 86.55,
+        "PEAK": 97.14,
+        "SCRATCH": 107.52,
+        "SOFLAN": 39.86,
+        "CHARGE": 0,
+        "CHORD": 54.24
+      },
+      "radarTop": "SCRATCH"
+    },
+    {
+      "title": "Candy Kingdom",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 160.27,
+        "PEAK": 180.35,
+        "SCRATCH": 31.04,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 144.63
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "Candy Kingdom",
+      "type": "L",
+      "notes": 0,
+      "radar": {
+        "NOTES": 185.13,
+        "PEAK": 194.64,
+        "SCRATCH": 39.36,
+        "SOFLAN": 0,
+        "CHARGE": 112.77,
+        "CHORD": 167.02
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "CAPTIVATE-JOKA-",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 93.51,
+        "PEAK": 94.28,
+        "SCRATCH": 65.22,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 113.73
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "CaptivAte-SABAKI-(SUBLIME TECHNO MIX)",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 90.52,
+        "PEAK": 92.85,
+        "SCRATCH": 49.28,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 100.99
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "CAPTIVATE2",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 106.44,
+        "PEAK": 107.89,
+        "SCRATCH": 36.83,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 89.25
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "CAPTIVATE2",
+      "type": "L",
+      "notes": 0,
+      "radar": {
+        "NOTES": 134.52,
+        "PEAK": 139.47,
+        "SCRATCH": 43.26,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 130.19
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "Casino Fire Kotomi-chan",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 110.06,
+        "PEAK": 109.21,
+        "SCRATCH": 139.19,
+        "SOFLAN": 0,
+        "CHARGE": 30.62,
+        "CHORD": 94.14
+      },
+      "radarTop": "SCRATCH"
+    },
+    {
+      "title": "Children's Sketchbook",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 143.1,
+        "PEAK": 146.05,
+        "SCRATCH": 52.31,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 113.51
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "CHOECHOEMAGICA",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 124.91,
+        "PEAK": 94.28,
+        "SCRATCH": 31.54,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 115.53
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "CHOECHOEMAGICA",
+      "type": "L",
+      "notes": 0,
+      "radar": {
+        "NOTES": 170.99,
+        "PEAK": 140.79,
+        "SCRATCH": 32.14,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 181.39
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "CLOSE THE WORLD FEAT.A RU",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 143.79,
+        "PEAK": 130.26,
+        "SCRATCH": 56.63,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 139.69
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "CLOSE THE WORLD FEAT.A RU",
+      "type": "L",
+      "notes": 0,
+      "radar": {
+        "NOTES": 163.7,
+        "PEAK": 143.42,
+        "SCRATCH": 80.72,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 160.16
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "CODE:0",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 114.44,
+        "PEAK": 102.63,
+        "SCRATCH": 124.58,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 101.91
+      },
+      "radarTop": "SCRATCH"
+    },
+    {
+      "title": "Cold Moon",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 120.49,
+        "PEAK": 114.47,
+        "SCRATCH": 108.36,
+        "SOFLAN": 0,
+        "CHARGE": 28.97,
+        "CHORD": 122.25
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "concon",
+      "type": "L",
+      "notes": 0,
+      "radar": {
+        "NOTES": 171.18,
+        "PEAK": 194.64,
+        "SCRATCH": 22.55,
+        "SOFLAN": 0,
+        "CHARGE": 167.02,
+        "CHORD": 173.89
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "COSMOS",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 94.83,
+        "PEAK": 84.28,
+        "SCRATCH": 18.44,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 100.07
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "Cosy Catastrophe",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 136.77,
+        "PEAK": 128.95,
+        "SCRATCH": 164.84,
+        "SOFLAN": 0,
+        "CHARGE": 39.86,
+        "CHORD": 124.4
+      },
+      "radarTop": "SCRATCH"
+    },
+    {
+      "title": "Dadadadadadadadadada",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 124.39,
+        "PEAK": 122.36,
+        "SCRATCH": 34.44,
+        "SOFLAN": 0,
+        "CHARGE": 11.56,
+        "CHORD": 123.82
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "dakishimete mon amour",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 154.4,
+        "PEAK": 127.63,
+        "SCRATCH": 58.14,
+        "SOFLAN": 0,
+        "CHARGE": 32.64,
+        "CHORD": 150.36
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Dans la nuit de l'eternite",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 142.5,
+        "PEAK": 147.36,
+        "SCRATCH": 74.32,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 146
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "Dawn of Simurgh",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 142.12,
+        "PEAK": 148.68,
+        "SCRATCH": 89.79,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 128.22
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "DEATH ZIGOQ",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 176.3,
+        "PEAK": 162.5,
+        "SCRATCH": 91.26,
+        "SOFLAN": 0,
+        "CHARGE": 19.87,
+        "CHORD": 157.72
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "DEATH ZIGOQ",
+      "type": "L",
+      "notes": 0,
+      "radar": {
+        "NOTES": 200,
+        "PEAK": 182.14,
+        "SCRATCH": 111.92,
+        "SOFLAN": 0,
+        "CHARGE": 16.74,
+        "CHORD": 200
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Death-destruct-chuuni-imouto-idol Momokarin-1 year old",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 107.58,
+        "PEAK": 142.1,
+        "SCRATCH": 49.89,
+        "SOFLAN": 160.09,
+        "CHARGE": 0,
+        "CHORD": 106.72
+      },
+      "radarTop": "SOFLAN"
+    },
+    {
+      "title": "Deceive Your Insight",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 112.09,
+        "PEAK": 101.32,
+        "SCRATCH": 41.26,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 90.54
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Decoherence",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 118.73,
+        "PEAK": 106.57,
+        "SCRATCH": 24.55,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 95.37
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Decoherence",
+      "type": "L",
+      "notes": 0,
+      "radar": {
+        "NOTES": 134.25,
+        "PEAK": 128.94,
+        "SCRATCH": 35.4,
+        "SOFLAN": 0,
+        "CHARGE": 86.34,
+        "CHORD": 117.64
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "DENKO",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 123.7,
+        "PEAK": 121.05,
+        "SCRATCH": 113.44,
+        "SOFLAN": 0,
+        "CHARGE": 116.44,
+        "CHORD": 112.65
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Dennou Toshi",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 150.77,
+        "PEAK": 127.63,
+        "SCRATCH": 100.29,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 146.18
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "DISAPPEAR feat. koyomin",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 119.93,
+        "PEAK": 118.42,
+        "SCRATCH": 85.71,
+        "SOFLAN": 0,
+        "CHARGE": 64.58,
+        "CHORD": 106.89
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Discordia",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 165.7,
+        "PEAK": 185.71,
+        "SCRATCH": 47.84,
+        "SOFLAN": 100.13,
+        "CHARGE": 187.2,
+        "CHORD": 151.01
+      },
+      "radarTop": "CHARGE"
+    },
+    {
+      "title": "Dish Washer Oiwa-Chan",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 110.91,
+        "PEAK": 106.57,
+        "SCRATCH": 65.02,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 116.11
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "DM STAR -KANSAI ENERGY STYLE-",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 96.72,
+        "PEAK": 78.57,
+        "SCRATCH": 17.53,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 88.35
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "DO-IT-AMA-SITE!!!",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 103.71,
+        "PEAK": 102.63,
+        "SCRATCH": 117.76,
+        "SOFLAN": 0,
+        "CHARGE": 12.25,
+        "CHORD": 92.58
+      },
+      "radarTop": "SCRATCH"
+    },
+    {
+      "title": "Dokkin Summer Avanture",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 114.4,
+        "PEAK": 119.73,
+        "SCRATCH": 95.62,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 126
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "DORNWALD -Junge-",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 144.36,
+        "PEAK": 144.73,
+        "SCRATCH": 38.69,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 114.83
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "DOUWAKAIROU",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 140.23,
+        "PEAK": 130.26,
+        "SCRATCH": 57.75,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 125.1
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Dynasty",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 107.92,
+        "PEAK": 103.95,
+        "SCRATCH": 36.29,
+        "SOFLAN": 0,
+        "CHARGE": 19.84,
+        "CHORD": 97.85
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Dystopia",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 109.15,
+        "PEAK": 115.78,
+        "SCRATCH": 41.58,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 108.47
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "Eikan no Campanella",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 165.78,
+        "PEAK": 185.71,
+        "SCRATCH": 24.2,
+        "SOFLAN": 0,
+        "CHARGE": 196.98,
+        "CHORD": 152.75
+      },
+      "radarTop": "CHARGE"
+    },
+    {
+      "title": "Eine Haube",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 118.36,
+        "PEAK": 126.31,
+        "SCRATCH": 25.46,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 105.94
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "EKINEKONO WALTZ",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 137.52,
+        "PEAK": 128.94,
+        "SCRATCH": 84.89,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 96.65
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "ELECTRIC MASSIVE DIVER",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 134.23,
+        "PEAK": 114.47,
+        "SCRATCH": 35.95,
+        "SOFLAN": 0,
+        "CHARGE": 109.76,
+        "CHORD": 154.57
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "ELFERIA of purgatory",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 155.62,
+        "PEAK": 166.07,
+        "SCRATCH": 53.32,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 163.94
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "Elpis",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 127.08,
+        "PEAK": 115.78,
+        "SCRATCH": 20.25,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 96.49
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Elpis",
+      "type": "L",
+      "notes": 0,
+      "radar": {
+        "NOTES": 147.1,
+        "PEAK": 130.26,
+        "SCRATCH": 20.25,
+        "SOFLAN": 0,
+        "CHARGE": 53.42,
+        "CHORD": 114.25
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Enchanting YUMMY sweets",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 129.57,
+        "PEAK": 131.57,
+        "SCRATCH": 86.3,
+        "SOFLAN": 0,
+        "CHARGE": 128.06,
+        "CHORD": 116.38
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "ENGOKU OVERKILL",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 151.34,
+        "PEAK": 147.36,
+        "SCRATCH": 122.88,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 136.41
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "exister",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 109.74,
+        "PEAK": 95.71,
+        "SCRATCH": 35.79,
+        "SOFLAN": 0,
+        "CHARGE": 5.63,
+        "CHORD": 92.37
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "FATAL ATTACK",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 135.18,
+        "PEAK": 123.68,
+        "SCRATCH": 43.96,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 111.93
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Feast Of Battle Ladies",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 115.61,
+        "PEAK": 110.52,
+        "SCRATCH": 31.69,
+        "SOFLAN": 0,
+        "CHARGE": 138.29,
+        "CHORD": 91.76
+      },
+      "radarTop": "CHARGE"
+    },
+    {
+      "title": "FEEDING FRENZY",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 122.17,
+        "PEAK": 132.9,
+        "SCRATCH": 66.93,
+        "SOFLAN": 0,
+        "CHARGE": 58.61,
+        "CHORD": 94.48
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "fffff",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 153.79,
+        "PEAK": 128.95,
+        "SCRATCH": 40.26,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 129.18
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "FIRE BALL",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 119.94,
+        "PEAK": 117.11,
+        "SCRATCH": 64.55,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 109.51
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Fractal",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 116.38,
+        "PEAK": 97.14,
+        "SCRATCH": 22.76,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 101.01
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "frequent",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 150.11,
+        "PEAK": 130.26,
+        "SCRATCH": 40.57,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 142.09
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "FUCHINKAN CANDY",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 134.56,
+        "PEAK": 138.15,
+        "SCRATCH": 25.64,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 135.37
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "FULL STREAM SPECIAL VACATION!! -MISSING HOLY DAYS-",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 95.55,
+        "PEAK": 87.14,
+        "SCRATCH": 39.92,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 70.59
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Fuyutsubaki ft. Kanae Asaba",
+      "type": "L",
+      "notes": 0,
+      "radar": {
+        "NOTES": 123.02,
+        "PEAK": 106.57,
+        "SCRATCH": 46.71,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 113.71
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "gattsuri inkya kaitouiincho no okkuu",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 179.48,
+        "PEAK": 151.78,
+        "SCRATCH": 103.8,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 170.89
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Gekkou chou",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 115.77,
+        "PEAK": 111.84,
+        "SCRATCH": 44.37,
+        "SOFLAN": 65.63,
+        "CHARGE": 0,
+        "CHORD": 113.95
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "GENESIS NOTE",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 121.1,
+        "PEAK": 109.21,
+        "SCRATCH": 51.35,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 112.71
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Geometric Tea Party",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 128.89,
+        "PEAK": 151.79,
+        "SCRATCH": 52.65,
+        "SOFLAN": 96.74,
+        "CHARGE": 0,
+        "CHORD": 126.55
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "GET READY!!",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 107.23,
+        "PEAK": 107.9,
+        "SCRATCH": 49.83,
+        "SOFLAN": 101.25,
+        "CHARGE": 78.11,
+        "CHORD": 109.14
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "GHEL NAGARAJA",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 139.57,
+        "PEAK": 121.05,
+        "SCRATCH": 48.36,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 125.3
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "God's Scenario",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 129.42,
+        "PEAK": 126.31,
+        "SCRATCH": 51.36,
+        "SOFLAN": 0,
+        "CHARGE": 187.01,
+        "CHORD": 119.95
+      },
+      "radarTop": "CHARGE"
+    },
+    {
+      "title": "GRANDMASTER",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 122.87,
+        "PEAK": 110.52,
+        "SCRATCH": 57.14,
+        "SOFLAN": 0,
+        "CHARGE": 44.65,
+        "CHORD": 96.53
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "GRK NO NEGAI",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 127.53,
+        "PEAK": 158.92,
+        "SCRATCH": 52.41,
+        "SOFLAN": 0,
+        "CHARGE": 143.6,
+        "CHORD": 119.4
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "Hakanaki Koino Gensoutan",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 150.28,
+        "PEAK": 131.57,
+        "SCRATCH": 104.55,
+        "SOFLAN": 0,
+        "CHARGE": 9.21,
+        "CHORD": 145.31
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Hanakanmuri feat.Aikapin",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 106.67,
+        "PEAK": 110.52,
+        "SCRATCH": 161.62,
+        "SOFLAN": 57.3,
+        "CHARGE": 0,
+        "CHORD": 104.88
+      },
+      "radarTop": "SCRATCH"
+    },
+    {
+      "title": "HANARANMAN",
+      "type": "L",
+      "notes": 0,
+      "radar": {
+        "NOTES": 147.01,
+        "PEAK": 132.89,
+        "SCRATCH": 35.54,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 145.2
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "HAPPY��LUCKY��YEAPPY",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 117.38,
+        "PEAK": 109.21,
+        "SCRATCH": 110.98,
+        "SOFLAN": 0,
+        "CHARGE": 0.47,
+        "CHORD": 111.72
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "HARDBASS FESTA",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 115.29,
+        "PEAK": 106.57,
+        "SCRATCH": 83.59,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 114.07
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "hatasenuyakusoku ft. kobayashi mana",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 116.66,
+        "PEAK": 102.63,
+        "SCRATCH": 43.19,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 122.45
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "Heavenly Sun (IIDX VERSION)",
+      "type": "L",
+      "notes": 0,
+      "radar": {
+        "NOTES": 125.18,
+        "PEAK": 103.95,
+        "SCRATCH": 1.77,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 117.28
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "HIKAGE",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 120.96,
+        "PEAK": 98.57,
+        "SCRATCH": 165.48,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 108.6
+      },
+      "radarTop": "SCRATCH"
+    },
+    {
+      "title": "HIMIKO",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 158.61,
+        "PEAK": 187.5,
+        "SCRATCH": 33.84,
+        "SOFLAN": 151.52,
+        "CHARGE": 0,
+        "CHORD": 147.55
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "HIMIKO",
+      "type": "H",
+      "notes": 0,
+      "radar": {
+        "NOTES": 108.05,
+        "PEAK": 123.68,
+        "SCRATCH": 25.11,
+        "SOFLAN": 131.53,
+        "CHARGE": 0,
+        "CHORD": 56.7
+      },
+      "radarTop": "SOFLAN"
+    },
+    {
+      "title": "HiTECH TOKIO",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 111.01,
+        "PEAK": 95.71,
+        "SCRATCH": 103.79,
+        "SOFLAN": 0,
+        "CHARGE": 67.29,
+        "CHORD": 79.46
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "HiTECH TOKIO",
+      "type": "L",
+      "notes": 0,
+      "radar": {
+        "NOTES": 134.56,
+        "PEAK": 111.84,
+        "SCRATCH": 103.79,
+        "SOFLAN": 0,
+        "CHARGE": 120.08,
+        "CHORD": 112.08
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "HOKA RENTEN NO YAIBA",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 140.26,
+        "PEAK": 117.1,
+        "SCRATCH": 57.7,
+        "SOFLAN": 0,
+        "CHARGE": 184.94,
+        "CHORD": 119.74
+      },
+      "radarTop": "CHARGE"
+    },
+    {
+      "title": "Hollywood Galaxy(DJ NAGAI Remix)",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 145.36,
+        "PEAK": 136.84,
+        "SCRATCH": 36.63,
+        "SOFLAN": 0,
+        "CHARGE": 11.88,
+        "CHORD": 137.57
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Hopeful Daybreak!!!",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 125.25,
+        "PEAK": 98.57,
+        "SCRATCH": 33.97,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 114.84
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "HOW TO COOK DELICIOUS RICE AND THE EFFECT OF EATING RICE",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 93.62,
+        "PEAK": 81.42,
+        "SCRATCH": 68.1,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 54.93
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "HYOURIITTAI KAITOU IINCHOU NO NAYAMI",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 142.25,
+        "PEAK": 113.16,
+        "SCRATCH": 65.67,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 141.04
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "I FIGHT ME",
+      "type": "L",
+      "notes": 0,
+      "radar": {
+        "NOTES": 115.66,
+        "PEAK": 122.37,
+        "SCRATCH": 26.38,
+        "SOFLAN": 0,
+        "CHARGE": 102.37,
+        "CHORD": 127.55
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "I just hate you",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 121.9,
+        "PEAK": 127.63,
+        "SCRATCH": 37.08,
+        "SOFLAN": 0,
+        "CHARGE": 4.69,
+        "CHORD": 126.8
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "I like deadball",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 124.34,
+        "PEAK": 103.94,
+        "SCRATCH": 69.68,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 123.48
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "I will be back",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 131.03,
+        "PEAK": 111.84,
+        "SCRATCH": 26.87,
+        "SOFLAN": 0,
+        "CHARGE": 33.59,
+        "CHORD": 116.93
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Ignis+Irae",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 151.01,
+        "PEAK": 142.1,
+        "SCRATCH": 101.94,
+        "SOFLAN": 47.93,
+        "CHARGE": 162.59,
+        "CHORD": 126.32
+      },
+      "radarTop": "CHARGE"
+    },
+    {
+      "title": "Ignited Night",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 118.89,
+        "PEAK": 109.21,
+        "SCRATCH": 90.02,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 114.9
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Immortal",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 136.54,
+        "PEAK": 134.21,
+        "SCRATCH": 96.1,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 138.14
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "Inner Spirit -GIGA HiTECH MIX-",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 131.18,
+        "PEAK": 130.26,
+        "SCRATCH": 80.69,
+        "SOFLAN": 0,
+        "CHARGE": 160.63,
+        "CHORD": 118.05
+      },
+      "radarTop": "CHARGE"
+    },
+    {
+      "title": "Inside Insight",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 121.34,
+        "PEAK": 113.16,
+        "SCRATCH": 25.89,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 110.9
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "insist",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 110.45,
+        "PEAK": 103.95,
+        "SCRATCH": 27.68,
+        "SOFLAN": 0,
+        "CHARGE": 81.22,
+        "CHORD": 103.63
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Izanami's wail",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 136.05,
+        "PEAK": 123.68,
+        "SCRATCH": 27.45,
+        "SOFLAN": 0,
+        "CHARGE": 102.48,
+        "CHORD": 129.55
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "JAEGER FINAL ATTACK",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 113.62,
+        "PEAK": 109.21,
+        "SCRATCH": 62.43,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 103.21
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "JIKUU TRAVELOG",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 106.65,
+        "PEAK": 103.94,
+        "SCRATCH": 30.63,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 69.33
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "JONETSU TANDEM RUNAWAY",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 134.27,
+        "PEAK": 111.84,
+        "SCRATCH": 61.69,
+        "SOFLAN": 0,
+        "CHARGE": 34.81,
+        "CHORD": 124.79
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "JUSTICE/GUILTY feat. Nana Takahashi & 709sec.",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 143.57,
+        "PEAK": 117.11,
+        "SCRATCH": 73.86,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 155.68
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "KACHOUFUSETSU",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 118.39,
+        "PEAK": 95.71,
+        "SCRATCH": 25.87,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 115.69
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "KACHOUFUSETSU",
+      "type": "L",
+      "notes": 0,
+      "radar": {
+        "NOTES": 158.78,
+        "PEAK": 118.42,
+        "SCRATCH": 29.9,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 179.94
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "KAGACHI",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 113.47,
+        "PEAK": 122.36,
+        "SCRATCH": 27.59,
+        "SOFLAN": 0,
+        "CHARGE": 119.1,
+        "CHORD": 100.36
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "kagen no tsuki",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 80.24,
+        "PEAK": 81.42,
+        "SCRATCH": 27.47,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 88.81
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "KAGEROU",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 95.09,
+        "PEAK": 77.14,
+        "SCRATCH": 25.37,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 88.17
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "KAGONOTORI",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 110.22,
+        "PEAK": 126.32,
+        "SCRATCH": 13.33,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 105.61
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "KAI-DEN",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 176.43,
+        "PEAK": 178.57,
+        "SCRATCH": 117.54,
+        "SOFLAN": 0,
+        "CHARGE": 20.31,
+        "CHORD": 164.81
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "KAI-DEN",
+      "type": "H",
+      "notes": 0,
+      "radar": {
+        "NOTES": 113.02,
+        "PEAK": 119.73,
+        "SCRATCH": 104.33,
+        "SOFLAN": 0,
+        "CHARGE": 11.71,
+        "CHORD": 82.89
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "KARASU",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 113.16,
+        "PEAK": 110.52,
+        "SCRATCH": 52.89,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 120.4
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "KASHIMASHI PUMP UP!",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 112.9,
+        "PEAK": 98.57,
+        "SCRATCH": 100.44,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 106.87
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "KAZUASOBI",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 69.6,
+        "PEAK": 67.13,
+        "SCRATCH": 48.8,
+        "SOFLAN": 0,
+        "CHARGE": 5.77,
+        "CHORD": 67.12
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "KID A",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 100.56,
+        "PEAK": 109.21,
+        "SCRATCH": 60.67,
+        "SOFLAN": 54.18,
+        "CHARGE": 0,
+        "CHORD": 85.68
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "KID R",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 104.71,
+        "PEAK": 95.71,
+        "SCRATCH": 31.94,
+        "SOFLAN": 0,
+        "CHARGE": 74.34,
+        "CHORD": 105.04
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "KIKKA -SHURA NO MAI-",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 177.18,
+        "PEAK": 151.79,
+        "SCRATCH": 72.21,
+        "SOFLAN": 0,
+        "CHARGE": 126.77,
+        "CHORD": 170.91
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "kimi no heart ni lockon",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 107.23,
+        "PEAK": 97.14,
+        "SCRATCH": 37.83,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 67.88
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "KIYARORA EISEI NO KISEKI",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 128.13,
+        "PEAK": 151.79,
+        "SCRATCH": 35.62,
+        "SOFLAN": 0,
+        "CHARGE": 164.45,
+        "CHORD": 117.71
+      },
+      "radarTop": "CHARGE"
+    },
+    {
+      "title": "koihashiroobi sanshiro",
+      "type": "L",
+      "notes": 0,
+      "radar": {
+        "NOTES": 112.04,
+        "PEAK": 91.42,
+        "SCRATCH": 42.72,
+        "SOFLAN": 0,
+        "CHARGE": 7.18,
+        "CHORD": 127.55
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "koisuru uchusensou!!",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 142.1,
+        "PEAK": 125,
+        "SCRATCH": 60.09,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 109.72
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "KONNO HIORI NO KONJIKI TEIGEN",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 132.96,
+        "PEAK": 138.15,
+        "SCRATCH": 87.36,
+        "SOFLAN": 0,
+        "CHARGE": 23.45,
+        "CHORD": 123.51
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "kors k's How to make OTOGE CORE LONG",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 141.76,
+        "PEAK": 139.47,
+        "SCRATCH": 105.05,
+        "SOFLAN": 0,
+        "CHARGE": 86.62,
+        "CHORD": 139.69
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "KUROKAMI MIDARESHI SHURA TO NARITE",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 140.68,
+        "PEAK": 119.73,
+        "SCRATCH": 40.53,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 130.07
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "kuruizake homura no hana",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 139.12,
+        "PEAK": 139.47,
+        "SCRATCH": 46.32,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 109.54
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "KYATORARE KOIHA MOOMOKU",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 142.43,
+        "PEAK": 139.47,
+        "SCRATCH": 86.19,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 135.58
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Kyoka Suigetsu",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 118.84,
+        "PEAK": 114.47,
+        "SCRATCH": 37.26,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 104.01
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "KYOSUI ICHIKA",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 111.23,
+        "PEAK": 95.71,
+        "SCRATCH": 65.66,
+        "SOFLAN": 0,
+        "CHARGE": 15,
+        "CHORD": 92.33
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "kyoumeiyuugino hana",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 155.12,
+        "PEAK": 144.73,
+        "SCRATCH": 34.49,
+        "SOFLAN": 0,
+        "CHARGE": 157.99,
+        "CHORD": 125.94
+      },
+      "radarTop": "CHARGE"
+    },
+    {
+      "title": "Kyuubikoyagyou",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 133.71,
+        "PEAK": 121.06,
+        "SCRATCH": 51.24,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 134.12
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "LA FESTA LA VITA!!",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 113.38,
+        "PEAK": 103.95,
+        "SCRATCH": 118.98,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 129.7
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "La Lumiere",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 128.69,
+        "PEAK": 107.9,
+        "SCRATCH": 31.78,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 119.98
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Lied ohne Worte \"Asche-Traum\"",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 134.85,
+        "PEAK": 134.21,
+        "SCRATCH": 0,
+        "SOFLAN": 195.35,
+        "CHARGE": 0,
+        "CHORD": 124.9
+      },
+      "radarTop": "SOFLAN"
+    },
+    {
+      "title": "Life Is A Game ft.DD Nakata Metal",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 139.99,
+        "PEAK": 150,
+        "SCRATCH": 54.01,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 149.35
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "Light and Cyber...",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 124.19,
+        "PEAK": 113.15,
+        "SCRATCH": 29.22,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 105.13
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "LIGHTNING SPEED",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 126.36,
+        "PEAK": 113.15,
+        "SCRATCH": 24.04,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 98.08
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "LIGHTNING SPEED",
+      "type": "L",
+      "notes": 0,
+      "radar": {
+        "NOTES": 154.29,
+        "PEAK": 182.14,
+        "SCRATCH": 135.19,
+        "SOFLAN": 0,
+        "CHARGE": 42.07,
+        "CHORD": 133.11
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "Like+it!",
+      "type": "L",
+      "notes": 0,
+      "radar": {
+        "NOTES": 163,
+        "PEAK": 138.16,
+        "SCRATCH": 81.58,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 149.8
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "lilieze and her fire dragon",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 159.68,
+        "PEAK": 125,
+        "SCRATCH": 48.01,
+        "SOFLAN": 0,
+        "CHARGE": 118.75,
+        "CHORD": 139.37
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "LIMIT TOPPA REVOLUTION",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 115.75,
+        "PEAK": 123.68,
+        "SCRATCH": 43.44,
+        "SOFLAN": 0,
+        "CHARGE": 57.94,
+        "CHORD": 83.01
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "LIVE DRIVING!! feat. Hanatan",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 151.09,
+        "PEAK": 121.05,
+        "SCRATCH": 84.82,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 168.72
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "LOVE SONG GALE! KARUTA QUEEN IROHA",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 126.41,
+        "PEAK": 131.58,
+        "SCRATCH": 64.42,
+        "SOFLAN": 26.42,
+        "CHARGE": 0,
+        "CHORD": 128.46
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "Ludus In Tenebris",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 150.77,
+        "PEAK": 125,
+        "SCRATCH": 49.07,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 136.33
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "M.D.Injection",
+      "type": "L",
+      "notes": 0,
+      "radar": {
+        "NOTES": 141.6,
+        "PEAK": 142.11,
+        "SCRATCH": 40.9,
+        "SOFLAN": 0,
+        "CHARGE": 170.52,
+        "CHORD": 134.42
+      },
+      "radarTop": "CHARGE"
+    },
+    {
+      "title": "m1dy Dynamic",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 94.29,
+        "PEAK": 97.14,
+        "SCRATCH": 58.93,
+        "SOFLAN": 0,
+        "CHARGE": 87.22,
+        "CHORD": 69.26
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "m1dy Festival",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 103.02,
+        "PEAK": 97.14,
+        "SCRATCH": 93.17,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 43.48
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Macho Monky",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 127.19,
+        "PEAK": 136.84,
+        "SCRATCH": 125.4,
+        "SOFLAN": 0,
+        "CHARGE": 2.34,
+        "CHORD": 133.6
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "magical hide&seek",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 119.05,
+        "PEAK": 135.52,
+        "SCRATCH": 10.14,
+        "SOFLAN": 128.64,
+        "CHARGE": 165.58,
+        "CHORD": 106.05
+      },
+      "radarTop": "CHARGE"
+    },
+    {
+      "title": "MAGiCVLGiRL_TRVP_B3VTZ",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 140.18,
+        "PEAK": 126.31,
+        "SCRATCH": 56.51,
+        "SOFLAN": 0,
+        "CHARGE": 67.5,
+        "CHORD": 131.76
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "MANA",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 119.55,
+        "PEAK": 100,
+        "SCRATCH": 24.4,
+        "SOFLAN": 0,
+        "CHARGE": 40.86,
+        "CHORD": 117.92
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Mandala Renren",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 110.38,
+        "PEAK": 98.57,
+        "SCRATCH": 53.15,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 104.43
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "MATENRO",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 99.96,
+        "PEAK": 131.57,
+        "SCRATCH": 12.79,
+        "SOFLAN": 0,
+        "CHARGE": 176.06,
+        "CHORD": 100.85
+      },
+      "radarTop": "CHARGE"
+    },
+    {
+      "title": "maud and her water dragon",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 136.21,
+        "PEAK": 110.52,
+        "SCRATCH": 30.27,
+        "SOFLAN": 0,
+        "CHARGE": 63.39,
+        "CHORD": 109.8
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Mausoleum Of The Primal Dragon",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 123.7,
+        "PEAK": 100,
+        "SCRATCH": 12.84,
+        "SOFLAN": 0,
+        "CHARGE": 49.12,
+        "CHORD": 107.37
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "MEI(TAKASH)",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 150.46,
+        "PEAK": 180.35,
+        "SCRATCH": 26.86,
+        "SOFLAN": 183.46,
+        "CHARGE": 0,
+        "CHORD": 140.96
+      },
+      "radarTop": "SOFLAN"
+    },
+    {
+      "title": "meikyoushisui",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 112.21,
+        "PEAK": 107.89,
+        "SCRATCH": 23.79,
+        "SOFLAN": 75.16,
+        "CHARGE": 0,
+        "CHORD": 112.48
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "Meisai Idol Aim-chang.",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 135.2,
+        "PEAK": 123.68,
+        "SCRATCH": 43.02,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 129.24
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Mermaid girl -AKIBA KOUBOU MIX-",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 78.9,
+        "PEAK": 65.72,
+        "SCRATCH": 27.9,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 64.92
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Metagame Matador",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 115.97,
+        "PEAK": 100,
+        "SCRATCH": 83.54,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 105.88
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "MIDNIGHT WAR",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 108.59,
+        "PEAK": 101.31,
+        "SCRATCH": 48.31,
+        "SOFLAN": 0,
+        "CHARGE": 81.53,
+        "CHORD": 94.76
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "MINARAITENSHI TO HOSHIFURI NO OKA",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 149.7,
+        "PEAK": 148.68,
+        "SCRATCH": 61.01,
+        "SOFLAN": 0,
+        "CHARGE": 102.08,
+        "CHORD": 141.16
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "MIND GAME",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 105.05,
+        "PEAK": 103.95,
+        "SCRATCH": 34.76,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 102.74
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Mira",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 125.94,
+        "PEAK": 106.58,
+        "SCRATCH": 33.47,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 106.63
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Misogi",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 131.6,
+        "PEAK": 119.73,
+        "SCRATCH": 57.61,
+        "SOFLAN": 0,
+        "CHARGE": 156.69,
+        "CHORD": 113.21
+      },
+      "radarTop": "CHARGE"
+    },
+    {
+      "title": "Moon of CARAL",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 106.57,
+        "PEAK": 109.21,
+        "SCRATCH": 19.08,
+        "SOFLAN": 0,
+        "CHARGE": 144.91,
+        "CHORD": 115.43
+      },
+      "radarTop": "CHARGE"
+    },
+    {
+      "title": "Motto! motto! TOKIMEKI feat.Matsushita",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 106.54,
+        "PEAK": 97.14,
+        "SCRATCH": 83.4,
+        "SOFLAN": 0,
+        "CHARGE": 2.5,
+        "CHORD": 44.61
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "My Sweet Bird",
+      "type": "L",
+      "notes": 0,
+      "radar": {
+        "NOTES": 124.19,
+        "PEAK": 105.26,
+        "SCRATCH": 51.68,
+        "SOFLAN": 122.38,
+        "CHARGE": 0,
+        "CHORD": 124.68
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "NAGEKI NO KI",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 155.5,
+        "PEAK": 167.85,
+        "SCRATCH": 48.18,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 160.21
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "NAGEKI NO KI",
+      "type": "H",
+      "notes": 0,
+      "radar": {
+        "NOTES": 99.67,
+        "PEAK": 101.31,
+        "SCRATCH": 32.31,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 77.63
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "NAGISANOKOAKUMA LOVELY RADIO",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 163.43,
+        "PEAK": 138.15,
+        "SCRATCH": 96.19,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 148.03
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "NATSUIRO DIARY - L.E.D.-G STYLE MIX -",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 135.61,
+        "PEAK": 126.31,
+        "SCRATCH": 59.03,
+        "SOFLAN": 0,
+        "CHARGE": 45.23,
+        "CHORD": 112.54
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "NAUGHTY GIRL QUEEN'S PALACE",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 92.06,
+        "PEAK": 92.85,
+        "SCRATCH": 154.44,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 90.19
+      },
+      "radarTop": "SCRATCH"
+    },
+    {
+      "title": "NAUGHTY GIRL QUEEN'S PALACE",
+      "type": "L",
+      "notes": 0,
+      "radar": {
+        "NOTES": 116.77,
+        "PEAK": 103.94,
+        "SCRATCH": 153.77,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 123.7
+      },
+      "radarTop": "SCRATCH"
+    },
+    {
+      "title": "NEMESIS -gratitude remix- IIDX Edition",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 105.99,
+        "PEAK": 115.79,
+        "SCRATCH": 22.98,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 100.61
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "NEW GENERATION",
+      "type": "L",
+      "notes": 0,
+      "radar": {
+        "NOTES": 154.26,
+        "PEAK": 175,
+        "SCRATCH": 83.08,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 146.04
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "NEW SENSATION",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 109.81,
+        "PEAK": 90,
+        "SCRATCH": 33.01,
+        "SOFLAN": 0,
+        "CHARGE": 84.37,
+        "CHORD": 100.62
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Next Tales 2 Oath (IIDX 20th Anniv \"Ring\" Theme)",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 113.32,
+        "PEAK": 115.79,
+        "SCRATCH": 42.5,
+        "SOFLAN": 0,
+        "CHARGE": 1.41,
+        "CHORD": 97.3
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "NINE",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 160.9,
+        "PEAK": 160.71,
+        "SCRATCH": 83.05,
+        "SOFLAN": 0,
+        "CHARGE": 59.51,
+        "CHORD": 142.6
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "NINE",
+      "type": "H",
+      "notes": 0,
+      "radar": {
+        "NOTES": 100.1,
+        "PEAK": 92.85,
+        "SCRATCH": 40.94,
+        "SOFLAN": 0,
+        "CHARGE": 36.4,
+        "CHORD": 70.78
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "OBORO",
+      "type": "L",
+      "notes": 0,
+      "radar": {
+        "NOTES": 104.05,
+        "PEAK": 98.57,
+        "SCRATCH": 40.86,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 110.27
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "OH MY!LOVELY!SWEETY!DARLING!",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 118.14,
+        "PEAK": 91.43,
+        "SCRATCH": 53.71,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 102.6
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "ONGAKU",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 101.91,
+        "PEAK": 139.47,
+        "SCRATCH": 5.99,
+        "SOFLAN": 175.48,
+        "CHARGE": 0,
+        "CHORD": 119.87
+      },
+      "radarTop": "SOFLAN"
+    },
+    {
+      "title": "ONIGAMI",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 108.04,
+        "PEAK": 111.84,
+        "SCRATCH": 24.26,
+        "SOFLAN": 0,
+        "CHARGE": 127.3,
+        "CHORD": 84.19
+      },
+      "radarTop": "CHARGE"
+    },
+    {
+      "title": "onslaught",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 163.04,
+        "PEAK": 157.14,
+        "SCRATCH": 62.46,
+        "SOFLAN": 0,
+        "CHARGE": 176.81,
+        "CHORD": 152.5
+      },
+      "radarTop": "CHARGE"
+    },
+    {
+      "title": "OOKINA KOEDE",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 58.95,
+        "PEAK": 60,
+        "SCRATCH": 13.1,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 59.49
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "Oort Cloud",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 105.62,
+        "PEAK": 110.52,
+        "SCRATCH": 26.51,
+        "SOFLAN": 0,
+        "CHARGE": 66.85,
+        "CHORD": 102.85
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "ORDERBREAKER",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 102.69,
+        "PEAK": 87.14,
+        "SCRATCH": 59.52,
+        "SOFLAN": 0,
+        "CHARGE": 167.53,
+        "CHORD": 83.85
+      },
+      "radarTop": "CHARGE"
+    },
+    {
+      "title": "Osenju Meditation",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 94.53,
+        "PEAK": 92.86,
+        "SCRATCH": 113.12,
+        "SOFLAN": 22.41,
+        "CHARGE": 0,
+        "CHORD": 51.22
+      },
+      "radarTop": "SCRATCH"
+    },
+    {
+      "title": "Pa, Pi, Pu, Yeah!",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 116.19,
+        "PEAK": 114.47,
+        "SCRATCH": 17.85,
+        "SOFLAN": 0,
+        "CHARGE": 82.06,
+        "CHORD": 114.87
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "PARANOIA -HADES-",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 132.52,
+        "PEAK": 127.63,
+        "SCRATCH": 18.69,
+        "SOFLAN": 134.16,
+        "CHARGE": 0,
+        "CHORD": 114.96
+      },
+      "radarTop": "SOFLAN"
+    },
+    {
+      "title": "PARANOIA -HADES-",
+      "type": "H",
+      "notes": 0,
+      "radar": {
+        "NOTES": 90.62,
+        "PEAK": 95.71,
+        "SCRATCH": 23.53,
+        "SOFLAN": 110.77,
+        "CHARGE": 0,
+        "CHORD": 50.75
+      },
+      "radarTop": "SOFLAN"
+    },
+    {
+      "title": "Parvati",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 119.27,
+        "PEAK": 119.73,
+        "SCRATCH": 52.12,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 100.73
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "perditus/paradisus",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 154.26,
+        "PEAK": 151.78,
+        "SCRATCH": 22.87,
+        "SOFLAN": 0,
+        "CHARGE": 122.76,
+        "CHORD": 131.61
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "perditus/paradisus",
+      "type": "H",
+      "notes": 0,
+      "radar": {
+        "NOTES": 100.53,
+        "PEAK": 106.57,
+        "SCRATCH": 39.2,
+        "SOFLAN": 0,
+        "CHARGE": 65.53,
+        "CHORD": 30.03
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "PERFECT EATER",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 117.68,
+        "PEAK": 98.57,
+        "SCRATCH": 74.48,
+        "SOFLAN": 0,
+        "CHARGE": 4.53,
+        "CHORD": 106.86
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "PF CONCERTO ANTI-ARES",
+      "type": "H",
+      "notes": 0,
+      "radar": {
+        "NOTES": 84.53,
+        "PEAK": 109.21,
+        "SCRATCH": 28.89,
+        "SOFLAN": 150.46,
+        "CHARGE": 0,
+        "CHORD": 53.51
+      },
+      "radarTop": "SOFLAN"
+    },
+    {
+      "title": "Pf Concerto No.1 \"Anti-Ares\" BlackY Remix",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 141.44,
+        "PEAK": 157.14,
+        "SCRATCH": 32.1,
+        "SOFLAN": 0,
+        "CHARGE": 114.05,
+        "CHORD": 145.17
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "planetary express",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 126.2,
+        "PEAK": 162.5,
+        "SCRATCH": 43.91,
+        "SOFLAN": 182.75,
+        "CHARGE": 81.57,
+        "CHORD": 95.77
+      },
+      "radarTop": "SOFLAN"
+    },
+    {
+      "title": "planetary express",
+      "type": "H",
+      "notes": 0,
+      "radar": {
+        "NOTES": 86.48,
+        "PEAK": 100,
+        "SCRATCH": 27.02,
+        "SOFLAN": 162.64,
+        "CHARGE": 63.82,
+        "CHORD": 41.53
+      },
+      "radarTop": "SOFLAN"
+    },
+    {
+      "title": "PLRAYER",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 116.01,
+        "PEAK": 117.1,
+        "SCRATCH": 39.28,
+        "SOFLAN": 0,
+        "CHARGE": 9.37,
+        "CHORD": 119.27
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "POLKAMANIA",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 123.12,
+        "PEAK": 109.21,
+        "SCRATCH": 107.63,
+        "SOFLAN": 0,
+        "CHARGE": 8.43,
+        "CHORD": 96.38
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Poppin' Soda",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 116.81,
+        "PEAK": 102.63,
+        "SCRATCH": 104.96,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 130.12
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "Precision multiplied by Recognition equals L.O.V.E.",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 138.03,
+        "PEAK": 125,
+        "SCRATCH": 66.82,
+        "SOFLAN": 182.06,
+        "CHARGE": 67.5,
+        "CHORD": 149.11
+      },
+      "radarTop": "SOFLAN"
+    },
+    {
+      "title": "Progressive space time girl! Urashima Taroko chan!",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 104.39,
+        "PEAK": 100,
+        "SCRATCH": 66.3,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 102.2
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "promised victory song -ReUnion-",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 155.66,
+        "PEAK": 151.78,
+        "SCRATCH": 52.65,
+        "SOFLAN": 0,
+        "CHARGE": 53.98,
+        "CHORD": 164.39
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "quaver",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 157.37,
+        "PEAK": 139.47,
+        "SCRATCH": 34.85,
+        "SOFLAN": 45.73,
+        "CHARGE": 0,
+        "CHORD": 145.94
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "quell-the seventh slave-",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 149.21,
+        "PEAK": 147.36,
+        "SCRATCH": 38.96,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 121.42
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "RAGE AGAINST EMPRESS",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 111.07,
+        "PEAK": 105.26,
+        "SCRATCH": 45.26,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 67.62
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "RAISON D'ETRE-MALCHUT AND L'ERISIA-",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 104.84,
+        "PEAK": 82.85,
+        "SCRATCH": 56.09,
+        "SOFLAN": 15.93,
+        "CHARGE": 0,
+        "CHORD": 67.69
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "RAKIRAKI",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 95.03,
+        "PEAK": 85.71,
+        "SCRATCH": 29.74,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 79.76
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "RAKUEN",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 81.99,
+        "PEAK": 90,
+        "SCRATCH": 126.26,
+        "SOFLAN": 74.77,
+        "CHARGE": 0,
+        "CHORD": 70.76
+      },
+      "radarTop": "SCRATCH"
+    },
+    {
+      "title": "RAKUEN FEAT.CHIHARU CHONAN -JAKA RESPECT FOR K.S.K. REMIX",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 101.01,
+        "PEAK": 102.63,
+        "SCRATCH": 77.98,
+        "SOFLAN": 93.47,
+        "CHARGE": 0,
+        "CHORD": 98.23
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "Ranker Killer Girl",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 117.88,
+        "PEAK": 102.63,
+        "SCRATCH": 41.23,
+        "SOFLAN": 0,
+        "CHARGE": 20.62,
+        "CHORD": 116.69
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Rave lithosphere",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 112.45,
+        "PEAK": 102.63,
+        "SCRATCH": 64.09,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 110.61
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "REFLEXES MANIPULATION",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 147.91,
+        "PEAK": 128.95,
+        "SCRATCH": 75.2,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 143.45
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Remain",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 107.76,
+        "PEAK": 128.95,
+        "SCRATCH": 50.05,
+        "SOFLAN": 0,
+        "CHARGE": 158.73,
+        "CHORD": 103.77
+      },
+      "radarTop": "CHARGE"
+    },
+    {
+      "title": "RENSEI NINGEN TRICOROIDER",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 133.18,
+        "PEAK": 114.47,
+        "SCRATCH": 72.18,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 146.81
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "Requiem for the abyss",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 127.76,
+        "PEAK": 127.63,
+        "SCRATCH": 15.74,
+        "SOFLAN": 0,
+        "CHARGE": 188.09,
+        "CHORD": 115.81
+      },
+      "radarTop": "CHARGE"
+    },
+    {
+      "title": "Ride To The Core",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 111.59,
+        "PEAK": 103.95,
+        "SCRATCH": 50.5,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 86.91
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Rinne no Karasu",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 111.95,
+        "PEAK": 102.63,
+        "SCRATCH": 28.58,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 107.86
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "RINTOSHITESAKUHANANOGOTOKU",
+      "type": "L",
+      "notes": 0,
+      "radar": {
+        "NOTES": 124.94,
+        "PEAK": 103.94,
+        "SCRATCH": 19.97,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 132.36
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "RIN�IE",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 140.57,
+        "PEAK": 126.31,
+        "SCRATCH": 71.02,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 146.28
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "Rise Circuit",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 97.91,
+        "PEAK": 122.37,
+        "SCRATCH": 26.04,
+        "SOFLAN": 0,
+        "CHARGE": 143.35,
+        "CHORD": 93.04
+      },
+      "radarTop": "CHARGE"
+    },
+    {
+      "title": "Rootage",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 112.31,
+        "PEAK": 102.63,
+        "SCRATCH": 70.23,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 118.82
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "ROZA DE ANDALUCIA",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 125.48,
+        "PEAK": 95.71,
+        "SCRATCH": 64.91,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 96.28
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "SAKADUKI",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 156.73,
+        "PEAK": 143.42,
+        "SCRATCH": 52.97,
+        "SOFLAN": 0,
+        "CHARGE": 118.95,
+        "CHORD": 168.07
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "SAKURA",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 109.24,
+        "PEAK": 118.42,
+        "SCRATCH": 58.82,
+        "SOFLAN": 151.6,
+        "CHARGE": 0,
+        "CHORD": 109.62
+      },
+      "radarTop": "SOFLAN"
+    },
+    {
+      "title": "Sarutobi Champion is Sessha",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 105.56,
+        "PEAK": 131.57,
+        "SCRATCH": 73.37,
+        "SOFLAN": 54.56,
+        "CHARGE": 0,
+        "CHORD": 81.83
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "SCHRODINGER'S CAT",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 151.59,
+        "PEAK": 130.26,
+        "SCRATCH": 29.59,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 137.96
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "SCRIPTED CONNECTION-> A MIX",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 125.35,
+        "PEAK": 117.1,
+        "SCRATCH": 25.51,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 102.71
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "SCRIPTED CONNECTION-> A MIX",
+      "type": "L",
+      "notes": 0,
+      "radar": {
+        "NOTES": 139.2,
+        "PEAK": 155.35,
+        "SCRATCH": 34.79,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 117.91
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "SCRIPTED CONNECTION-> H MIX",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 109.22,
+        "PEAK": 92.85,
+        "SCRATCH": 36.2,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 60.68
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "SEITEN NO TERIYAKI",
+      "type": "L",
+      "notes": 0,
+      "radar": {
+        "NOTES": 151.19,
+        "PEAK": 162.5,
+        "SCRATCH": 93.46,
+        "SOFLAN": 70.72,
+        "CHARGE": 77.03,
+        "CHORD": 141.83
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "sennenno kotowari",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 124.07,
+        "PEAK": 123.68,
+        "SCRATCH": 15.74,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 135.56
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "sennenno kotowari",
+      "type": "L",
+      "notes": 0,
+      "radar": {
+        "NOTES": 168.08,
+        "PEAK": 178.57,
+        "SCRATCH": 21.36,
+        "SOFLAN": 0,
+        "CHARGE": 133.37,
+        "CHORD": 198.04
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "SENRITSUNO DOGMA",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 141.45,
+        "PEAK": 122.36,
+        "SCRATCH": 35,
+        "SOFLAN": 0,
+        "CHARGE": 1.87,
+        "CHORD": 130.13
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "sepia no kiseki ft. Amamiya Miya",
+      "type": "L",
+      "notes": 0,
+      "radar": {
+        "NOTES": 135,
+        "PEAK": 126.32,
+        "SCRATCH": 28.83,
+        "SOFLAN": 0,
+        "CHARGE": 80.69,
+        "CHORD": 130.87
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "SEQUENCE CAT",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 112.68,
+        "PEAK": 98.57,
+        "SCRATCH": 24.41,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 96.4
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "serotonin",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 97.71,
+        "PEAK": 102.63,
+        "SCRATCH": 47.69,
+        "SOFLAN": 0,
+        "CHARGE": 38.57,
+        "CHORD": 73.97
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "SETSUGEKKA",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 110.25,
+        "PEAK": 118.42,
+        "SCRATCH": 63.66,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 99.92
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "Setsujodanka",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 117.73,
+        "PEAK": 115.78,
+        "SCRATCH": 175.89,
+        "SOFLAN": 63.57,
+        "CHARGE": 0,
+        "CHORD": 130.67
+      },
+      "radarTop": "SCRATCH"
+    },
+    {
+      "title": "SHAKUNETSU BEACH SIDE BUNNY",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 135.14,
+        "PEAK": 119.73,
+        "SCRATCH": 198.85,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 138.2
+      },
+      "radarTop": "SCRATCH"
+    },
+    {
+      "title": "shakunetsu pt.2 Long Train Running",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 143.89,
+        "PEAK": 125,
+        "SCRATCH": 200,
+        "SOFLAN": 0,
+        "CHARGE": 9.21,
+        "CHORD": 145.33
+      },
+      "radarTop": "SCRATCH"
+    },
+    {
+      "title": "shakunetsu pt.2 Long Train Running",
+      "type": "H",
+      "notes": 0,
+      "radar": {
+        "NOTES": 87.18,
+        "PEAK": 78.57,
+        "SCRATCH": 182.84,
+        "SOFLAN": 0,
+        "CHARGE": 2.34,
+        "CHORD": 72.78
+      },
+      "radarTop": "SCRATCH"
+    },
+    {
+      "title": "ShakunetsuBeachSideBunny(Camellia's \"Summertime D'n'B\" Remix)",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 125.87,
+        "PEAK": 117.1,
+        "SCRATCH": 175.14,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 117.33
+      },
+      "radarTop": "SCRATCH"
+    },
+    {
+      "title": "shamshir dance",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 109,
+        "PEAK": 101.31,
+        "SCRATCH": 25.16,
+        "SOFLAN": 102.44,
+        "CHARGE": 0,
+        "CHORD": 126.05
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "SHIME",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 144.02,
+        "PEAK": 135.52,
+        "SCRATCH": 114.06,
+        "SOFLAN": 0,
+        "CHARGE": 10.31,
+        "CHORD": 159.69
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "SHINOBI RENKA",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 106.13,
+        "PEAK": 101.31,
+        "SCRATCH": 32.53,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 90.98
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "SHINOH -RESONANCE-",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 154.28,
+        "PEAK": 134.21,
+        "SCRATCH": 34.06,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 151.61
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Shizuku",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 107.63,
+        "PEAK": 106.57,
+        "SCRATCH": 24.2,
+        "SOFLAN": 69.84,
+        "CHARGE": 0,
+        "CHORD": 105.12
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Shonen ha Sora wo Tadoru",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 134.3,
+        "PEAK": 135.52,
+        "SCRATCH": 44.7,
+        "SOFLAN": 0,
+        "CHARGE": 101.85,
+        "CHORD": 127.59
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "Shoot'Em All",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 89.95,
+        "PEAK": 97.14,
+        "SCRATCH": 56.5,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 89.23
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "Shuen no Claudia",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 122.9,
+        "PEAK": 121.05,
+        "SCRATCH": 42.67,
+        "SOFLAN": 94.93,
+        "CHARGE": 0,
+        "CHORD": 116.48
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Six String Proof",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 119.76,
+        "PEAK": 130.26,
+        "SCRATCH": 52.8,
+        "SOFLAN": 0,
+        "CHARGE": 77.48,
+        "CHORD": 94.62
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "SMALLEST 3K-PERFECT NUMBER",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 118.08,
+        "PEAK": 117.1,
+        "SCRATCH": 68.74,
+        "SOFLAN": 0,
+        "CHARGE": 1.56,
+        "CHORD": 111.69
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "SMOOOOCH",
+      "type": "L",
+      "notes": 0,
+      "radar": {
+        "NOTES": 122.15,
+        "PEAK": 111.84,
+        "SCRATCH": 101.67,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 126.27
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "Smug Face",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 102.65,
+        "PEAK": 97.14,
+        "SCRATCH": 25.73,
+        "SOFLAN": 0,
+        "CHARGE": 26.38,
+        "CHORD": 81.38
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "SONG OF MACHIKO",
+      "type": "L",
+      "notes": 0,
+      "radar": {
+        "NOTES": 112.44,
+        "PEAK": 125,
+        "SCRATCH": 70.05,
+        "SOFLAN": 0,
+        "CHARGE": 176.71,
+        "CHORD": 121.7
+      },
+      "radarTop": "CHARGE"
+    },
+    {
+      "title": "soreha hanabino youna koi",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 151.42,
+        "PEAK": 125,
+        "SCRATCH": 85.43,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 146.47
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Source Of Calamity",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 111.94,
+        "PEAK": 109.21,
+        "SCRATCH": 20.14,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 79.15
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "SpaceLand*TOYBOX",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 138.76,
+        "PEAK": 121.05,
+        "SCRATCH": 34.35,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 116.77
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Spirit of the Beast",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 156.14,
+        "PEAK": 143.42,
+        "SCRATCH": 78.2,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 120.37
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "STAY GOLD",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 137.28,
+        "PEAK": 125,
+        "SCRATCH": 64.67,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 138.66
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "Stella in Dreamland",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 110.93,
+        "PEAK": 91.42,
+        "SCRATCH": 45.25,
+        "SOFLAN": 0,
+        "CHARGE": 99.21,
+        "CHORD": 95.46
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Stella Sinistra",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 104.93,
+        "PEAK": 103.95,
+        "SCRATCH": 37.06,
+        "SOFLAN": 51.24,
+        "CHARGE": 0,
+        "CHORD": 103.27
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Stleq",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 119.25,
+        "PEAK": 109.21,
+        "SCRATCH": 29.83,
+        "SOFLAN": 0,
+        "CHARGE": 96.13,
+        "CHORD": 81.79
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "SUIJYOUNOTEITOKU",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 86.43,
+        "PEAK": 105.27,
+        "SCRATCH": 15.84,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 68.17
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "Suikyo no Ikai",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 137.33,
+        "PEAK": 119.73,
+        "SCRATCH": 121.78,
+        "SOFLAN": 0,
+        "CHARGE": 165.61,
+        "CHORD": 107.8
+      },
+      "radarTop": "CHARGE"
+    },
+    {
+      "title": "sunny theme park of nostalgia",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 127.93,
+        "PEAK": 107.89,
+        "SCRATCH": 34.02,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 122.96
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "SUPER BATTLE BATH BABAN-BURN",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 135.41,
+        "PEAK": 122.36,
+        "SCRATCH": 82.63,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 129.39
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "T-REX vs Velociraptor (In the Far east euphoria)",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 136.39,
+        "PEAK": 126.32,
+        "SCRATCH": 47.44,
+        "SOFLAN": 0,
+        "CHARGE": 8.75,
+        "CHORD": 120.76
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "taiyo sun sun bonjour aventure",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 112.93,
+        "PEAK": 118.42,
+        "SCRATCH": 41.27,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 118.39
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "TAKARAMONO",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 81.84,
+        "PEAK": 82.85,
+        "SCRATCH": 19.11,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 100.88
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "TAKARAMONO",
+      "type": "L",
+      "notes": 0,
+      "radar": {
+        "NOTES": 130.17,
+        "PEAK": 107.89,
+        "SCRATCH": 57.35,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 171.41
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "Take Me Higher",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 86.63,
+        "PEAK": 84.28,
+        "SCRATCH": 45.39,
+        "SOFLAN": 0,
+        "CHARGE": 38.12,
+        "CHORD": 79.35
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "tamayura",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 121.71,
+        "PEAK": 138.15,
+        "SCRATCH": 51.68,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 125.87
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "TE EXTRANO MUCHO",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 113.15,
+        "PEAK": 95.71,
+        "SCRATCH": 41.16,
+        "SOFLAN": 0,
+        "CHARGE": 105.45,
+        "CHORD": 103.11
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Tell me what you wish feat. Rapbit",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 105.38,
+        "PEAK": 84.28,
+        "SCRATCH": 16.03,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 93.41
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "TENKU NO YOAKE",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 156.61,
+        "PEAK": 148.68,
+        "SCRATCH": 15.98,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 147.91
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "THE ANCIENT KING IS BACK",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 105.04,
+        "PEAK": 103.95,
+        "SCRATCH": 68.32,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 115.06
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "THE CANNONBALLER",
+      "type": "L",
+      "notes": 0,
+      "radar": {
+        "NOTES": 174.81,
+        "PEAK": 164.29,
+        "SCRATCH": 45.67,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 186.22
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "THE FAUST",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 146.07,
+        "PEAK": 157.14,
+        "SCRATCH": 44.84,
+        "SOFLAN": 0,
+        "CHARGE": 111.68,
+        "CHORD": 134.79
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "THE FLYING RERUN",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 108.48,
+        "PEAK": 115.78,
+        "SCRATCH": 23.5,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 107.95
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "THE HELL EXPRESS -HELL or HELL-",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 132.27,
+        "PEAK": 128.94,
+        "SCRATCH": 159.94,
+        "SOFLAN": 0,
+        "CHARGE": 164.25,
+        "CHORD": 134.62
+      },
+      "radarTop": "CHARGE"
+    },
+    {
+      "title": "The human end by the collapse of the multipolarity neuron",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 149.22,
+        "PEAK": 144.74,
+        "SCRATCH": 40.07,
+        "SOFLAN": 0,
+        "CHARGE": 144.08,
+        "CHORD": 128.68
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "The Rebellion of Sequencer",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 145.24,
+        "PEAK": 130.26,
+        "SCRATCH": 97.79,
+        "SOFLAN": 0,
+        "CHARGE": 25.31,
+        "CHORD": 127.74
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "The setting sun(burst)",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 107.54,
+        "PEAK": 131.58,
+        "SCRATCH": 150,
+        "SOFLAN": 0,
+        "CHARGE": 185.85,
+        "CHORD": 103.5
+      },
+      "radarTop": "CHARGE"
+    },
+    {
+      "title": "THE STRONG JAEGER(RYU* REMIX)",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 80.98,
+        "PEAK": 110.53,
+        "SCRATCH": 39.65,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 83.54
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "The travelers of virtual space",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 106.47,
+        "PEAK": 94.28,
+        "SCRATCH": 14.44,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 92.5
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "The travelers of virtual space",
+      "type": "L",
+      "notes": 0,
+      "radar": {
+        "NOTES": 149.92,
+        "PEAK": 155.35,
+        "SCRATCH": 15.74,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 155.74
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "THE_RELENTLESS",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 110.73,
+        "PEAK": 109.21,
+        "SCRATCH": 60,
+        "SOFLAN": 0,
+        "CHARGE": 4.68,
+        "CHORD": 103.86
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "This Is Not The Angels",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 113.17,
+        "PEAK": 101.31,
+        "SCRATCH": 45.94,
+        "SOFLAN": 171.5,
+        "CHARGE": 0,
+        "CHORD": 113.21
+      },
+      "radarTop": "SOFLAN"
+    },
+    {
+      "title": "THUNDER LOVE BEANBALL !",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 161.28,
+        "PEAK": 142.11,
+        "SCRATCH": 84.35,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 148.75
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Tohoku Densetsu",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 137.1,
+        "PEAK": 119.73,
+        "SCRATCH": 48.55,
+        "SOFLAN": 0,
+        "CHARGE": 136.05,
+        "CHORD": 120.22
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "TOKYO SHINWA",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 126.95,
+        "PEAK": 148.68,
+        "SCRATCH": 81.73,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 108.77
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "TOKYO SHINWA",
+      "type": "L",
+      "notes": 0,
+      "radar": {
+        "NOTES": 160.32,
+        "PEAK": 200,
+        "SCRATCH": 81.37,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 150.72
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "TORIKAGONO HOUOH",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 138.05,
+        "PEAK": 126.31,
+        "SCRATCH": 42.16,
+        "SOFLAN": 0,
+        "CHARGE": 75.6,
+        "CHORD": 118.13
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "ToyCube Pf.(RX-Ver.S.P.L.)",
+      "type": "L",
+      "notes": 0,
+      "radar": {
+        "NOTES": 115.1,
+        "PEAK": 101.32,
+        "SCRATCH": 35.83,
+        "SOFLAN": 47.73,
+        "CHARGE": 0,
+        "CHORD": 132.24
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "transfer reflection",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 126.69,
+        "PEAK": 102.63,
+        "SCRATCH": 38.19,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 120.77
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "tripping contact",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 103.17,
+        "PEAK": 123.68,
+        "SCRATCH": 51.4,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 77.12
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "TROPICAL CLUB",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 99.46,
+        "PEAK": 107.89,
+        "SCRATCH": 135.8,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 108.68
+      },
+      "radarTop": "SCRATCH"
+    },
+    {
+      "title": "TSAR BOMBA",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 141.57,
+        "PEAK": 125,
+        "SCRATCH": 74.63,
+        "SOFLAN": 0,
+        "CHARGE": 30.31,
+        "CHORD": 143.62
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "TSUGARU SETSU",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 147.78,
+        "PEAK": 150,
+        "SCRATCH": 36.93,
+        "SOFLAN": 0,
+        "CHARGE": 25,
+        "CHORD": 140.56
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "Tsuki To Milk",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 113.18,
+        "PEAK": 107.89,
+        "SCRATCH": 13.54,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 106.44
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "TURN A",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 148.87,
+        "PEAK": 151.78,
+        "SCRATCH": 61.99,
+        "SOFLAN": 0,
+        "CHARGE": 13.59,
+        "CHORD": 142.69
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "TWENTY",
+      "type": "L",
+      "notes": 0,
+      "radar": {
+        "NOTES": 135.22,
+        "PEAK": 138.15,
+        "SCRATCH": 137.28,
+        "SOFLAN": 49.48,
+        "CHARGE": 0,
+        "CHORD": 135.12
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "ubertreffen",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 124.63,
+        "PEAK": 113.15,
+        "SCRATCH": 40.43,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 78.45
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "ubertreffen",
+      "type": "L",
+      "notes": 0,
+      "radar": {
+        "NOTES": 164.24,
+        "PEAK": 143.42,
+        "SCRATCH": 41.28,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 133.32
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "uen",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 127.02,
+        "PEAK": 130.26,
+        "SCRATCH": 7.17,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 117.45
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "Unconscious Philosophy",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 124.92,
+        "PEAK": 97.14,
+        "SCRATCH": 27.59,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 111.08
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "URARA",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 106.52,
+        "PEAK": 101.32,
+        "SCRATCH": 40.03,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 77.75
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Usa Kame Wars!",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 107.32,
+        "PEAK": 97.14,
+        "SCRATCH": 80.68,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 104.64
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "VALKYRIAS -BIRTH OF A HERO-",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 107.39,
+        "PEAK": 107.89,
+        "SCRATCH": 67.18,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 115.08
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "Valse Brillante du Grand Chien",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 141.81,
+        "PEAK": 140.78,
+        "SCRATCH": 59.23,
+        "SOFLAN": 135.74,
+        "CHARGE": 0,
+        "CHORD": 132.32
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "VALSE DU GRANDE CHIEN",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 126.9,
+        "PEAK": 115.78,
+        "SCRATCH": 0,
+        "SOFLAN": 200,
+        "CHARGE": 0,
+        "CHORD": 112.89
+      },
+      "radarTop": "SOFLAN"
+    },
+    {
+      "title": "VERY Classical Dance with VERY Euphoria for VERRRRRY Juvenile",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 107.77,
+        "PEAK": 113.15,
+        "SCRATCH": 5.81,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 86.37
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "VERY Classical Dance with VERY Euphoria for VERRRRRY Juvenile",
+      "type": "L",
+      "notes": 0,
+      "radar": {
+        "NOTES": 168.1,
+        "PEAK": 155.35,
+        "SCRATCH": 11.05,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 166.01
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Viva!",
+      "type": "L",
+      "notes": 0,
+      "radar": {
+        "NOTES": 124.07,
+        "PEAK": 110.53,
+        "SCRATCH": 59.24,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 130.92
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "VIVID DEBUT!",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 130.91,
+        "PEAK": 122.37,
+        "SCRATCH": 103.95,
+        "SOFLAN": 0,
+        "CHARGE": 26.56,
+        "CHORD": 125.47
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "VOID",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 142.82,
+        "PEAK": 140.78,
+        "SCRATCH": 104.42,
+        "SOFLAN": 180.12,
+        "CHARGE": 115.09,
+        "CHORD": 130.5
+      },
+      "radarTop": "SOFLAN"
+    },
+    {
+      "title": "Votum stellarum -Hommarju Remix-",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 113.25,
+        "PEAK": 111.84,
+        "SCRATCH": 39.78,
+        "SOFLAN": 55.01,
+        "CHARGE": 0,
+        "CHORD": 88.52
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "WADATSUMI",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 124.47,
+        "PEAK": 114.47,
+        "SCRATCH": 72.37,
+        "SOFLAN": 0,
+        "CHARGE": 151.58,
+        "CHORD": 124.72
+      },
+      "radarTop": "CHARGE"
+    },
+    {
+      "title": "WE LOVE SHONAN",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 103.53,
+        "PEAK": 100,
+        "SCRATCH": 94.48,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 96.69
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "Welcome to the Mosh Pit",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 130.97,
+        "PEAK": 127.63,
+        "SCRATCH": 114.28,
+        "SOFLAN": 0,
+        "CHARGE": 82.66,
+        "CHORD": 122.38
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "X7XL",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 112.19,
+        "PEAK": 106.58,
+        "SCRATCH": 47.34,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 122.67
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "XENON II -TOMOYUKI no Yabou-",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 130.97,
+        "PEAK": 110.52,
+        "SCRATCH": 34.46,
+        "SOFLAN": 0,
+        "CHARGE": 59.37,
+        "CHORD": 103.84
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "YELLOW FROG from Steel Chronicle",
+      "type": "L",
+      "notes": 0,
+      "radar": {
+        "NOTES": 124.67,
+        "PEAK": 135.53,
+        "SCRATCH": 29.67,
+        "SOFLAN": 0,
+        "CHARGE": 182.25,
+        "CHORD": 140.31
+      },
+      "radarTop": "CHARGE"
+    },
+    {
+      "title": "YMIR",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 116.44,
+        "PEAK": 102.63,
+        "SCRATCH": 46.14,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 116.95
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "YMIR",
+      "type": "L",
+      "notes": 0,
+      "radar": {
+        "NOTES": 163.76,
+        "PEAK": 140.79,
+        "SCRATCH": 48.23,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 189.12
+      },
+      "radarTop": "CHORD"
+    },
+    {
+      "title": "Yume Enishi",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 120.79,
+        "PEAK": 100,
+        "SCRATCH": 49.95,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 115.12
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "YUUYAKE -FADING DAY-",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 120.15,
+        "PEAK": 102.63,
+        "SCRATCH": 46.23,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 100.96
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "ZENITH",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 129.16,
+        "PEAK": 123.68,
+        "SCRATCH": 95.27,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 117.07
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "ZETA",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 116.98,
+        "PEAK": 110.52,
+        "SCRATCH": 29.61,
+        "SOFLAN": 111.69,
+        "CHARGE": 0,
+        "CHORD": 112.59
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "�^���|�|",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 128.71,
+        "PEAK": 98.57,
+        "SCRATCH": 36.92,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 123.47
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "�h�D�T���R�I�f�b�Z�C!!",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 152,
+        "PEAK": 122.37,
+        "SCRATCH": 50.65,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 113
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "�I����ǂ���",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 153.2,
+        "PEAK": 138.15,
+        "SCRATCH": 57.56,
+        "SOFLAN": 0,
+        "CHARGE": 109.83,
+        "CHORD": 137.36
+      },
+      "radarTop": "NOTES"
+    },
+    {
+      "title": "�V��",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 119.33,
+        "PEAK": 169.64,
+        "SCRATCH": 26.9,
+        "SOFLAN": 0,
+        "CHARGE": 0,
+        "CHORD": 116.44
+      },
+      "radarTop": "PEAK"
+    },
+    {
+      "title": "�����nj�",
+      "type": "A",
+      "notes": 0,
+      "radar": {
+        "NOTES": 138.73,
+        "PEAK": 113.16,
+        "SCRATCH": 78.87,
+        "SOFLAN": 0,
+        "CHARGE": 39.75,
+        "CHORD": 117.52
+      },
+      "radarTop": "NOTES"
+    }
+  ]
+}

@@ -40,6 +40,10 @@ function getBundledNotesRadarPath() {
   return path.join(app.getAppPath(), 'assets', 'notes-radar-sp.json');
 }
 
+function getBundledNotesRadarExtraPath() {
+  return path.join(app.getAppPath(), 'assets', 'notes-radar-sp-extra.json');
+}
+
 function getUserNotesRadarPath() {
   return path.join(app.getPath('userData'), 'notes-radar-sp.json');
 }
@@ -427,17 +431,14 @@ function extractTabledata(html) {
 }
 
 function readNotesRadarData() {
-  for (const p of [getUserNotesRadarPath(), getBundledNotesRadarPath()]) {
-    if (!fs.existsSync(p)) continue;
-    try {
-      const raw = JSON.parse(fs.readFileSync(p, 'utf8'));
-      if (!raw || !Array.isArray(raw.charts)) continue;
-      if (!raw.charts.length) continue;
-      return raw;
-    } catch {
-      // ignore broken cache
-    }
+  const user = readJsonSafe(getUserNotesRadarPath());
+  const bundled = readBundledNotesRadarDataSafe();
+  const hasUserCharts = Array.isArray(user?.charts) && user.charts.length > 0;
+  const hasBundledCharts = Array.isArray(bundled?.charts) && bundled.charts.length > 0;
+  if (hasUserCharts) {
+    return mergeNotesRadarPayloadAddOnly(user, bundled).payload;
   }
+  if (hasBundledCharts) return bundled;
   return null;
 }
 
@@ -465,6 +466,18 @@ function parseCsvLine(line) {
   }
   out.push(cur);
   return out;
+}
+
+function formatCsvLine(cols) {
+  return cols
+    .map((value) => {
+      const s = String(value ?? '');
+      if (s.includes('"') || s.includes(',') || s.includes('\n') || s.includes('\r')) {
+        return `"${s.replace(/"/g, '""')}"`;
+      }
+      return s;
+    })
+    .join(',');
 }
 
 function parseCsvRecords(filePath) {
@@ -537,8 +550,10 @@ function buildRuntimeRadarEntryFromCsv(row) {
 
 function readBundledNotesRadarDataSafe() {
   const bundled = readJsonSafe(getBundledNotesRadarPath());
-  if (!bundled || !Array.isArray(bundled.charts)) return { generatedAt: nowIso(), charts: [], count: 0 };
-  return bundled;
+  const base = bundled && Array.isArray(bundled.charts) ? bundled : { generatedAt: nowIso(), charts: [], count: 0 };
+  const extra = readJsonSafe(getBundledNotesRadarExtraPath());
+  if (!extra || !Array.isArray(extra.charts) || !extra.charts.length) return base;
+  return mergeNotesRadarPayloadAddOnly(base, extra).payload;
 }
 
 function nowIso() {
@@ -569,9 +584,148 @@ function cloneNotesRadarPayload(payload) {
   };
 }
 
+function normalizeNotesRadarType(value) {
+  const t = String(value || '').trim().toUpperCase();
+  return /^[BNHAL]$/.test(t) ? t : '';
+}
+
+function normalizeNotesRadarChart(row) {
+  const title = normalizeRadarTitle(row?.title || '');
+  const type = normalizeNotesRadarType(row?.type);
+  if (!title || !type) return null;
+  const radar = {
+    NOTES: Number(row?.radar?.NOTES || 0),
+    PEAK: Number(row?.radar?.PEAK || 0),
+    SCRATCH: Number(row?.radar?.SCRATCH || 0),
+    SOFLAN: Number(row?.radar?.SOFLAN || 0),
+    CHARGE: Number(row?.radar?.CHARGE || 0),
+    CHORD: Number(row?.radar?.CHORD || 0)
+  };
+  return {
+    title,
+    type,
+    notes: Number(row?.notes || 0),
+    radar,
+    radarTop: String(row?.radarTop || dominantAxis(radar)).trim().toUpperCase()
+  };
+}
+
+function mergeNotesRadarPayloadAddOnly(basePayload, incomingPayload) {
+  const base = cloneNotesRadarPayload(basePayload || { generatedAt: nowIso(), charts: [], count: 0 });
+  const chartIndex = new Set(
+    (base.charts || [])
+      .filter((x) => String(x?.title || '').trim())
+      .map((x) => radarKeyOf(x.title, x.type))
+  );
+  let added = 0;
+  for (const row of incomingPayload?.charts || []) {
+    const next = normalizeNotesRadarChart(row);
+    if (!next) continue;
+    const key = radarKeyOf(next.title, next.type);
+    if (chartIndex.has(key)) continue;
+    base.charts.push(next);
+    chartIndex.add(key);
+    added += 1;
+  }
+  base.count = Array.isArray(base.charts) ? base.charts.length : 0;
+  return { payload: base, added };
+}
+
 function getRadarHudMergedCacheCsvPath() {
   const localRoot = process.env.LOCALAPPDATA || app.getPath('home');
   return path.join(localRoot, 'INFINITAS Table Maker', 'radar-hud', 'cache', 'radar_with_title_fixed.csv');
+}
+
+function ensureAbyssHudFallbackRows(progress) {
+  const log = (msg) => {
+    try { progress?.(msg); } catch { /* ignore */ }
+  };
+  const csvPath = getRadarHudMergedCacheCsvPath();
+  if (!fs.existsSync(csvPath)) {
+    return { changed: false, reason: 'csv_not_found', csvPath };
+  }
+  const text = fs.readFileSync(csvPath, 'utf8');
+  const lines = String(text || '').split(/\r?\n/g);
+  if (!lines.length || !String(lines[0] || '').trim()) {
+    return { changed: false, reason: 'empty_csv', csvPath };
+  }
+  const header = parseCsvLine(lines[0]).map((x) => String(x || '').trim());
+  const has = new Set(
+    parseCsvRecords(csvPath)
+      .filter((row) => normalizeRadarTitle(row?.title_ascii || row?.title || '') === 'Abyss -The Heavens Remix-')
+      .map((row) => String(row?.chart_name || '').trim().toUpperCase())
+  );
+  const fallbackRows = [
+    {
+      song_id: 9051,
+      title_ascii: 'Abyss -The Heavens Remix-',
+      chart_index: 0,
+      chart_name: 'SPB',
+      level: 3,
+      note_count: 288,
+      total_seconds: 0,
+      bpm_min: 0,
+      bpm_max: 0,
+      radar_notes: 0.2453,
+      radar_peak: 0.2142,
+      radar_scratch: 0.2172,
+      radar_soflan: 0,
+      radar_charge: 0,
+      radar_chord: 0.004,
+      source: 'manual_seed'
+    },
+    {
+      song_id: 9051,
+      title_ascii: 'Abyss -The Heavens Remix-',
+      chart_index: 1,
+      chart_name: 'SPN',
+      level: 7,
+      note_count: 766,
+      total_seconds: 0,
+      bpm_min: 0,
+      bpm_max: 0,
+      radar_notes: 0.6525,
+      radar_peak: 0.5714,
+      radar_scratch: 0.391,
+      radar_soflan: 0,
+      radar_charge: 0,
+      radar_chord: 0.2481,
+      source: 'manual_seed'
+    },
+    {
+      song_id: 9051,
+      title_ascii: 'Abyss -The Heavens Remix-',
+      chart_index: 4,
+      chart_name: 'SPL',
+      level: 11,
+      note_count: 1637,
+      total_seconds: 0,
+      bpm_min: 0,
+      bpm_max: 0,
+      radar_notes: 0,
+      radar_peak: 0,
+      radar_scratch: 0,
+      radar_soflan: 0,
+      radar_charge: 0,
+      radar_chord: 0,
+      source: 'manual_seed'
+    }
+  ];
+  const appendLines = [];
+  let added = 0;
+  for (const row of fallbackRows) {
+    if (has.has(row.chart_name)) continue;
+    const cols = header.map((key) => row[key] ?? '');
+    appendLines.push(formatCsvLine(cols));
+    added += 1;
+  }
+  if (!appendLines.length) {
+    return { changed: false, reason: 'already_present', csvPath };
+  }
+  const suffix = (text.endsWith('\n') ? '' : '\n') + appendLines.join('\n') + '\n';
+  fs.appendFileSync(csvPath, suffix, 'utf8');
+  log(`노트 레이더 HUD 캐시 보정: Abyss SPB/SPN/SPL ${added}건 추가`);
+  return { changed: true, csvPath, added };
 }
 
 function mergeHudSurveyCacheIntoNotesRadar(progress) {
@@ -603,7 +757,7 @@ function mergeHudSurveyCacheIntoNotesRadar(progress) {
   const official = readBundledNotesRadarDataSafe();
   const officialKeys = new Set(
     (official.charts || [])
-      .filter((x) => String(x?.title || '').trim())
+      .filter((x) => String(x?.title || '').trim() && hasPositiveRadar(x?.radar))
       .map((x) => radarKeyOf(x.title, x.type))
   );
 
@@ -939,9 +1093,15 @@ async function maybeUpdateNotesRadarFromDrive(progress) {
     log('노트 레이더: PDF 파싱 결과가 0건이라 기존 데이터를 유지합니다.');
     return { updated: false, reason: 'empty_payload', files: remoteFiles };
   }
+  const base = readNotesRadarData() || readBundledNotesRadarDataSafe();
+  const merged = mergeNotesRadarPayloadAddOnly(base, payload);
   const outPath = getUserNotesRadarPath();
-  ensureDir(path.dirname(outPath));
-  fs.writeFileSync(outPath, JSON.stringify(payload, null, 2), 'utf8');
+  if (merged.added > 0) {
+    merged.payload.generatedAt = nowIso();
+    merged.payload.sourceDir = payload.sourceDir || merged.payload.sourceDir || '';
+    ensureDir(path.dirname(outPath));
+    fs.writeFileSync(outPath, JSON.stringify(merged.payload, null, 2), 'utf8');
+  }
   const metaOut = {
     folderId: NOTES_RADAR_DRIVE_FOLDER_ID,
     checkedAt: new Date().toISOString(),
@@ -950,8 +1110,12 @@ async function maybeUpdateNotesRadarFromDrive(progress) {
     )
   };
   fs.writeFileSync(getUserNotesRadarMetaPath(), JSON.stringify(metaOut, null, 2), 'utf8');
-  log(`노트 레이더 업데이트 완료: ${payload.count} charts`);
-  return { updated: true, count: payload.count, files: remoteFiles };
+  if (merged.added > 0) {
+    log(`노트 레이더 업데이트 완료: 추가된 곡 ${merged.added}건 반영 (총 ${merged.payload.count} charts)`);
+    return { updated: true, count: merged.payload.count, added: merged.added, files: remoteFiles };
+  }
+  log('노트 레이더 업데이트 완료: 추가된 곡이 없어 기존 데이터를 유지합니다.');
+  return { updated: false, reason: 'no_new_charts', count: base?.count || 0, files: remoteFiles };
 }
 
 async function fetchRankTables() {
@@ -1498,6 +1662,11 @@ app.whenReady().then(() => {
     }
     if (refluxMonitorTimer) {
       return { started: true, alreadyRunning: true };
+    }
+    try {
+      ensureAbyssHudFallbackRows((msg) => sendToRenderer('reflux:log', msg));
+    } catch (e) {
+      sendToRenderer('reflux:log', `노트 레이더 HUD 캐시 보정 실패: ${e.message || e}`);
     }
     const workDir = path.dirname(pathToRun);
     const cmdLine = `/k title Reflux Console && cd /d "${workDir}" && "${pathToRun}"`;

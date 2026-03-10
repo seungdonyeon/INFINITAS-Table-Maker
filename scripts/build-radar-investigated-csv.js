@@ -27,12 +27,23 @@ function toNum(v) {
 function main() {
   const inPath = path.resolve(process.argv[2] || path.join('assets', 'notes-radar-sp.json'));
   const outPath = path.resolve(process.argv[3] || 'D:\\infinitas\\_work\\live_chart_dump\\radar_investigated_sp.csv');
+  const extraPath = path.resolve(process.argv[4] || path.join('assets', 'notes-radar-sp-extra.json'));
   if (!fs.existsSync(inPath)) {
     throw new Error(`Input JSON not found: ${inPath}`);
   }
 
   const raw = JSON.parse(fs.readFileSync(inPath, 'utf8'));
-  const charts = Array.isArray(raw?.charts) ? raw.charts : [];
+  const extra = fs.existsSync(extraPath) ? JSON.parse(fs.readFileSync(extraPath, 'utf8')) : null;
+  const keyOf = (row) => `${normalizeTitle(row?.title || '')}|${String(row?.type || '').toUpperCase().trim()}`;
+  const chartMap = new Map();
+  (Array.isArray(raw?.charts) ? raw.charts : []).forEach((row) => {
+    chartMap.set(keyOf(row), row);
+  });
+  (Array.isArray(extra?.charts) ? extra.charts : []).forEach((row) => {
+    const key = keyOf(row);
+    if (!chartMap.has(key)) chartMap.set(key, row);
+  });
+  const charts = [...chartMap.values()];
   if (!charts.length) {
     throw new Error(`No charts in JSON: ${inPath}`);
   }
@@ -42,7 +53,7 @@ function main() {
   for (const row of charts) {
     const title = normalizeTitle(row?.title || '');
     const type = String(row?.type || '').toUpperCase().trim();
-    if (!title || !/^[HAL]$/.test(type)) continue;
+    if (!title || !/^[BNHAL]$/.test(type)) continue;
     const radar = row?.radar || {};
     lines.push([
       escapeCsv(title),
@@ -60,7 +71,7 @@ function main() {
 
   fs.mkdirSync(path.dirname(outPath), { recursive: true });
   fs.writeFileSync(outPath, lines.join('\n') + '\n', 'utf8');
-  process.stdout.write(`investigated radar csv generated: ${outPath} (${lines.length - 1} rows)\n`);
+  process.stdout.write(`investigated radar csv generated: ${outPath} (${lines.length - 1} rows, extra=${Array.isArray(extra?.charts) ? extra.charts.length : 0})\n`);
 }
 
 main();
