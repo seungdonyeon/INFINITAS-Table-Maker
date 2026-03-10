@@ -7,3 +7,6 @@ Reflux.1.16.2/
 tmp_*.html
 *.tmp
 .DS_Store
+.omx/
+reports/
+AGENTS.md
