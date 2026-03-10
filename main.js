@@ -441,6 +441,232 @@ function readNotesRadarData() {
   return null;
 }
 
+function parseCsvLine(line) {
+  const out = [];
+  let cur = '';
+  let inQuote = false;
+  for (let i = 0; i < line.length; i += 1) {
+    const ch = line[i];
+    if (ch === '"') {
+      if (inQuote && line[i + 1] === '"') {
+        cur += '"';
+        i += 1;
+      } else {
+        inQuote = !inQuote;
+      }
+      continue;
+    }
+    if (ch === ',' && !inQuote) {
+      out.push(cur);
+      cur = '';
+      continue;
+    }
+    cur += ch;
+  }
+  out.push(cur);
+  return out;
+}
+
+function parseCsvRecords(filePath) {
+  if (!filePath || !fs.existsSync(filePath)) return [];
+  const text = fs.readFileSync(filePath, 'utf8');
+  const lines = String(text || '')
+    .split(/\r?\n/g)
+    .filter((line) => line.trim().length > 0);
+  if (!lines.length) return [];
+  const header = parseCsvLine(lines[0]).map((h) => String(h || '').trim());
+  if (!header.length) return [];
+  const rows = [];
+  for (let i = 1; i < lines.length; i += 1) {
+    const cols = parseCsvLine(lines[i]);
+    if (!cols.length) continue;
+    const row = {};
+    header.forEach((key, idx) => {
+      row[key] = String(cols[idx] || '').trim();
+    });
+    rows.push(row);
+  }
+  return rows;
+}
+
+function mapChartType(chartName, chartIndexRaw) {
+  const name = String(chartName || '').trim().toUpperCase();
+  const m = name.match(/^SP([BNHAL])$/);
+  if (m) return m[1];
+  const idx = Number(chartIndexRaw);
+  if (idx === 0) return 'B';
+  if (idx === 1) return 'N';
+  if (idx === 2) return 'H';
+  if (idx === 3) return 'A';
+  if (idx === 4) return 'L';
+  return '';
+}
+
+function toRadarScale100(value) {
+  const v = Number(value);
+  if (!Number.isFinite(v) || v <= 0) return 0;
+  return Math.min(200, Math.round(v * 10000) / 100);
+}
+
+function hasPositiveRadar(radar) {
+  return RADAR_AXES.some((axis) => Number(radar?.[axis] || 0) > 0);
+}
+
+function buildRuntimeRadarEntryFromCsv(row) {
+  const title = normalizeRadarTitle(row?.title_ascii || row?.title || '');
+  const type = mapChartType(row?.chart_name, row?.chart_index);
+  if (!title || !type) return null;
+  const radar = {
+    NOTES: toRadarScale100(row?.radar_notes),
+    PEAK: toRadarScale100(row?.radar_peak),
+    SCRATCH: toRadarScale100(row?.radar_scratch),
+    SOFLAN: toRadarScale100(row?.radar_soflan),
+    CHARGE: toRadarScale100(row?.radar_charge),
+    CHORD: toRadarScale100(row?.radar_chord)
+  };
+  if (!hasPositiveRadar(radar)) return null;
+  const notes = Number(String(row?.note_count || '').replace(/[^\d]/g, '')) || 0;
+  return {
+    title,
+    type,
+    notes,
+    radar,
+    radarTop: dominantAxis(radar)
+  };
+}
+
+function readBundledNotesRadarDataSafe() {
+  const bundled = readJsonSafe(getBundledNotesRadarPath());
+  if (!bundled || !Array.isArray(bundled.charts)) return { generatedAt: nowIso(), charts: [], count: 0 };
+  return bundled;
+}
+
+function nowIso() {
+  return new Date().toISOString();
+}
+
+function cloneNotesRadarPayload(payload) {
+  const charts = Array.isArray(payload?.charts)
+    ? payload.charts.map((x) => ({
+      title: String(x?.title || '').trim(),
+      type: String(x?.type || '').trim().toUpperCase(),
+      notes: Number(x?.notes || 0),
+      radar: {
+        NOTES: Number(x?.radar?.NOTES || 0),
+        PEAK: Number(x?.radar?.PEAK || 0),
+        SCRATCH: Number(x?.radar?.SCRATCH || 0),
+        SOFLAN: Number(x?.radar?.SOFLAN || 0),
+        CHARGE: Number(x?.radar?.CHARGE || 0),
+        CHORD: Number(x?.radar?.CHORD || 0)
+      },
+      radarTop: String(x?.radarTop || '').trim().toUpperCase()
+    }))
+    : [];
+  return {
+    ...payload,
+    charts,
+    count: charts.length
+  };
+}
+
+function getRadarHudMergedCacheCsvPath() {
+  const localRoot = process.env.LOCALAPPDATA || app.getPath('home');
+  return path.join(localRoot, 'INFINITAS Table Maker', 'radar-hud', 'cache', 'radar_with_title_fixed.csv');
+}
+
+function mergeHudSurveyCacheIntoNotesRadar(progress) {
+  const log = (msg) => {
+    try { progress?.(msg); } catch { /* ignore */ }
+  };
+  const csvPath = getRadarHudMergedCacheCsvPath();
+  if (!fs.existsSync(csvPath)) {
+    return {
+      changed: false,
+      reason: 'csv_not_found',
+      csvPath
+    };
+  }
+
+  const rows = parseCsvRecords(csvPath);
+  const runtimeCharts = rows.map(buildRuntimeRadarEntryFromCsv).filter(Boolean);
+  if (!runtimeCharts.length) {
+    return {
+      changed: false,
+      reason: 'no_runtime_rows',
+      csvPath,
+      rowCount: rows.length
+    };
+  }
+
+  const base = readNotesRadarData() || readBundledNotesRadarDataSafe();
+  const next = cloneNotesRadarPayload(base);
+  const official = readBundledNotesRadarDataSafe();
+  const officialKeys = new Set(
+    (official.charts || [])
+      .filter((x) => String(x?.title || '').trim())
+      .map((x) => radarKeyOf(x.title, x.type))
+  );
+
+  const chartIndex = new Map();
+  next.charts.forEach((x, idx) => {
+    if (!x?.title) return;
+    chartIndex.set(radarKeyOf(x.title, x.type), idx);
+  });
+
+  let added = 0;
+  let updated = 0;
+  let skippedOfficial = 0;
+  for (const row of runtimeCharts) {
+    const key = radarKeyOf(row.title, row.type);
+    const at = chartIndex.get(key);
+    if (officialKeys.has(key)) {
+      skippedOfficial += 1;
+      continue;
+    }
+    if (at == null) {
+      next.charts.push(row);
+      chartIndex.set(key, next.charts.length - 1);
+      added += 1;
+      continue;
+    }
+    next.charts[at] = { ...row };
+    updated += 1;
+  }
+
+  if (added === 0 && updated === 0) {
+    return {
+      changed: false,
+      reason: 'no_changes',
+      csvPath,
+      rowCount: rows.length,
+      runtimeCount: runtimeCharts.length,
+      skippedOfficial
+    };
+  }
+
+  next.generatedAt = nowIso();
+  next.count = Array.isArray(next.charts) ? next.charts.length : 0;
+  next.sourceDir = next.sourceDir || path.dirname(csvPath);
+  next.runtimeCacheMergedAt = nowIso();
+  next.runtimeCachePath = csvPath;
+
+  const outPath = getUserNotesRadarPath();
+  ensureDir(path.dirname(outPath));
+  fs.writeFileSync(outPath, JSON.stringify(next, null, 2), 'utf8');
+
+  log(`노트 레이더 캐시 병합 완료: +${added} / ~${updated} (공식 데이터 유지 ${skippedOfficial})`);
+  return {
+    changed: true,
+    csvPath,
+    outPath,
+    rowCount: rows.length,
+    runtimeCount: runtimeCharts.length,
+    added,
+    updated,
+    skippedOfficial
+  };
+}
+
 function buildNotesRadarIndex(data) {
   const idx = new Map();
   const idxLoose = new Map();
@@ -448,7 +674,7 @@ function buildNotesRadarIndex(data) {
   for (const row of data?.charts || []) {
     const title = String(row?.title || '').trim();
     const type = String(row?.type || 'A').trim().toUpperCase();
-    if (!title || !/^[HAL]$/.test(type)) continue;
+    if (!title || !/^[BNHAL]$/.test(type)) continue;
     const radar = {};
     RADAR_AXES.forEach((axis) => {
       radar[axis] = Number(row?.radar?.[axis] || 0);
@@ -473,7 +699,7 @@ function buildNotesRadarIndex(data) {
 function findNotesRadar(indexes, title, type) {
   const t = String(title || '').trim();
   const c = String(type || 'A').trim().toUpperCase();
-  if (!t || !/^[HAL]$/.test(c)) return null;
+  if (!t || !/^[BNHAL]$/.test(c)) return null;
   const n = normTitle(t);
   const l = looseTitle(t);
   const f = foldedAsciiTitle(t);
@@ -918,6 +1144,8 @@ function startRefluxMonitor(exePath, options = {}) {
         if (found && !refluxGameDetected) {
           refluxGameDetected = true;
           sendToRenderer('reflux:status', { running: true, gameDetected: true });
+        }
+        if (found) {
           tryInjectRadarHud();
         }
         if (found) {
@@ -926,6 +1154,21 @@ function startRefluxMonitor(exePath, options = {}) {
           refluxGameWasRunning = false;
           refluxHudInjectedPid = 0;
           if (refluxTrackerUpdatedAfterGame && refluxLastTrackerMtime > 0) {
+            try {
+              const merged = mergeHudSurveyCacheIntoNotesRadar((msg) => sendToRenderer('reflux:log', msg));
+              if (!merged?.changed && merged?.reason === 'csv_not_found') {
+                sendToRenderer('reflux:log', '노트 레이더 조사 캐시 CSV를 찾지 못해 기존 레이더 데이터를 유지합니다.');
+              } else if (!merged?.changed && merged?.reason === 'no_runtime_rows') {
+                sendToRenderer('reflux:log', '노트 레이더 조사 캐시에서 병합 가능한 행을 찾지 못했습니다.');
+              } else if (merged?.changed) {
+                sendToRenderer(
+                  'reflux:log',
+                  `노트 레이더 조사 캐시 반영: 추가 ${merged.added}, 갱신 ${merged.updated}, 공식 유지 ${merged.skippedOfficial}`
+                );
+              }
+            } catch (e) {
+              sendToRenderer('reflux:log', `노트 레이더 조사 캐시 병합 실패: ${e.message || e}`);
+            }
             try {
               const content = fs.existsSync(trackerPath) ? fs.readFileSync(trackerPath, 'utf8') : '';
               sendToRenderer('reflux:ready', { filePath: trackerPath, content });

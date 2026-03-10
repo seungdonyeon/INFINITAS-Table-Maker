@@ -5,6 +5,7 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
+    "build:radar-investigated": "node scripts/build-radar-investigated-csv.js",
     "build:portable": "electron-packager . \"INFINITAS Table Maker\" --platform=win32 --arch=x64 --out=dist-portable --overwrite --prune=true --ignore=\"^/dist$\" --ignore=\"^/dist-portable$\"",
     "build:single-exe": "electron-builder --win portable"
   },

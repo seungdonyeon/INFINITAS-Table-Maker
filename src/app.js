@@ -68,7 +68,7 @@ const state = {
   settings: {
     showUpdateGoalCards: true,
     enableHistoryRollback: true,
-    noteRadarHudEnabled: false,
+    noteRadarHudEnabled: true,
     discoverability: DEFAULT_SOCIAL_SETTINGS.discoverability,
     discoverByDjName: DEFAULT_SOCIAL_SETTINGS.discoverByDjName,
     followPolicy: DEFAULT_SOCIAL_SETTINGS.followPolicy,
@@ -1127,7 +1127,7 @@ function normalizeSettings(s) {
   return {
     showUpdateGoalCards: src.showUpdateGoalCards !== false,
     enableHistoryRollback: src.enableHistoryRollback !== false,
-    noteRadarHudEnabled: src.noteRadarHudEnabled === true,
+    noteRadarHudEnabled: src.noteRadarHudEnabled !== false,
     discoverability: src.discoverability === 'hidden' ? 'hidden' : 'searchable',
     discoverByDjName: src.discoverByDjName !== false,
     followPolicy: ['auto', 'manual', 'disabled'].includes(src.followPolicy) ? src.followPolicy : 'manual',
@@ -4081,6 +4081,13 @@ function setupEvents(){
       }
       const ok = await applyTrackerContent(content, '악곡 데이터 갱신 완료');
       if (ok) {
+        try {
+          state.rankTables = await window.electronAPI.getRankTables();
+          refreshAll();
+          appendRefluxStatus('노트 레이더 조사 캐시를 서열표에 반영했습니다.');
+        } catch (e) {
+          appendRefluxStatus(`노트 레이더 캐시 반영 확인 중 경고: ${e?.message || e}`);
+        }
         state.refluxPendingContent = content;
         state.refluxUpdated = true;
         state.refluxRunning = false;
